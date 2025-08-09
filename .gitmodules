@@ -1,0 +1,3 @@
+[submodule "src/content/sermons"]
+	path = src/content/sermons
+	url = https://github.com/huffmanks/sermons-content.git
