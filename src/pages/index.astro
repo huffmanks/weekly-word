@@ -22,23 +22,14 @@ const sermons = (await getCollection("sermons", ({ data }) => !data.draft))
           <article class="space-y-4">
             <div>
               <p>
-                Lorem ipsum dolor sit, amet consectetur adipisicing elit. Provident magnam officia
-                molestias soluta velit neque quam esse enim saepe corporis eveniet vero error quas
-                animi, ad nisi ea ratione temporibus maiores quidem inventore?
+                A personal space where I gather my sermon notes and reflections from each week.
+                Whether you’re here to catch up on what I’ve been learning or just curious about
+                some fresh spiritual insights, you’ll find simple, honest thoughts meant to inspire
+                and encourage.
               </p>
             </div>
             <div class="animate">
-              <p>
-                Quo, id magnam? Autem impedit totam aspernatur odit, quia architecto ratione fugit.
-                Assumenda ratione libero ad rerum sit quasi deleniti sunt doloremque quas aspernatur
-                rem perspiciatis suscipit totam explicabo provident quos minus, voluptate esse odit
-                numquam.
-              </p>
-              <p>
-                Explicabo est et molestiae non voluptate aspernatur dicta id deleniti sint aperiam
-                totam perferendis qui quisquam quam, at porro, consectetur recusandae maiores
-                reiciendis, fuga dolor officia quo? Dolore, assumenda. Fugiat, quis.
-              </p>
+              <p>Feel free to explore, reflect, and come back anytime for new weekly updates!</p>
             </div>
           </article>
         </section>
@@ -60,33 +51,18 @@ const sermons = (await getCollection("sermons", ({ data }) => !data.draft))
         </section>
 
         <section class="animate space-y-4">
-          <h2 class="font-semibold text-black dark:text-white">Let&rsquo;s connect</h2>
-          <article>
+          <h2 class="font-semibold text-black dark:text-white">Get in touch</h2>
+          <div>
             <p>
-              If you want to get in touch with me about something or just to say hi, reach out on
-              social media or send me an email.
+              Have a question, feedback or just want to say hi? Feel free to send me an email
+              anytime. I’d love to hear from you.
             </p>
-          </article>
-          <ul class="not-prose flex flex-wrap gap-2">
-            {
-              SITE_CONFIG.socials.map((item) => (
-                <li class="flex gap-x-2 text-nowrap">
-                  <Link
-                    href={item.href}
-                    external
-                    aria-label={`${SITE_CONFIG.title} on ${item.title}`}>
-                    {item.title}
-                  </Link>
-                  <span>&middot;</span>
-                </li>
-              ))
-            }
-            <li class="line-clamp-1">
-              <Link href={`mailto:${SITE_CONFIG.email}`} aria-label={`Email ${SITE_CONFIG.title}`}>
-                {SITE_CONFIG.email}
-              </Link>
-            </li>
-          </ul>
+          </div>
+          <div class="not-prose">
+            <Link href={`mailto:${SITE_CONFIG.email}`} aria-label={`Email ${SITE_CONFIG.title}`}>
+              {SITE_CONFIG.email}
+            </Link>
+          </div>
         </section>
       </div>
     </aside>
