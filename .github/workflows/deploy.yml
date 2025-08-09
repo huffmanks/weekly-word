@@ -5,6 +5,8 @@ on:
     branches:
       - main
   workflow_dispatch:
+  repository_dispatch:
+    types: [sermons-content-updated]
 
 jobs:
   build-deploy:
@@ -16,6 +18,7 @@ jobs:
         with:
           submodules: recursive
           fetch-depth: 0
+          token: ${{ secrets.SUBMODULE_ACCESS_TOKEN }}
 
       - name: Update submodules to latest remote commits
         run: |
