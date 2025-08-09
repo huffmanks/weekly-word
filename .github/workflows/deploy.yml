@@ -6,7 +6,7 @@ on:
       - main
   workflow_dispatch:
   repository_dispatch:
-    types: [sermons-content-updated]
+    types: [obsidian-notes-updated]
 
 jobs:
   build-deploy:
