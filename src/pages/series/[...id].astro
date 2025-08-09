@@ -1,0 +1,50 @@
+---
+import { getCollection, getEntry } from "astro:content";
+
+import BaseLayout from "@layouts/BaseLayout.astro";
+
+import ArrowCard from "@components/ArrowCard.astro";
+import BackToPrevious from "@components/BackToPrevious.astro";
+import Container from "@components/Container.astro";
+
+export async function getStaticPaths() {
+  const sermons = await getCollection("sermons", ({ data }) => !data.draft);
+
+  const series = [...new Set(sermons.flatMap((sermon) => sermon.data.series || []))];
+
+  return series.map((item) => ({
+    params: { id: item.id },
+    props: {
+      sermons: sermons.filter((sermon) => sermon.data.series.id === item.id),
+    },
+  }));
+}
+
+const { sermons } = Astro.props;
+
+const sortedSermons = sermons.sort(
+  (a, b) => new Date(b.data.date).getTime() - new Date(a.data.date).getTime()
+);
+
+const seriesId = sermons[0].data.series.id;
+const series = await getEntry("series", seriesId);
+
+const seriesTitle = series?.data.title ? series.data.title : "series";
+const seriesDescription = "Sermons from this series.";
+---
+
+<BaseLayout title={seriesTitle} description={seriesDescription}>
+  <Container>
+    <div class="space-y-10" data-pagefind-ignore>
+      <BackToPrevious href="/series">All series</BackToPrevious>
+      <h1 class="animate mb-2 text-lg font-semibold text-black dark:text-white">
+        {seriesTitle}
+      </h1>
+      <p>{seriesDescription}</p>
+
+      <ul class="animate flex flex-col gap-4">
+        {sortedSermons.map((sermon) => <ArrowCard entry={sermon} />)}
+      </ul>
+    </div>
+  </Container>
+</BaseLayout>

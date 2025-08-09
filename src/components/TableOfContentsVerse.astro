@@ -1,0 +1,21 @@
+---
+import { generateBibleUrl } from "@lib/generateBibleUrl";
+
+import Link from "@components/Link.astro";
+
+interface Props {
+  verse: string;
+}
+
+const { verse } = Astro.props;
+
+const href = generateBibleUrl(verse);
+
+if (!href) return;
+---
+
+<li class="list-inside list-disc px-6 py-1.5 text-sm">
+  <Link href={href} underline external>
+    {verse}
+  </Link>
+</li>

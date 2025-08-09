@@ -1,0 +1,64 @@
+---
+import { TOC_HEADING_DEPTH_MAXIMUM, TOC_HEADING_DEPTH_MINIMUM } from "@constants";
+import type { Heading, TOCHeading } from "@types";
+
+import TableOfContentsHeading from "@components/TableOfContentsHeading.astro";
+import TableOfContentsVerse from "@components/TableOfContentsVerse.astro";
+
+type Props = { type: "headings"; items: Heading[] } | { type: "verses"; items: string[] };
+
+const props = Astro.props;
+
+function buildToc() {
+  if (props.type !== "headings") return;
+
+  const toc: TOCHeading[] = [];
+  const parentByDepth = new Map<number, TOCHeading>();
+
+  props.items.forEach((h) => {
+    if (h.depth < TOC_HEADING_DEPTH_MINIMUM || h.depth > TOC_HEADING_DEPTH_MAXIMUM) return;
+
+    const heading: TOCHeading = { ...h, subheadings: [] };
+    parentByDepth.set(h.depth, heading);
+
+    if (h.depth === TOC_HEADING_DEPTH_MINIMUM) {
+      toc.push(heading);
+    } else {
+      const parent = parentByDepth.get(h.depth - 1);
+      if (parent) {
+        parent.subheadings.push(heading);
+      } else if (TOC_HEADING_DEPTH_MINIMUM > 1) {
+        toc.push(heading);
+      }
+    }
+  });
+
+  return toc;
+}
+
+const tocItems = props.type === "headings" ? (buildToc() ?? []) : [];
+---
+
+<details
+  open={props.type === "headings" ? false : true}
+  class="animate group rounded-lg border border-black/15 dark:border-white/20">
+  <summary
+    class="cursor-pointer rounded-t-lg px-3 py-1.5 font-medium transition-colors group-open:bg-black/5 hover:bg-black/5 dark:group-open:bg-white/5 hover:dark:bg-white/5">
+    <span class="pl-2">{props.type === "headings" ? "Table of contents" : "Verses"}</span>
+  </summary>
+  <nav>
+    <ul class="py-3">
+      {
+        props.type === "headings"
+          ? tocItems.map((heading) => <TableOfContentsHeading heading={heading} />)
+          : props.items.map((verse) => <TableOfContentsVerse verse={verse} />)
+      }
+    </ul>
+  </nav>
+</details>
+
+<style>
+  summary::marker {
+    color: var(--color-green-800);
+  }
+</style>

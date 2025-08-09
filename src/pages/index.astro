@@ -1,0 +1,94 @@
+---
+import { getCollection } from "astro:content";
+
+import { NUMBER_OF_HOMEPAGE_SERMONS, SITE_CONFIG } from "@constants";
+import BaseLayout from "@layouts/BaseLayout.astro";
+
+import ArrowCard from "@components/ArrowCard.astro";
+import Container from "@components/Container.astro";
+import Link from "@components/Link.astro";
+
+const sermons = (await getCollection("sermons", ({ data }) => !data.draft))
+  .sort((a, b) => b.data.date.valueOf() - a.data.date.valueOf())
+  .slice(0, NUMBER_OF_HOMEPAGE_SERMONS);
+---
+
+<BaseLayout title={SITE_CONFIG.title} description={SITE_CONFIG.description}>
+  <Container>
+    <aside data-pagefind-ignore>
+      <h1 class="font-semibold text-black dark:text-white">Introducing {SITE_CONFIG.title}</h1>
+      <div class="space-y-16">
+        <section>
+          <article class="space-y-4">
+            <div>
+              <p>
+                Lorem ipsum dolor sit, amet consectetur adipisicing elit. Provident magnam officia
+                molestias soluta velit neque quam esse enim saepe corporis eveniet vero error quas
+                animi, ad nisi ea ratione temporibus maiores quidem inventore?
+              </p>
+            </div>
+            <div class="animate">
+              <p>
+                Quo, id magnam? Autem impedit totam aspernatur odit, quia architecto ratione fugit.
+                Assumenda ratione libero ad rerum sit quasi deleniti sunt doloremque quas aspernatur
+                rem perspiciatis suscipit totam explicabo provident quos minus, voluptate esse odit
+                numquam.
+              </p>
+              <p>
+                Explicabo est et molestiae non voluptate aspernatur dicta id deleniti sint aperiam
+                totam perferendis qui quisquam quam, at porro, consectetur recusandae maiores
+                reiciendis, fuga dolor officia quo? Dolore, assumenda. Fugiat, quis.
+              </p>
+            </div>
+          </article>
+        </section>
+
+        <section class="animate space-y-6">
+          <div class="flex flex-wrap items-center justify-between gap-y-2">
+            <h2 class="font-semibold text-black dark:text-white">Latest sermons</h2>
+            <Link href="/sermons">See all sermons</Link>
+          </div>
+          <ul class="not-prose flex flex-col gap-4">
+            {
+              sermons.map((sermon) => (
+                <li>
+                  <ArrowCard entry={sermon} />
+                </li>
+              ))
+            }
+          </ul>
+        </section>
+
+        <section class="animate space-y-4">
+          <h2 class="font-semibold text-black dark:text-white">Let&rsquo;s connect</h2>
+          <article>
+            <p>
+              If you want to get in touch with me about something or just to say hi, reach out on
+              social media or send me an email.
+            </p>
+          </article>
+          <ul class="not-prose flex flex-wrap gap-2">
+            {
+              SITE_CONFIG.socials.map((item) => (
+                <li class="flex gap-x-2 text-nowrap">
+                  <Link
+                    href={item.href}
+                    external
+                    aria-label={`${SITE_CONFIG.title} on ${item.title}`}>
+                    {item.title}
+                  </Link>
+                  <span>&middot;</span>
+                </li>
+              ))
+            }
+            <li class="line-clamp-1">
+              <Link href={`mailto:${SITE_CONFIG.email}`} aria-label={`Email ${SITE_CONFIG.title}`}>
+                {SITE_CONFIG.email}
+              </Link>
+            </li>
+          </ul>
+        </section>
+      </div>
+    </aside>
+  </Container>
+</BaseLayout>

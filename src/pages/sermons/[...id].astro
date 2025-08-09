@@ -1,0 +1,178 @@
+---
+import { type CollectionEntry, getCollection, getEntry, render } from "astro:content";
+
+import BaseLayout from "@layouts/BaseLayout.astro";
+import { readingTime } from "@lib/utils";
+
+import AudioPlayer from "@components/AudioPlayer.astro";
+import BackToPrevious from "@components/BackToPrevious.astro";
+import Container from "@components/Container.astro";
+import FormattedDate from "@components/FormattedDate.astro";
+import SermonNavigation from "@components/SermonNavigation.astro";
+import TableOfContents from "@components/TableOfContents.astro";
+
+export async function getStaticPaths() {
+  const sermons = (await getCollection("sermons", ({ data }) => !data.draft)).sort(
+    (a, b) => b.data.date.valueOf() - a.data.date.valueOf()
+  );
+
+  return sermons.map((sermon) => ({
+    params: { id: sermon.id },
+    props: sermon,
+  }));
+}
+
+type Props = CollectionEntry<"sermons">;
+
+const sermons = (await getCollection("sermons", ({ data }) => !data.draft)).sort(
+  (a, b) => a.data.date.valueOf() - b.data.date.valueOf()
+);
+
+function getPrevSermon() {
+  const index = sermons.findIndex((s) => s.id === Astro.params.id);
+  return index > 0 ? sermons[index - 1] : undefined;
+}
+
+function getNextSermon() {
+  const index = sermons.findIndex((s) => s.id === Astro.params.id);
+  return index < sermons.length - 1 ? sermons[index + 1] : undefined;
+}
+
+const nextSermon = getNextSermon();
+const prevSermon = getPrevSermon();
+
+const sermon = Astro.props;
+const series = await getEntry("series", sermon.data.series.id);
+const pastor = await getEntry("pastors", sermon.data.pastor.id);
+
+const { Content, headings } = await render(sermon);
+
+const filteredHeadings = headings.filter((h) => h.depth === 2 || h.depth === 3);
+const verses = sermon.data?.verses ?? [];
+const versesExist = verses.length > 0;
+const headingsExist = filteredHeadings.length > 1;
+---
+
+<!-- <script>
+  import { fetchPodcastMetadata } from "@lib/fetchPodcast";
+  fetchPodcastMetadata("https://feeds.transistor.fm/renovation-church-podcast").then((data) => {
+    const filteredItems = data.items.filter(
+      (item) => item.title?.startsWith("GVL") && new Date(item!.pubDate!).getFullYear() === 2025
+    );
+    filteredItems.map((item) => {
+      const test = `podcast:
+        audio: "${item.audioUrl}"
+        image: "${item.image}"
+        link: "${item.link}"
+      title: ${item.title}
+      date: ${item.pubDate}`;
+
+      console.log(test);
+    });
+  });
+</script> -->
+<BaseLayout title={sermon.data.title} description={sermon.data.description}>
+  <Container>
+    <div class="animate mb-8">
+      <BackToPrevious href="/sermons">Back to sermons</BackToPrevious>
+    </div>
+    {
+      sermon.data.podcast && (
+        <AudioPlayer
+          sermonTitle={sermon.data.title}
+          podcastTitle={sermon.data.podcast.title}
+          image={sermon.data.podcast.image}
+          audio={sermon.data.podcast.audio}
+        />
+      )
+    }
+    <div class="mb-10 space-y-1">
+      <div class="animate mb-3 flex flex-wrap items-center justify-between gap-2">
+        <div class="flex items-center gap-1.5">
+          <div class="font-base text-sm">
+            <FormattedDate date={sermon.data.date} />
+          </div>
+          <span>&bull;</span>
+          {sermon?.body ? <div class="font-base text-sm">{readingTime(sermon.body)}</div> : null}
+        </div>
+        <div>
+          <button
+            id="start-btn"
+            class="not-prose flex w-fit cursor-pointer flex-nowrap items-center gap-2 rounded-full border border-black/15 p-1.5 transition-colors duration-300 ease-in-out hover:bg-black/5 hover:text-black focus-visible:bg-black/5 focus-visible:text-black sm:rounded-sm sm:px-3 sm:py-1.5 dark:border-white/20 dark:hover:bg-white/5 dark:hover:text-white dark:focus-visible:bg-white/5 dark:focus-visible:text-white">
+            <svg
+              class="size-4"
+              xmlns="http://www.w3.org/2000/svg"
+              width="24"
+              height="24"
+              viewBox="0 0 24 24">
+              <g
+                fill="none"
+                stroke="currentColor"
+                stroke-linecap="round"
+                stroke-linejoin="round"
+                stroke-width="2">
+                <path fill="currentColor" d="M13 17a1 1 0 1 0-2 0l.5 4.5a.5.5 0 0 0 1 0z"></path>
+                <path d="M16.85 18.58a9 9 0 1 0-9.7 0"></path>
+                <path d="M8 14a5 5 0 1 1 8 0"></path>
+                <circle cx="12" cy="11" r="1" fill="currentColor"></circle>
+              </g>
+            </svg>
+            <span class="hidden text-sm sm:inline-block">Listen</span>
+          </button>
+        </div>
+      </div>
+
+      <div class="animate mb-6">
+        <h1 class="mb-1 text-3xl font-semibold text-black dark:text-white">
+          {sermon.data.title}
+        </h1>
+        {
+          sermon.data?.subtitle ? (
+            <h2 class="mb-1 text-xl font-semibold text-black dark:text-white">
+              {sermon.data.subtitle}
+            </h2>
+          ) : null
+        }
+        {
+          pastor ? (
+            <div class="mb-3 text-sm text-neutral-600 dark:text-neutral-400">
+              {pastor.data.name}
+            </div>
+          ) : null
+        }
+        <p>{sermon.data.description}</p>
+      </div>
+      {
+        series?.data ? (
+          <div class="animate flex gap-2">
+            <a
+              href={`/series/${series.data.id}`}
+              class="rounded-sm border border-black/15 px-2 py-1 text-sm transition-colors duration-300 ease-in-out hover:bg-black/5 hover:text-black focus-visible:bg-black/5 focus-visible:text-black dark:border-white/20 dark:hover:bg-white/5 dark:hover:text-white dark:focus-visible:bg-white/5 dark:focus-visible:text-white">
+              {series.data.title}
+            </a>
+          </div>
+        ) : null
+      }
+    </div>
+    {
+      versesExist || headingsExist ? (
+        <div class="mb-2 space-y-6">
+          {versesExist && <TableOfContents type="verses" items={verses} />}
+          {headingsExist && <TableOfContents type="headings" items={filteredHeadings} />}
+        </div>
+      ) : null
+    }
+    <article class="animate">
+      <Content />
+      <div class="mt-24">
+        <SermonNavigation prevSermon={prevSermon} nextSermon={nextSermon} />
+      </div>
+    </article>
+  </Container>
+</BaseLayout>
+
+<style>
+  article {
+    --tw-prose-quote-borders: var(--color-green-900);
+  }
+</style>
