@@ -15,49 +15,53 @@ const { podcastTitle, sermonTitle, image, audio } = Astro.props;
     class="right-0 bottom-0 left-0 z-20 hidden bg-neutral-300 dark:bg-neutral-800">
     <div class="mx-auto max-w-(--breakpoint-sm)">
       <div class="flex items-center gap-4">
-        <div class="size-16">
-          <img src={image} alt={sermonTitle} />
+        <div class="size-24 flex-shrink-0">
+          <img class="object-cover" src={image} alt={sermonTitle} />
         </div>
-        <div class="flex flex-1 items-center gap-4">
-          <button id="close-player-btn" class="flex-1 cursor-pointer appearance-none text-left">
-            <div class="leading-normal font-bold text-neutral-900 dark:text-neutral-100">
+
+        <div class="flex min-w-0 flex-grow flex-col">
+          <button id="close-player-btn" class="w-full cursor-pointer appearance-none text-left">
+            <div
+              class="line-clamp-2 text-sm leading-normal font-bold text-neutral-900 sm:text-base dark:text-neutral-100">
               {sermonTitle}
             </div>
-            <div class="text-sm text-neutral-600 dark:text-neutral-400">{podcastTitle}</div>
-          </button>
-
-          <button id="play-toggle-btn" class="cursor-pointer pr-4 sm:pr-0">
-            <div id="play-icon">
-              <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24">
-                <g fill="none" fill-rule="evenodd">
-                  <path
-                    d="m12.593 23.258l-.011.002l-.071.035l-.02.004l-.014-.004l-.071-.035q-.016-.005-.024.005l-.004.01l-.017.428l.005.02l.01.013l.104.074l.015.004l.012-.004l.104-.074l.012-.016l.004-.017l-.017-.427q-.004-.016-.017-.018m.265-.113l-.013.002l-.185.093l-.01.01l-.003.011l.018.43l.005.012l.008.007l.201.093q.019.005.029-.008l.004-.014l-.034-.614q-.005-.018-.02-.022m-.715.002a.02.02 0 0 0-.027.006l-.006.014l-.034.614q.001.018.017.024l.015-.002l.201-.093l.01-.008l.004-.011l.017-.43l-.003-.012l-.01-.01z">
-                  </path>
-                  <path
-                    fill="currentColor"
-                    d="M5.669 4.76a1.47 1.47 0 0 1 2.04-1.177c1.062.454 3.442 1.533 6.462 3.276c3.021 1.744 5.146 3.267 6.069 3.958c.788.591.79 1.763.001 2.356c-.914.687-3.013 2.19-6.07 3.956c-3.06 1.766-5.412 2.832-6.464 3.28c-.906.387-1.92-.2-2.038-1.177c-.138-1.142-.396-3.735-.396-7.237c0-3.5.257-6.092.396-7.235">
-                  </path>
-                </g>
-              </svg>
-            </div>
-            <div id="pause-icon" class="hidden">
-              <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24">
-                <g fill="none">
-                  <path
-                    d="m12.593 23.258l-.011.002l-.071.035l-.02.004l-.014-.004l-.071-.035q-.016-.005-.024.005l-.004.01l-.017.428l.005.02l.01.013l.104.074l.015.004l.012-.004l.104-.074l.012-.016l.004-.017l-.017-.427q-.004-.016-.017-.018m.265-.113l-.013.002l-.185.093l-.01.01l-.003.011l.018.43l.005.012l.008.007l.201.093q.019.005.029-.008l.004-.014l-.034-.614q-.005-.018-.02-.022m-.715.002a.02.02 0 0 0-.027.006l-.006.014l-.034.614q.001.018.017.024l.015-.002l.201-.093l.01-.008l.004-.011l.017-.43l-.003-.012l-.01-.01z">
-                  </path>
-                  <path
-                    fill="currentColor"
-                    d="M9 3a1 1 0 0 1 1 1v16a1 1 0 0 1-1 1H7a1 1 0 0 1-1-1V4a1 1 0 0 1 1-1Zm8 0a1 1 0 0 1 1 1v16a1 1 0 0 1-1 1h-2a1 1 0 0 1-1-1V4a1 1 0 0 1 1-1Z">
-                  </path>
-                </g>
-              </svg>
+            <div class="text-xs text-neutral-600 sm:text-sm dark:text-neutral-400">
+              {podcastTitle}
             </div>
           </button>
         </div>
+
+        <button id="play-toggle-btn" class="flex-shrink-0 cursor-pointer pr-4 sm:pr-0">
+          <div id="play-icon">
+            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24">
+              <g fill="none" fill-rule="evenodd">
+                <path
+                  d="m12.593 23.258l-.011.002l-.071.035l-.02.004l-.014-.004l-.071-.035q-.016-.005-.024.005l-.004.01l-.017.428l.005.02l.01.013l.104.074l.015.004l.012-.004l.104-.074l.012-.016l.004-.017l-.017-.427q-.004-.016-.017-.018m.265-.113l-.013.002l-.185.093l-.01.01l-.003.011l.018.43l.005.012l.008.007l.201.093q.019.005.029-.008l.004-.014l-.034-.614q-.005-.018-.02-.022m-.715.002a.02.02 0 0 0-.027.006l-.006.014l-.034.614q.001.018.017.024l.015-.002l.201-.093l.01-.008l.004-.011l.017-.43l-.003-.012l-.01-.01z">
+                </path>
+                <path
+                  fill="currentColor"
+                  d="M5.669 4.76a1.47 1.47 0 0 1 2.04-1.177c1.062.454 3.442 1.533 6.462 3.276c3.021 1.744 5.146 3.267 6.069 3.958c.788.591.79 1.763.001 2.356c-.914.687-3.013 2.19-6.07 3.956c-3.06 1.766-5.412 2.832-6.464 3.28c-.906.387-1.92-.2-2.038-1.177c-.138-1.142-.396-3.735-.396-7.237c0-3.5.257-6.092.396-7.235">
+                </path>
+              </g>
+            </svg>
+          </div>
+          <div id="pause-icon" class="hidden">
+            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24">
+              <g fill="none">
+                <path
+                  d="m12.593 23.258l-.011.002l-.071.035l-.02.004l-.014-.004l-.071-.035q-.016-.005-.024.005l-.004.01l-.017.428l.005.02l.01.013l.104.074l.015.004l.012-.004l.104-.074l.012-.016l.004-.017l-.017-.427q-.004-.016-.017-.018m.265-.113l-.013.002l-.185.093l-.01.01l-.003.011l.018.43l.005.012l.008.007l.201.093q.019.005.029-.008l.004-.014l-.034-.614q-.005-.018-.02-.022m-.715.002a.02.02 0 0 0-.027.006l-.006.014l-.034.614q.001.018.017.024l.015-.002l.201-.093l.01-.008l.004-.011l.017-.43l-.003-.012l-.01-.01z">
+                </path>
+                <path
+                  fill="currentColor"
+                  d="M9 3a1 1 0 0 1 1 1v16a1 1 0 0 1-1 1H7a1 1 0 0 1-1-1V4a1 1 0 0 1 1-1Zm8 0a1 1 0 0 1 1 1v16a1 1 0 0 1-1 1h-2a1 1 0 0 1-1-1V4a1 1 0 0 1 1-1Z">
+                </path>
+              </g>
+            </svg>
+          </div>
+        </button>
       </div>
 
-      <div class="flex items-center justify-between gap-2 sm:my-2">
+      <div class="-my-0.5 flex items-center justify-between gap-2 sm:mt-2 sm:mb-3">
         <span
           id="currentTime"
           class="hidden font-mono text-xs text-neutral-700 sm:inline-block dark:text-neutral-300"
@@ -70,12 +74,13 @@ const { podcastTitle, sermonTitle, image, audio } = Astro.props;
           >00:00</span
         >
       </div>
+      <div class="h-5 bg-neutral-100 sm:hidden dark:bg-neutral-900"></div>
     </div>
   </div>
 </div>
 
 <script is:inline>
-  document.addEventListener("DOMContentLoaded", () => {
+  function initAudioPlayer() {
     const startBtn = document.getElementById("start-btn");
     const audio = document.getElementById("audio");
     const audioPlayer = document.getElementById("audio-player");
@@ -131,7 +136,7 @@ const { podcastTitle, sermonTitle, image, audio } = Astro.props;
       audio.currentTime = 0;
       startBtn.disabled = false;
     });
-  });
+  }
 
   function formatTime(secs) {
     const minutes = Math.floor(secs / 60)
@@ -154,6 +159,18 @@ const { podcastTitle, sermonTitle, image, audio } = Astro.props;
       pauseIcon.classList.add("hidden");
     }
   }
+
+  if (document.readyState === "loading") {
+    document.addEventListener("DOMContentLoaded", initAudioPlayer);
+  } else {
+    initAudioPlayer();
+  }
+
+  document.addEventListener("astro:after-swap", () => {
+    if (window.location.pathname.startsWith("/sermons/")) {
+      initAudioPlayer();
+    }
+  });
 </script>
 
 <style>
