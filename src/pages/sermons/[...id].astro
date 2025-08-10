@@ -53,31 +53,13 @@ const versesExist = verses.length > 0;
 const headingsExist = filteredHeadings.length > 1;
 ---
 
-<!-- <script>
-  import { fetchPodcastMetadata } from "@lib/fetchPodcast";
-  fetchPodcastMetadata("https://feeds.transistor.fm/renovation-church-podcast").then((data) => {
-    const filteredItems = data.items.filter(
-      (item) => item.title?.startsWith("GVL") && new Date(item!.pubDate!).getFullYear() === 2025
-    );
-    filteredItems.map((item) => {
-      const test = `podcast:
-        audio: "${item.audioUrl}"
-        image: "${item.image}"
-        link: "${item.link}"
-      title: ${item.title}
-      date: ${item.pubDate}`;
-
-      console.log(test);
-    });
-  });
-</script> -->
 <BaseLayout title={sermon.data.title} description={sermon.data.description}>
   <Container>
     <div class="animate mb-8">
       <BackToPrevious href="/sermons">Back to sermons</BackToPrevious>
     </div>
     {
-      sermon.data.podcast && (
+      sermon.data?.podcast && (
         <AudioPlayer
           sermonTitle={sermon.data.title}
           podcastTitle={sermon.data.podcast.title}
@@ -95,31 +77,35 @@ const headingsExist = filteredHeadings.length > 1;
           <span>&bull;</span>
           {sermon?.body ? <div class="font-base text-sm">{readingTime(sermon.body)}</div> : null}
         </div>
-        <div>
-          <button
-            id="start-btn"
-            class="not-prose flex w-fit cursor-pointer flex-nowrap items-center gap-2 rounded-full border border-black/15 p-1.5 transition-colors duration-300 ease-in-out hover:bg-black/5 hover:text-black focus-visible:bg-black/5 focus-visible:text-black sm:rounded-sm sm:px-3 sm:py-1.5 dark:border-white/20 dark:hover:bg-white/5 dark:hover:text-white dark:focus-visible:bg-white/5 dark:focus-visible:text-white">
-            <svg
-              class="size-4"
-              xmlns="http://www.w3.org/2000/svg"
-              width="24"
-              height="24"
-              viewBox="0 0 24 24">
-              <g
-                fill="none"
-                stroke="currentColor"
-                stroke-linecap="round"
-                stroke-linejoin="round"
-                stroke-width="2">
-                <path fill="currentColor" d="M13 17a1 1 0 1 0-2 0l.5 4.5a.5.5 0 0 0 1 0z"></path>
-                <path d="M16.85 18.58a9 9 0 1 0-9.7 0"></path>
-                <path d="M8 14a5 5 0 1 1 8 0"></path>
-                <circle cx="12" cy="11" r="1" fill="currentColor"></circle>
-              </g>
-            </svg>
-            <span class="hidden text-sm sm:inline-block">Listen</span>
-          </button>
-        </div>
+        {
+          sermon.data?.podcast && (
+            <div>
+              <button
+                id="start-btn"
+                class="not-prose flex w-fit cursor-pointer flex-nowrap items-center gap-2 rounded-full border border-black/15 p-1.5 transition-colors duration-300 ease-in-out hover:bg-black/5 hover:text-black focus-visible:bg-black/5 focus-visible:text-black sm:rounded-sm sm:px-3 sm:py-1.5 dark:border-white/20 dark:hover:bg-white/5 dark:hover:text-white dark:focus-visible:bg-white/5 dark:focus-visible:text-white">
+                <svg
+                  class="size-4"
+                  xmlns="http://www.w3.org/2000/svg"
+                  width="24"
+                  height="24"
+                  viewBox="0 0 24 24">
+                  <g
+                    fill="none"
+                    stroke="currentColor"
+                    stroke-linecap="round"
+                    stroke-linejoin="round"
+                    stroke-width="2">
+                    <path fill="currentColor" d="M13 17a1 1 0 1 0-2 0l.5 4.5a.5.5 0 0 0 1 0z" />
+                    <path d="M16.85 18.58a9 9 0 1 0-9.7 0" />
+                    <path d="M8 14a5 5 0 1 1 8 0" />
+                    <circle cx="12" cy="11" r="1" fill="currentColor" />
+                  </g>
+                </svg>
+                <span class="hidden text-sm sm:inline-block">Listen</span>
+              </button>
+            </div>
+          )
+        }
       </div>
 
       <div class="animate mb-6">

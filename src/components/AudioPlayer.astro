@@ -81,8 +81,10 @@ const { podcastTitle, sermonTitle, image, audio } = Astro.props;
 
 <script is:inline>
   function initAudioPlayer() {
-    const startBtn = document.getElementById("start-btn");
     const audio = document.getElementById("audio");
+    if (!audio) return;
+
+    const startBtn = document.getElementById("start-btn");
     const audioPlayer = document.getElementById("audio-player");
     const playToggleBtn = document.getElementById("play-toggle-btn");
     const playIcon = document.getElementById("play-icon");
