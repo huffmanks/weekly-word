@@ -51,6 +51,14 @@ const filteredHeadings = headings.filter((h) => h.depth === 2 || h.depth === 3);
 const verses = sermon.data?.verses ?? [];
 const versesExist = verses.length > 0;
 const headingsExist = filteredHeadings.length > 1;
+const podcastExist =
+  sermon?.data?.podcast &&
+  [
+    sermon.data.podcast.title,
+    sermon.data.podcast.image,
+    sermon.data.podcast.audio,
+    sermon.data.podcast.link,
+  ].every((v) => v != null && v !== "");
 ---
 
 <BaseLayout title={sermon.data.title} description={sermon.data.description}>
@@ -59,12 +67,12 @@ const headingsExist = filteredHeadings.length > 1;
       <BackToPrevious href="/sermons">Back to sermons</BackToPrevious>
     </div>
     {
-      sermon.data?.podcast && (
+      podcastExist && (
         <AudioPlayer
           sermonTitle={sermon.data.title}
-          podcastTitle={sermon.data.podcast.title}
-          image={sermon.data.podcast.image}
-          audio={sermon.data.podcast.audio}
+          podcastTitle={sermon.data.podcast!.title}
+          image={sermon.data.podcast!.image}
+          audio={sermon.data.podcast!.audio}
         />
       )
     }
@@ -78,7 +86,7 @@ const headingsExist = filteredHeadings.length > 1;
           {sermon?.body ? <div class="font-base text-sm">{readingTime(sermon.body)}</div> : null}
         </div>
         {
-          sermon.data?.podcast && (
+          podcastExist && (
             <div>
               <button
                 id="start-btn"
