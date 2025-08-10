@@ -1,8 +1,8 @@
-import { file, glob } from "astro/loaders";
+import { glob } from "astro/loaders";
 import { defineCollection, reference, z } from "astro:content";
 
 const sermons = defineCollection({
-  loader: glob({ pattern: "**/*.{md,mdx}", base: "./src/content/sermons" }),
+  loader: glob({ pattern: "**/*.{md,mdx}", base: "./src/content/notes/weekly-word/sermons" }),
   schema: z.object({
     title: z.string(),
     subtitle: z.string().optional(),
@@ -24,7 +24,7 @@ const sermons = defineCollection({
 });
 
 const pastors = defineCollection({
-  loader: file("src/data/pastors.json"),
+  loader: glob({ pattern: "**/*.{md,mdx}", base: "./src/content/notes/weekly-word/pastors" }),
   schema: z.object({
     id: z.string(),
     name: z.string(),
@@ -38,7 +38,7 @@ const pastors = defineCollection({
 });
 
 const series = defineCollection({
-  loader: file("src/data/series.json"),
+  loader: glob({ pattern: "**/*.{md,mdx}", base: "./src/content/notes/weekly-word/series" }),
   schema: z.object({
     id: z.string(),
     title: z.string(),
