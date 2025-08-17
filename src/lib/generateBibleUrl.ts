@@ -76,40 +76,29 @@ const bibleVersions: Record<string, { id: number; code: string }> = {
   ASV: { id: 12, code: "ASV" },
 };
 
-// export function generateBibleUrl(ref: string, bibleVersion = "NIV") {
-//   const match = ref.match(/^([\d ]?[A-Za-z ]+)\s+(\d+):(\d+)(?:-(\d+))?$/);
-//   if (!match) return null;
-
-//   const [, book, chapter, verseStart, verseEnd] = match;
-
-//   const code = bookMap[book.trim()];
-//   if (!code) return null;
-
-//   const versePart = verseEnd ? `${verseStart}-${verseEnd}` : verseStart;
-//   const version = bibleVersions[bibleVersion];
-
-//   return `https://www.bible.com/bible/${version.id}/${code}.${chapter}.${versePart}.${version.code}`;
-// }
-
 export function generateBibleUrl(ref: string, bibleVersion = "NIV") {
   const version = bibleVersions[bibleVersion];
   if (!version) return null;
 
-  const verseMatch = ref.match(/^([\d ]?[A-Za-z ]+)\s+(\d+):(\d+)(?:-(\d+))?$/);
+  const verseMatch = ref.match(/^([\d ]?[A-Za-z ]+)\s+(\d+):([\d,-\s]+)$/);
   const chapterMatch = ref.match(/^([\d ]?[A-Za-z ]+)\s+(\d+)$/);
 
   if (verseMatch) {
-    const [, book, chapter, verseStart, verseEnd] = verseMatch;
+    const [, book, chapter, verses] = verseMatch;
+
     const code = bookMap[book.trim()];
     if (!code) return null;
-    const versePart = verseEnd ? `${verseStart}-${verseEnd}` : verseStart;
+
+    const versePart = verses.replace(/\s+/g, "");
     return `https://www.bible.com/bible/${version.id}/${code}.${chapter}.${versePart}.${version.code}`;
   }
 
   if (chapterMatch) {
     const [, book, chapter] = chapterMatch;
+
     const code = bookMap[book.trim()];
     if (!code) return null;
+
     return `https://www.bible.com/bible/${version.id}/${code}.${chapter}.${version.code}`;
   }
 

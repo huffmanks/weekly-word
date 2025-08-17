@@ -5,7 +5,7 @@ const sermons = defineCollection({
   loader: glob({ pattern: "**/*.{md,mdx}", base: "./src/content/notes/weekly-word/sermons" }),
   schema: z.object({
     title: z.string(),
-    subtitle: z.string().optional(),
+    subtitle: z.string().nullable().optional(),
     description: z.string(),
     date: z.coerce.date(),
     draft: z.boolean().default(false),
@@ -13,10 +13,10 @@ const sermons = defineCollection({
     series: reference("series").default("uncategorized"),
     podcast: z
       .object({
-        title: z.string().nullable(),
-        audio: z.string().nullable(),
-        image: z.string().nullable(),
-        link: z.string().nullable(),
+        title: z.string().nullable().optional(),
+        audio: z.string().nullable().optional(),
+        image: z.string().nullable().optional(),
+        link: z.string().nullable().optional(),
       })
       .optional(),
     verses: z.array(z.string()).optional(),
