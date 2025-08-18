@@ -11,8 +11,8 @@ const seriesList = await getCollection("series");
 
 <BaseLayout title="Series" description="List of all series in collection.">
   <Container>
-    <div class="space-y-10">
-      <h1 class="animate font-semibold">All Series</h1>
+    <div data-pagefind-ignore class="space-y-10">
+      <h1 class="animate font-bold">All Series</h1>
       <div class="animate flex flex-wrap gap-2">
         {
           seriesList.map((series) => {
@@ -21,9 +21,11 @@ const seriesList = await getCollection("series");
             return (
               <a
                 href={`/series/${series.id}`}
-                class="flex gap-2 rounded-sm border border-black/15 px-2 py-1 text-sm transition-colors duration-300 ease-in-out hover:bg-black/5 hover:text-black focus-visible:bg-black/5 focus-visible:text-black dark:border-white/20 dark:hover:bg-white/5 dark:hover:text-white dark:focus-visible:bg-white/5 dark:focus-visible:text-white">
+                class="group flex gap-1 rounded-sm border border-neutral-400 px-2 py-1 text-sm transition-colors duration-300 ease-in-out hover:bg-neutral-300 hover:text-black focus-visible:bg-neutral-300 focus-visible:text-black dark:border-neutral-700 dark:hover:bg-neutral-800 dark:hover:text-white dark:focus-visible:bg-neutral-800 dark:focus-visible:text-white">
                 <span>{series.data.title}</span>
-                <span class="text-sm text-gray-600">({count})</span>
+                <span class="text-sm text-neutral-500 transition-colors duration-300 ease-in-out group-hover:text-neutral-900 group-focus-visible:text-neutral-900 dark:group-hover:text-neutral-100 dark:group-focus-visible:text-neutral-100">
+                  ({count})
+                </span>
               </a>
             );
           })

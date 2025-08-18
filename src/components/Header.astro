@@ -7,9 +7,9 @@ import Link from "@components/Link.astro";
 
 <header transition:persist>
   <Container>
-    <div class="flex flex-wrap items-center justify-between gap-y-2">
+    <div data-pagefind-ignore class="flex flex-wrap items-center justify-between gap-y-2">
       <Link href="/" underline={false}>
-        <div class="text-[17px] font-semibold">
+        <div class="text-[17px] font-bold">
           {SITE_CONFIG.title}
         </div>
       </Link>
@@ -19,7 +19,7 @@ import Link from "@components/Link.astro";
         <button
           id="magnifying-glass"
           aria-label="Search"
-          class="flex cursor-pointer items-center gap-1 rounded-sm border border-black/15 bg-neutral-100 py-1 pr-2.5 pl-1.5 text-[13px] transition-colors duration-300 ease-in-out hover:bg-black/5 hover:text-black focus-visible:bg-black/5 focus-visible:text-black dark:border-white/20 dark:bg-neutral-900 dark:hover:bg-white/5 dark:hover:text-white dark:focus-visible:bg-white/5 dark:focus-visible:text-white">
+          class="group flex cursor-pointer items-center gap-1 rounded-sm border border-neutral-400 bg-transparent py-1 pr-2.5 pl-1.5 text-[13px] transition-colors duration-300 ease-in-out hover:bg-neutral-300 hover:text-black focus-visible:bg-neutral-300 focus-visible:text-black dark:border-neutral-700 dark:hover:bg-neutral-800 dark:hover:text-white dark:focus-visible:bg-neutral-800 dark:focus-visible:text-white">
           <svg
             height="16"
             stroke-linejoin="round"
@@ -33,7 +33,10 @@ import Link from "@components/Link.astro";
               fill="currentColor">
             </path>
           </svg>
-          <span>search</span>
+          <span
+            class="group-hover:text-neutral-900 group-focus-visible:text-neutral-900 dark:group-hover:text-neutral-100 dark:group-focus-visible:text-neutral-100"
+            >search</span
+          >
         </button>
       </nav>
     </div>

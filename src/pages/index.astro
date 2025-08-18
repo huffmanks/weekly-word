@@ -16,7 +16,7 @@ const sermons = (await getCollection("sermons", ({ data }) => !data.draft))
 <BaseLayout title={SITE_CONFIG.title} description={SITE_CONFIG.description}>
   <Container>
     <aside data-pagefind-ignore>
-      <h1 class="font-semibold text-black dark:text-white">Introducing {SITE_CONFIG.title}</h1>
+      <h1 class="font-bold text-black dark:text-white">Introducing {SITE_CONFIG.title}</h1>
       <div class="space-y-16">
         <section>
           <article class="space-y-4">
@@ -36,7 +36,7 @@ const sermons = (await getCollection("sermons", ({ data }) => !data.draft))
 
         <section class="animate space-y-6">
           <div class="flex flex-wrap items-center justify-between gap-y-2">
-            <h2 class="font-semibold text-black dark:text-white">Latest sermons</h2>
+            <h2 class="font-bold text-black dark:text-white">Latest sermons</h2>
             <Link href="/sermons">See all sermons</Link>
           </div>
           <ul class="not-prose flex flex-col gap-4">
@@ -51,7 +51,7 @@ const sermons = (await getCollection("sermons", ({ data }) => !data.draft))
         </section>
 
         <section class="animate space-y-4">
-          <h2 class="font-semibold text-black dark:text-white">Get in touch</h2>
+          <h2 class="font-bold text-black dark:text-white">Get in touch</h2>
           <div>
             <p>
               Have a question, feedback or just want to say hi? Feel free to send me an email

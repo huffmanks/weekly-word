@@ -1,7 +1,7 @@
 # Weekly Word
 
+A personal space where I gather my sermon notes and reflections from each week. Whether you’re here to catch up on what I’ve been learning or just curious about some fresh spiritual insights, you’ll find simple, honest thoughts meant to inspire and encourage.
+
 ## Todo
 
-1. Update pagefind to ignore certain frontmatter. (podcast, etc.)
-2. Make pagefind whole item clickable.
-3. Make fetching RSS feed automated.
+- [ ] Make pagefind whole item clickable.
