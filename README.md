@@ -5,3 +5,4 @@ A personal space where I gather my sermon notes and reflections from each week. 
 ## Todo
 
 - [ ] Make pagefind whole item clickable.
+- [ ] Add share sermon button.
