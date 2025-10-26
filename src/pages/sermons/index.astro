@@ -3,9 +3,10 @@ import { type CollectionEntry, getCollection } from "astro:content";
 
 import { SITE_CONFIG } from "@constants";
 import BaseLayout from "@layouts/BaseLayout.astro";
+import { cn } from "@lib/utils";
 
-import ArrowCard from "@components/ArrowCard.astro";
 import Container from "@components/Container.astro";
+import SermonCard from "@components/SermonCard.astro";
 
 const data = (await getCollection("sermons", ({ data }) => !data.draft)).sort(
   (a, b) => b.data.date.valueOf() - a.data.date.valueOf()
@@ -31,16 +32,23 @@ const years = Object.keys(sermons).sort((a, b) => parseInt(b) - parseInt(a));
   <Container>
     <aside data-pagefind-ignore>
       <div class="space-y-10">
+        <h1 class="animate text-xl font-bold">All sermons</h1>
         <div class="space-y-4">
           {
-            years.map((year) => (
-              <section class="animate space-y-4">
-                <div class="font-bold text-black dark:text-white">{year}</div>
+            years.map((year, i) => (
+              <section
+                class={cn(
+                  "animate",
+                  i === years.length - 1
+                    ? ""
+                    : "mb-10 border-b border-neutral-400 pb-10 dark:border-neutral-600"
+                )}>
+                <h2 class="mb-3 text-lg font-bold text-black dark:text-white">{year}</h2>
                 <div>
                   <ul class="not-prose flex flex-col gap-4">
                     {sermons[year].map((sermon) => (
                       <li>
-                        <ArrowCard entry={sermon} />
+                        <SermonCard entry={sermon} />
                       </li>
                     ))}
                   </ul>

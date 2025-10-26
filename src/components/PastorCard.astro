@@ -1,0 +1,48 @@
+---
+type Props = {
+  id: string;
+  name: string;
+  title: string;
+  count: number;
+  churchTitle: string;
+  churchLocation: string;
+};
+
+const { id, name, title, count, churchTitle, churchLocation } = Astro.props;
+---
+
+<a
+  href={`/pastors/${id}`}
+  class="not-prose group relative flex flex-nowrap rounded-lg border border-neutral-300 px-4 py-3 pr-10 transition-colors duration-300 ease-in-out hover:bg-neutral-200 hover:text-black focus-visible:bg-neutral-200 focus-visible:text-black dark:border-neutral-700 dark:hover:bg-neutral-800 dark:hover:text-white dark:focus-visible:bg-neutral-800 dark:focus-visible:text-white">
+  <div class="flex flex-1 flex-col gap-1 truncate">
+    <div class="inline-flex items-center gap-1">
+      <span>{name}</span>
+      <span
+        class="text-sm text-neutral-500 transition-colors duration-300 ease-in-out group-hover:text-neutral-900 group-focus-visible:text-neutral-900 dark:group-hover:text-neutral-100 dark:group-focus-visible:text-neutral-100">
+        ({count})
+      </span>
+    </div>
+
+    <div class="text-xs font-medium">
+      <div class="truncate">{title}</div>
+      <div>{churchTitle}</div>
+      <div>{churchLocation}</div>
+    </div>
+  </div>
+  <svg
+    xmlns="http://www.w3.org/2000/svg"
+    viewBox="0 0 24 24"
+    class="absolute top-1/2 right-2 size-5 -translate-y-1/2 fill-none stroke-current stroke-2">
+    <line
+      x1="5"
+      y1="12"
+      x2="19"
+      y2="12"
+      class="translate-x-3 scale-x-0 transition-transform duration-300 ease-in-out group-hover:translate-x-0 group-hover:scale-x-100 group-focus-visible:translate-x-0 group-focus-visible:scale-x-100">
+    </line>
+    <polyline
+      points="12 5 19 12 12 19"
+      class="-translate-x-1 transition-transform duration-300 ease-in-out group-hover:translate-x-0 group-focus-visible:translate-x-0">
+    </polyline>
+  </svg>
+</a>

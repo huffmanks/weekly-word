@@ -4,5 +4,11 @@ A personal space where I gather my sermon notes and reflections from each week. 
 
 ## Todo
 
-- [ ] Make pagefind whole item clickable.
-- [ ] Add share sermon button.
+- [ ] Search
+  - [ ] Make pagefind whole item clickable.
+  - [ ] Search by tags using # (series, pastors)
+- [ ] Sermon page
+  - [ ] Add share sermon button.
+- [ ] Add series by year page
+  - [ ] Make all series page each year be a link to that year.
+- [ ] Clean up earlier sermons (add headings, remove emojis, etc.)

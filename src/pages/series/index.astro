@@ -4,29 +4,48 @@ import { getCollection } from "astro:content";
 import BaseLayout from "@layouts/BaseLayout.astro";
 
 import Container from "@components/Container.astro";
+import SeriesCard from "@components/SeriesCard.astro";
 
 const sermons = await getCollection("sermons", ({ data }) => !data.draft);
-const seriesList = await getCollection("series");
+const series = await getCollection("series");
+
+const sortedSeries = series
+  .map((item) => {
+    const relatedSermons = sermons.filter((sermon) => sermon.data.series.id === item.id);
+
+    const dates = relatedSermons.map((s) => s.data.date.getTime());
+
+    const firstDate = new Date(Math.min(...dates));
+    const lastDate = new Date(Math.max(...dates));
+
+    return { ...item, firstDate, lastDate };
+  })
+  .sort((a, b) => {
+    if (a.firstDate && b.firstDate)
+      return new Date(b.firstDate).getTime() - new Date(a.firstDate).getTime();
+    if (a.firstDate && !b.firstDate) return -1;
+    if (!a.firstDate && b.firstDate) return 1;
+    return a.data.title.localeCompare(b.data.title);
+  });
 ---
 
 <BaseLayout title="Series" description="List of all series in collection.">
   <Container>
     <div data-pagefind-ignore class="space-y-10">
-      <h1 class="animate font-bold">All Series</h1>
-      <div class="animate flex flex-wrap gap-2">
+      <h1 class="animate text-xl font-bold">All series</h1>
+      <div class="animate grid gap-2 sm:grid-cols-2">
         {
-          seriesList.map((series) => {
+          sortedSeries.map((series) => {
             const count = sermons.filter((sermon) => sermon.data.series.id === series.id).length;
 
             return (
-              <a
-                href={`/series/${series.id}`}
-                class="group flex gap-1 rounded-sm border border-neutral-400 px-2 py-1 text-sm transition-colors duration-300 ease-in-out hover:bg-neutral-300 hover:text-black focus-visible:bg-neutral-300 focus-visible:text-black dark:border-neutral-700 dark:hover:bg-neutral-800 dark:hover:text-white dark:focus-visible:bg-neutral-800 dark:focus-visible:text-white">
-                <span>{series.data.title}</span>
-                <span class="text-sm text-neutral-500 transition-colors duration-300 ease-in-out group-hover:text-neutral-900 group-focus-visible:text-neutral-900 dark:group-hover:text-neutral-100 dark:group-focus-visible:text-neutral-100">
-                  ({count})
-                </span>
-              </a>
+              <SeriesCard
+                id={series.id}
+                title={series.data.title}
+                count={count}
+                firstDate={series.firstDate}
+                lastDate={series.lastDate}
+              />
             );
           })
         }

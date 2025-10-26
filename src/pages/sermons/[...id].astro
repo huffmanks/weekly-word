@@ -8,6 +8,7 @@ import AudioPlayer from "@components/AudioPlayer.astro";
 import BackToPrevious from "@components/BackToPrevious.astro";
 import Container from "@components/Container.astro";
 import FormattedDate from "@components/FormattedDate.astro";
+import SermonBadge from "@components/SermonBadge.astro";
 import SermonNavigation from "@components/SermonNavigation.astro";
 import TableOfContents from "@components/TableOfContents.astro";
 
@@ -123,39 +124,40 @@ const podcastExist =
       </div>
 
       <div class="animate mb-6">
-        <h1 class="mb-1 text-3xl font-bold text-black dark:text-white">
+        <h1 class="mb-2 text-3xl font-bold text-black dark:text-white">
           {sermon.data.title}
         </h1>
         {
           sermon.data?.subtitle ? (
-            <h2 class="mb-1 text-xl font-bold text-black dark:text-white">
+            <h2 class="mb-2 text-xl font-bold text-black dark:text-white">
               {sermon.data.subtitle}
             </h2>
           ) : null
         }
-        {
-          pastor ? (
-            <div
-              data-pagefind-meta="pastor"
-              class="mb-3 text-sm text-neutral-600 dark:text-neutral-400">
-              {pastor.data.name}
-            </div>
-          ) : null
-        }
-        <p>{sermon.data.description}</p>
+
+        <p class="mb-5">{sermon.data.description}</p>
+
+        <div class="animate flex flex-wrap items-center gap-2">
+          {
+            pastor ? (
+              <SermonBadge
+                meta="pastor"
+                href={`/pastors/${pastor.data.id}`}
+                title={pastor.data.name}
+              />
+            ) : null
+          }
+          {
+            series?.data ? (
+              <SermonBadge
+                meta="series"
+                href={`/series/${series.data.id}`}
+                title={series.data.title}
+              />
+            ) : null
+          }
+        </div>
       </div>
-      {
-        series?.data ? (
-          <div class="animate flex gap-2">
-            <a
-              data-pagefind-meta="series"
-              href={`/series/${series.data.id}`}
-              class="rounded-sm border border-black/15 px-2 py-1 text-sm transition-colors duration-300 ease-in-out hover:bg-black/5 hover:text-black focus-visible:bg-black/5 focus-visible:text-black dark:border-white/20 dark:hover:bg-white/5 dark:hover:text-white dark:focus-visible:bg-white/5 dark:focus-visible:text-white">
-              {series.data.title}
-            </a>
-          </div>
-        ) : null
-      }
     </div>
     {
       versesExist || headingsExist ? (

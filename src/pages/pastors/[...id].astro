@@ -10,12 +10,12 @@ import SermonCard from "@components/SermonCard.astro";
 export async function getStaticPaths() {
   const sermons = await getCollection("sermons", ({ data }) => !data.draft);
 
-  const series = [...new Set(sermons.flatMap((sermon) => sermon.data.series || []))];
+  const pastors = [...new Set(sermons.flatMap((sermon) => sermon.data.pastor || []))];
 
-  return series.map((item) => ({
+  return pastors.map((item) => ({
     params: { id: item.id },
     props: {
-      sermons: sermons.filter((sermon) => sermon.data.series.id === item.id),
+      sermons: sermons.filter((sermon) => sermon.data.pastor.id === item.id),
     },
   }));
 }
@@ -26,21 +26,25 @@ const sortedSermons = sermons.sort(
   (a, b) => new Date(b.data.date).getTime() - new Date(a.data.date).getTime()
 );
 
-const seriesId = sermons[0].data.series.id;
-const series = await getEntry("series", seriesId);
+const pastorId = sermons[0].data.pastor.id;
+const pastor = await getEntry("pastors", pastorId);
 
-const seriesTitle = series?.data.title ? series.data.title : "series";
-const seriesDescription = "Sermons from this series.";
+const pastorName = pastor?.data.name ? pastor.data.name : "pastor";
+const metaDescription = `Past sermons from ${pastorName}.`;
 ---
 
-<BaseLayout title={seriesTitle} description={seriesDescription}>
+<BaseLayout title={pastorName} description={metaDescription}>
   <Container>
     <div data-pagefind-ignore class="space-y-10">
-      <BackToPrevious href="/series">All series</BackToPrevious>
-      <h1 class="animate mb-1 text-xl font-bold text-black dark:text-white">
-        {seriesTitle}
+      <BackToPrevious href="/pastors">All pastors</BackToPrevious>
+      <h1 class="animate mb-2 text-xl font-bold text-black dark:text-white">
+        {pastorName}
       </h1>
-      <p class="mb-4 text-sm">{seriesDescription}</p>
+      <p class="text-sm font-medium">
+        {pastor?.data.title}<br />{pastor?.data.church.title}<br />{pastor?.data.church.location}
+      </p>
+
+      <h2 class="mb-3 text-lg font-bold">Past sermons</h2>
 
       <ul class="animate flex flex-col gap-4">
         {sortedSermons.map((sermon) => <SermonCard entry={sermon} />)}

@@ -4,9 +4,9 @@ import { getCollection } from "astro:content";
 import { NUMBER_OF_HOMEPAGE_SERMONS, SITE_CONFIG } from "@constants";
 import BaseLayout from "@layouts/BaseLayout.astro";
 
-import ArrowCard from "@components/ArrowCard.astro";
 import Container from "@components/Container.astro";
 import Link from "@components/Link.astro";
+import SermonCard from "@components/SermonCard.astro";
 
 const sermons = (await getCollection("sermons", ({ data }) => !data.draft))
   .sort((a, b) => b.data.date.valueOf() - a.data.date.valueOf())
@@ -43,7 +43,7 @@ const sermons = (await getCollection("sermons", ({ data }) => !data.draft))
             {
               sermons.map((sermon) => (
                 <li>
-                  <ArrowCard entry={sermon} />
+                  <SermonCard entry={sermon} />
                 </li>
               ))
             }

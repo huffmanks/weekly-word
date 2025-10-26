@@ -13,8 +13,10 @@ import Link from "@components/Link.astro";
           {SITE_CONFIG.title}
         </div>
       </Link>
-      <nav class="flex items-center gap-2 text-[15px]">
+      <nav class="flex items-center gap-1 text-[15px] sm:gap-2">
         <Link href="/sermons">sermons</Link>
+        <span>&middot;</span>
+        <Link href="/series">series</Link>
         <span>&middot;</span>
         <button
           id="magnifying-glass"

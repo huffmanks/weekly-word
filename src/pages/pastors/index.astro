@@ -1,0 +1,46 @@
+---
+import { getCollection } from "astro:content";
+
+import BaseLayout from "@layouts/BaseLayout.astro";
+
+import Container from "@components/Container.astro";
+import PastorCard from "@components/PastorCard.astro";
+
+const sermons = await getCollection("sermons", ({ data }) => !data.draft);
+const pastors = await getCollection("pastors");
+
+const sortedPastors = pastors
+  .filter((pastor) => sermons.some((sermon) => sermon.data.pastor.id === pastor.data.id))
+  .sort((a, b) => {
+    const [aFirst, aLast] = [a.data.name.split(" ")[0], a.data.name.split(" ").pop()];
+    const [bFirst, bLast] = [b.data.name.split(" ")[0], b.data.name.split(" ").pop()];
+
+    return aLast!.localeCompare(bLast!) || aFirst.localeCompare(bFirst);
+  });
+---
+
+<BaseLayout title="Pastors" description="List of all pastors in collection.">
+  <Container>
+    <div data-pagefind-ignore class="space-y-10">
+      <h1 class="animate text-xl font-bold">All pastors</h1>
+      <div class="animate grid gap-2 sm:grid-cols-2">
+        {
+          sortedPastors.map((pastor) => {
+            const count = sermons.filter((sermon) => sermon.data.pastor.id === pastor.id).length;
+
+            return (
+              <PastorCard
+                id={pastor.id}
+                name={pastor.data.name}
+                title={pastor.data.title}
+                count={count}
+                churchTitle={pastor.data.church.title}
+                churchLocation={pastor.data.church.location}
+              />
+            );
+          })
+        }
+      </div>
+    </div>
+  </Container>
+</BaseLayout>

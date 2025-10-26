@@ -7,9 +7,7 @@ type Props = {
   entry: CollectionEntry<"sermons">;
 };
 
-const { entry } = Astro.props as {
-  entry: CollectionEntry<"sermons">;
-};
+const { entry } = Astro.props;
 
 const series = await getEntry("series", entry.data.series.id);
 
