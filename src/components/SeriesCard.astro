@@ -1,7 +1,6 @@
 ---
+import { formatApDateRange } from "@lib/formatApDateRange";
 import { cn } from "@lib/utils";
-
-import FormattedDate from "@/components/FormattedDate.astro";
 
 type Props = {
   id: string;
@@ -12,17 +11,21 @@ type Props = {
 };
 
 const { id, title, count, firstDate, lastDate } = Astro.props;
+
+const apDateRange = formatApDateRange(firstDate, lastDate);
 ---
 
 <a
   href={`/series/${id}`}
   class={cn(
-    "not-prose group relative flex flex-nowrap rounded-lg border border-neutral-300 px-4 py-3 pr-10 transition-colors duration-300 ease-in-out hover:bg-neutral-200 hover:text-black focus-visible:bg-neutral-200 focus-visible:text-black dark:border-neutral-700 dark:hover:bg-neutral-800 dark:hover:text-white dark:focus-visible:bg-neutral-800 dark:focus-visible:text-white",
+    "not-prose group relative block rounded-lg border border-neutral-300 px-4 py-3 pr-10 transition-colors duration-300 ease-in-out hover:bg-neutral-200 hover:text-black focus-visible:bg-neutral-200 focus-visible:text-black dark:border-neutral-700 dark:hover:bg-neutral-800 dark:hover:text-white dark:focus-visible:bg-neutral-800 dark:focus-visible:text-white",
     id === "uncategorized" && "items-center"
   )}>
-  <div class="flex flex-1 flex-col gap-1 truncate">
-    <div class="inline-flex items-center gap-1">
-      <span>{title}</span>
+  <div>
+    <div class="flex items-center gap-1">
+      <span class="truncate font-bold">
+        {title}
+      </span>
       <span
         class="text-sm text-neutral-500 transition-colors duration-300 ease-in-out group-hover:text-neutral-900 group-focus-visible:text-neutral-900 dark:group-hover:text-neutral-100 dark:group-focus-visible:text-neutral-100">
         ({count})
@@ -30,11 +33,7 @@ const { id, title, count, firstDate, lastDate } = Astro.props;
     </div>
     {
       id !== "uncategorized" && (
-        <div class="text-xs">
-          <FormattedDate date={firstDate} />
-          <span>-</span>
-          <FormattedDate date={lastDate} />
-        </div>
+        <div class="text-xs font-medium text-neutral-600 dark:text-neutral-400">{apDateRange}</div>
       )
     }
   </div>

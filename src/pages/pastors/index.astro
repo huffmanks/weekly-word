@@ -23,7 +23,7 @@ const sortedPastors = pastors
   <Container>
     <div data-pagefind-ignore class="space-y-10">
       <h1 class="animate text-xl font-bold">All pastors</h1>
-      <div class="animate grid gap-2 sm:grid-cols-2">
+      <div class="animate grid grid-cols-1 gap-2 sm:grid-cols-2">
         {
           sortedPastors.map((pastor) => {
             const count = sermons.filter((sermon) => sermon.data.pastor.id === pastor.id).length;

@@ -33,7 +33,7 @@ const sortedSeries = series
   <Container>
     <div data-pagefind-ignore class="space-y-10">
       <h1 class="animate text-xl font-bold">All series</h1>
-      <div class="animate grid gap-2 sm:grid-cols-2">
+      <div class="animate grid grid-cols-1 gap-2 sm:grid-cols-2">
         {
           sortedSeries.map((series) => {
             const count = sermons.filter((sermon) => sermon.data.series.id === series.id).length;
