@@ -4,11 +4,14 @@ A personal space where I gather my sermon notes and reflections from each week. 
 
 ## Todo
 
-- [ ] Search
-  - [ ] Make pagefind whole item clickable.
+- [pagefind](https://pagefind.app/docs)
+  - [ ] Make whole result item clickable. Not just heading.
   - [ ] Search by tags using # (series, pastors)
-- [ ] Sermon page
+- [sermon page](src/pages/sermons/[...id].astro)
   - [ ] Add share sermon button.
-- [ ] Add series by year page
+- [new page: Add series by year](src/pages/series)
   - [ ] Make all series page each year be a link to that year.
-- [ ] Clean up earlier sermons (add headings, remove emojis, etc.)
+- [content sermons](src/content/notes/weekly-word/sermons/2025)
+  - [ ] Clean up earlier sermons (add headings, remove emojis, etc.)
+- [pastor page](src/pages/pastors/[...id].astro)
+  - [ ] Add total count across from h2
