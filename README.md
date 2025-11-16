@@ -13,3 +13,8 @@ A personal space where I gather my sermon notes and reflections from each week. 
   - [ ] Clean up earlier sermons (add headings, remove emojis, etc.)
 - [pastor page](src/pages/pastors/[...id].astro)
   - [ ] Add total count across from h2
+- [audio player](src/components/AudioPlayer.astro)
+  - [ ] Make it more interactive and easier for mobile.
+- [purposes](src/pages/purposes/index.astro)
+  - [ ] Add dynamic route /purposes/[...day]
+  - [ ] Make main page easier to navigate.

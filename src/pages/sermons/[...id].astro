@@ -65,7 +65,10 @@ const podcastExist =
   ].every((v) => v != null && v !== "");
 ---
 
-<BaseLayout title={sermon.data.title} description={sermon.data.description}>
+<BaseLayout
+  title={sermon.data.title}
+  description={sermon.data.description}
+  image={sermon.data?.podcast?.image}>
   <Container>
     <div data-pagefind-ignore class="animate mb-8">
       <BackToPrevious href="/sermons">Back to sermons</BackToPrevious>
