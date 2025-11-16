@@ -10,6 +10,7 @@ import Container from "@components/Container.astro";
 import FormattedDate from "@components/FormattedDate.astro";
 import SermonBadge from "@components/SermonBadge.astro";
 import SermonNavigation from "@components/SermonNavigation.astro";
+import ShareDropdown from "@components/ShareDropdown.astro";
 import TableOfContents from "@components/TableOfContents.astro";
 
 export async function getStaticPaths() {
@@ -24,6 +25,7 @@ export async function getStaticPaths() {
 }
 
 type Props = CollectionEntry<"sermons">;
+const url = new URL(Astro.url, Astro.site).href;
 
 const sermons = (await getCollection("sermons", ({ data }) => !data.draft)).sort(
   (a, b) => a.data.date.valueOf() - b.data.date.valueOf()
@@ -43,6 +45,7 @@ const nextSermon = getNextSermon();
 const prevSermon = getPrevSermon();
 
 const sermon = Astro.props;
+
 const series = await getEntry("series", sermon.data.series.id);
 const pastor = await getEntry("pastors", sermon.data.pastor.id);
 
@@ -78,7 +81,7 @@ const podcastExist =
       )
     }
     <div class="mb-10 space-y-1">
-      <div class="animate mb-3 flex flex-wrap items-center justify-between gap-2">
+      <div class="animate mb-8 flex flex-wrap items-center justify-between gap-2">
         <div class="flex items-center gap-1.5">
           <div data-pagefind-meta="date" class="font-base text-sm">
             <FormattedDate date={sermon.data.date} />
@@ -92,35 +95,45 @@ const podcastExist =
             ) : null
           }
         </div>
-        {
-          podcastExist && (
-            <div data-pagefind-ignore>
-              <button
-                id="start-btn"
-                class="not-prose flex w-fit cursor-pointer flex-nowrap items-center gap-2 rounded-full border border-black/15 p-1.5 transition-colors duration-300 ease-in-out hover:bg-black/5 hover:text-black focus-visible:bg-black/5 focus-visible:text-black sm:rounded-sm sm:px-3 sm:py-1.5 dark:border-white/20 dark:hover:bg-white/5 dark:hover:text-white dark:focus-visible:bg-white/5 dark:focus-visible:text-white">
-                <svg
-                  class="size-4"
-                  xmlns="http://www.w3.org/2000/svg"
-                  width="24"
-                  height="24"
-                  viewBox="0 0 24 24">
-                  <g
-                    fill="none"
-                    stroke="currentColor"
-                    stroke-linecap="round"
-                    stroke-linejoin="round"
-                    stroke-width="2">
-                    <path fill="currentColor" d="M13 17a1 1 0 1 0-2 0l.5 4.5a.5.5 0 0 0 1 0z" />
-                    <path d="M16.85 18.58a9 9 0 1 0-9.7 0" />
-                    <path d="M8 14a5 5 0 1 1 8 0" />
-                    <circle cx="12" cy="11" r="1" fill="currentColor" />
-                  </g>
-                </svg>
-                <span class="hidden text-sm sm:inline-block">Listen</span>
-              </button>
-            </div>
-          )
-        }
+        <div class="flex items-center gap-2" data-pagefind-ignore>
+          <div>
+            <ShareDropdown
+              description={sermon.data.description}
+              title={sermon.data.title}
+              url={url}
+              tags={[pastor?.data.name, series?.data.title]}
+            />
+          </div>
+          {
+            podcastExist && (
+              <div>
+                <button
+                  id="start-btn"
+                  class="not-prose flex w-fit cursor-pointer flex-nowrap items-center gap-2 rounded-full border border-black/15 p-1.5 transition-colors duration-300 ease-in-out hover:bg-black/5 hover:text-black focus-visible:bg-black/5 focus-visible:text-black sm:rounded-sm sm:px-3 sm:py-1.5 dark:border-white/20 dark:hover:bg-white/5 dark:hover:text-white dark:focus-visible:bg-white/5 dark:focus-visible:text-white">
+                  <svg
+                    class="size-4"
+                    xmlns="http://www.w3.org/2000/svg"
+                    width="24"
+                    height="24"
+                    viewBox="0 0 24 24">
+                    <g
+                      fill="none"
+                      stroke="currentColor"
+                      stroke-linecap="round"
+                      stroke-linejoin="round"
+                      stroke-width="2">
+                      <path fill="currentColor" d="M13 17a1 1 0 1 0-2 0l.5 4.5a.5.5 0 0 0 1 0z" />
+                      <path d="M16.85 18.58a9 9 0 1 0-9.7 0" />
+                      <path d="M8 14a5 5 0 1 1 8 0" />
+                      <circle cx="12" cy="11" r="1" fill="currentColor" />
+                    </g>
+                  </svg>
+                  <span class="hidden text-sm sm:inline-block">Listen</span>
+                </button>
+              </div>
+            )
+          }
+        </div>
       </div>
 
       <div class="animate mb-6">
