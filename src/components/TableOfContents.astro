@@ -40,7 +40,6 @@ const tocItems = props.type === "headings" ? (buildToc() ?? []) : [];
 ---
 
 <details
-  data-pagefind-ignore
   open={props.type === "headings" ? false : true}
   class="animate group rounded-lg border border-black/15 dark:border-white/20">
   <summary

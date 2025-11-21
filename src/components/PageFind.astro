@@ -84,6 +84,31 @@ import Search from "astro-pagefind/components/Search";
   form?.addEventListener("submit", (event) => {
     event.preventDefault();
   });
+
+  function makeResultsClickable() {
+    const results = document.querySelectorAll(".pagefind-ui__result");
+    results.forEach((result) => {
+      const link = result.querySelector(".pagefind-ui__result-link");
+      const excerpt = result.querySelector(".pagefind-ui__result-excerpt");
+
+      if (excerpt.dataset.clickable) return;
+
+      if (link) {
+        excerpt.style.cursor = "pointer";
+        excerpt.addEventListener("click", (e) => {
+          if (e.target.closest("a")) return;
+          link.click();
+        });
+        excerpt.dataset.clickable = "true";
+      }
+    });
+  }
+
+  const observer = new MutationObserver(makeResultsClickable);
+  const searchContainer = document.getElementById("search");
+  if (searchContainer) {
+    observer.observe(searchContainer, { childList: true, subtree: true });
+  }
 </script>
 
 <style is:global>
