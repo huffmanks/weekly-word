@@ -94,7 +94,6 @@ import Search from "astro-pagefind/components/Search";
       if (!excerpt || excerpt.dataset.clickable) return;
 
       if (link) {
-        excerpt.style.cursor = "pointer";
         excerpt.addEventListener("click", (e) => {
           if (e.target.closest("a")) return;
           link.click();
@@ -203,6 +202,7 @@ import Search from "astro-pagefind/components/Search";
 
   #search .pagefind-ui__result-excerpt {
     font-size: var(--text-sm);
+    cursor: pointer;
   }
 
   #search mark {
