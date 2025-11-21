@@ -8,8 +8,8 @@ A personal space where I gather my sermon notes and reflections from each week. 
   - [ ] Make all series page each year be a link to that year.
 - [content sermons](src/content/notes/weekly-word/sermons/2025)
   - [ ] Clean up earlier sermons (add headings, remove emojis, etc.)
-- [pastor page](src/pages/pastors/[...id].astro)
-  - [ ] Add total count across from h2
+- [sermon card](src/components/SermonCard.astro#L28)
+  - [ ] Add pastor on sermons card next to series title but hide it if on /pastors/[id] page.
 - [audio player](src/components/AudioPlayer.astro)
   - [ ] Make it more interactive and easier for mobile.
 - [purposes](src/pages/purposes/index.astro)
