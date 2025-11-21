@@ -91,7 +91,7 @@ import Search from "astro-pagefind/components/Search";
       const link = result.querySelector(".pagefind-ui__result-link");
       const excerpt = result.querySelector(".pagefind-ui__result-excerpt");
 
-      if (excerpt.dataset.clickable) return;
+      if (!excerpt || excerpt.dataset.clickable) return;
 
       if (link) {
         excerpt.style.cursor = "pointer";
@@ -104,11 +104,16 @@ import Search from "astro-pagefind/components/Search";
     });
   }
 
-  const observer = new MutationObserver(makeResultsClickable);
-  const searchContainer = document.getElementById("search");
-  if (searchContainer) {
-    observer.observe(searchContainer, { childList: true, subtree: true });
+  function initObserver() {
+    const searchContainer = document.getElementById("search");
+    if (searchContainer) {
+      const observer = new MutationObserver(makeResultsClickable);
+      observer.observe(searchContainer, { childList: true, subtree: true });
+    }
   }
+
+  document.addEventListener("DOMContentLoaded", initObserver);
+  document.addEventListener("astro:after-swap", initObserver);
 </script>
 
 <style is:global>
