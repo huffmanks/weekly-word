@@ -1,0 +1,37 @@
+---
+type Props = {
+  item: {
+    id: string;
+    day: number;
+    title: string;
+    point: string;
+    verse: string;
+    question: string;
+    img: string;
+  };
+};
+
+const { item } = Astro.props;
+---
+
+<article
+  class="relative overflow-hidden rounded-md bg-cover bg-center"
+  style={{ backgroundImage: `url(${item.img})` }}>
+  <div class="absolute inset-0 z-0 bg-black/70 backdrop-blur-xs"></div>
+  <div class="relative z-10 p-8">
+    <h3 class="mt-0 mb-1 drop-shadow-md">Day {item.day}</h3>
+    <h4 class="mt-0 mb-3 drop-shadow-md">{item.title}</h4>
+    <p class="mt-0 mb-2">
+      <strong>Point:</strong>
+      {item.point}
+    </p>
+    <p class="mt-0 mb-2">
+      <strong>Verse:</strong>
+      {item.verse}
+    </p>
+    <p class="my-0">
+      <strong>Question:</strong>
+      {item.question}
+    </p>
+  </div>
+</article>

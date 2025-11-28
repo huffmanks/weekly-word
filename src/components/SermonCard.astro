@@ -5,11 +5,13 @@ import FormattedDate from "@/components/FormattedDate.astro";
 
 type Props = {
   entry: CollectionEntry<"sermons">;
+  hidePastorBadge?: boolean;
 };
 
-const { entry } = Astro.props;
+const { entry, hidePastorBadge } = Astro.props;
 
 const series = await getEntry("series", entry.data.series.id);
+const pastor = await getEntry("pastors", entry.data.pastor.id);
 
 if (!series) return null;
 ---
@@ -24,7 +26,14 @@ if (!series) return null;
     <div class="mb-1 text-xs">
       <FormattedDate date={entry.data.date} />
     </div>
-    <div class="mb-2">
+    <div class="mb-2 flex flex-wrap items-center gap-2">
+      {
+        pastor?.data.name && !hidePastorBadge && (
+          <span class="rounded-lg border border-black/15 px-1.5 py-1 text-xs dark:border-white/20">
+            {pastor.data.name}
+          </span>
+        )
+      }
       <span class="rounded-lg border border-black/15 px-1.5 py-1 text-xs dark:border-white/20">
         {series.data.title}
       </span>

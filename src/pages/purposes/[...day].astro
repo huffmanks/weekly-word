@@ -1,0 +1,26 @@
+---
+import { getCollection } from "astro:content";
+
+import PurposeCard from "@components/PurposeCard.astro";
+import BaseLayout from "@layouts/BaseLayout.astro";
+
+export async function getStaticPaths() {
+  const collection = await getCollection("purposes");
+  const allPurposes = collection[0].data;
+
+  return allPurposes.flatMap((purpose) =>
+    purpose.group.map((item) => ({
+      params: { day: item.day.toString() },
+      props: { item },
+    }))
+  );
+}
+
+const { item } = Astro.props;
+---
+
+<BaseLayout title={item.title} description={item.point} image={item.img}>
+  <div class="mx-auto max-w-(--breakpoint-sm) px-3 py-6">
+    <PurposeCard item={item} />
+  </div>
+</BaseLayout>

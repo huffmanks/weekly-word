@@ -55,7 +55,7 @@ const metaDescription = `Past sermons from ${pastorName}.`;
       </div>
 
       <ul class="animate flex flex-col gap-4">
-        {sortedSermons.map((sermon) => <SermonCard entry={sermon} />)}
+        {sortedSermons.map((sermon) => <SermonCard hidePastorBadge entry={sermon} />)}
       </ul>
     </div>
   </Container>

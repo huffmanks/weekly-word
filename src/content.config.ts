@@ -46,21 +46,23 @@ const series = defineCollection({
 });
 
 const purposes = defineCollection({
-  loader: glob({ pattern: "purpose-*.json", base: "./src/data" }),
-  schema: z.object({
-    purpose: z.string(),
-    group: z.array(
-      z.object({
-        id: z.string(),
-        day: z.number(),
-        title: z.string(),
-        point: z.string(),
-        verse: z.string(),
-        question: z.string(),
-        img: z.string(),
-      })
-    ),
-  }),
+  loader: glob({ pattern: "purposes.json", base: "./src/data" }),
+  schema: z.array(
+    z.object({
+      purpose: z.string(),
+      group: z.array(
+        z.object({
+          id: z.string(),
+          day: z.number(),
+          title: z.string(),
+          point: z.string(),
+          verse: z.string(),
+          question: z.string(),
+          img: z.string(),
+        })
+      ),
+    })
+  ),
 });
 
 export const collections = { pastors, purposes, series, sermons };
