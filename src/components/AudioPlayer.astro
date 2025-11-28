@@ -1,5 +1,18 @@
 ---
-const { podcastTitle, sermonTitle, image, audio } = Astro.props;
+const { podcastTitle, sermonTitle, seriesTitle, image, audio } = Astro.props;
+
+const metadata = {
+  title: sermonTitle,
+  artist: podcastTitle,
+  album: seriesTitle,
+  artwork: [
+    {
+      src: image,
+      sizes: "1400x1400",
+      type: "image/jpg",
+    },
+  ],
+};
 ---
 
 <div data-pagefind-ignore>
@@ -7,16 +20,17 @@ const { podcastTitle, sermonTitle, image, audio } = Astro.props;
     id="audio"
     class="invisible absolute -top-full -left-full opacity-0"
     src={audio}
-    preload="metadata">
+    preload="metadata"
+    data-meta={JSON.stringify(metadata)}>
   </audio>
 
   <div
     id="audio-player"
-    class="right-0 bottom-0 left-0 z-20 hidden bg-neutral-300 dark:bg-neutral-800">
+    class="right-0 bottom-0 left-0 z-20 hidden rounded-t-md bg-neutral-100/85 pb-12 saturate-200 backdrop-blur-xs dark:bg-neutral-900/85">
     <div class="mx-auto max-w-(--breakpoint-sm)">
       <div class="flex items-center gap-4">
         <div class="size-24 flex-shrink-0">
-          <img class="object-cover" src={image} alt={sermonTitle} />
+          <img class="rounded-tl-md rounded-bl-md object-cover" src={image} alt={sermonTitle} />
         </div>
 
         <div class="flex min-w-0 flex-grow flex-col">
@@ -74,7 +88,6 @@ const { podcastTitle, sermonTitle, image, audio } = Astro.props;
           >00:00</span
         >
       </div>
-      <div class="h-5 bg-neutral-100 sm:hidden dark:bg-neutral-900"></div>
     </div>
   </div>
 </div>
@@ -97,19 +110,37 @@ const { podcastTitle, sermonTitle, image, audio } = Astro.props;
 
     startBtn.addEventListener("click", () => {
       startBtn.disabled = true;
-      audio.play();
-      audioPlayer.classList.add("fixed");
-      audioPlayer.classList.remove("hidden");
-      playIcon.classList.add("hidden");
-      pauseIcon.classList.remove("hidden");
+      audioPlayerToggle(true, audioPlayer, footer);
+      playIconToggle(true, audio, playIcon, pauseIcon);
 
-      footer.classList.add("pb-36");
-      footer.classList.remove("pb-16");
+      const rawMeta = audio.dataset.meta;
+      if (!rawMeta) return;
+
+      const meta = JSON.parse(rawMeta);
+
+      if ("mediaSession" in navigator) {
+        navigator.mediaSession.metadata = new MediaMetadata(meta);
+      }
     });
 
     audio.addEventListener("loadedmetadata", () => {
       duration.textContent = formatTime(audio.duration);
       rangeInput.max = Math.floor(audio.duration).toString();
+    });
+
+    audio.addEventListener("timeupdate", () => {
+      rangeInput.value = Math.floor(audio.currentTime).toString();
+      currentTime.textContent = formatTime(audio.currentTime);
+    });
+
+    audio.addEventListener("ended", () => {
+      audioPlayerToggle(false, audioPlayer, footer);
+      playIconToggle(false, audio, playIcon, pauseIcon);
+      audio.currentTime = 0;
+      if ("mediaSession" in navigator) {
+        navigator.mediaSession.metadata = null;
+      }
+      startBtn.disabled = false;
     });
 
     rangeInput.addEventListener("input", () => {
@@ -120,22 +151,17 @@ const { podcastTitle, sermonTitle, image, audio } = Astro.props;
       audio.currentTime = parseInt(rangeInput.value);
     });
 
-    audio.addEventListener("timeupdate", () => {
-      rangeInput.value = Math.floor(audio.currentTime).toString();
-      currentTime.textContent = formatTime(audio.currentTime);
-    });
-
     playToggleBtn.addEventListener("click", () => {
-      playToggle(audio.paused, audio, playIcon, pauseIcon);
+      playIconToggle(audio.paused, audio, playIcon, pauseIcon);
     });
 
     closePlayerBtn.addEventListener("click", () => {
-      audioPlayer.classList.add("hidden");
-      audioPlayer.classList.remove("fixed");
-      footer.classList.add("pb-16");
-      footer.classList.remove("pb-36");
-      playToggle(false, audio, playIcon, pauseIcon);
+      audioPlayerToggle(false, audioPlayer, footer);
+      playIconToggle(false, audio, playIcon, pauseIcon);
       audio.currentTime = 0;
+      if ("mediaSession" in navigator) {
+        navigator.mediaSession.metadata = null;
+      }
       startBtn.disabled = false;
     });
   }
@@ -150,7 +176,21 @@ const { podcastTitle, sermonTitle, image, audio } = Astro.props;
     return `${minutes}:${seconds}`;
   }
 
-  function playToggle(isPaused, audioEl, playIcon, pauseIcon) {
+  function audioPlayerToggle(open, audioPlayerEl, footerEl) {
+    if (open) {
+      audioPlayerEl.classList.add("fixed");
+      audioPlayerEl.classList.remove("hidden");
+      footerEl.classList.add("pb-42", "sm:pb-64");
+      footerEl.classList.remove("pb-16");
+    } else {
+      audioPlayerEl.classList.add("hidden");
+      audioPlayerEl.classList.remove("fixed");
+      footerEl.classList.add("pb-16");
+      footerEl.classList.remove("pb-42", "sm:pb-64");
+    }
+  }
+
+  function playIconToggle(isPaused, audioEl, playIcon, pauseIcon) {
     if (isPaused) {
       audioEl.play();
       playIcon.classList.add("hidden");
