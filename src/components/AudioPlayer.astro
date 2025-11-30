@@ -26,15 +26,11 @@ const metadata = {
 
   <div
     id="audio-player"
-    class="right-0 bottom-0 left-0 z-20 hidden rounded-t-md bg-neutral-100/85 pb-6 saturate-200 backdrop-blur-xs dark:bg-neutral-900/85">
-    <div class="mx-auto max-w-(--breakpoint-sm)">
+    class="right-0 bottom-0 left-0 z-20 hidden rounded-t-2xl bg-neutral-100/85 pb-6 saturate-200 backdrop-blur-xs dark:bg-neutral-900/85">
+    <div class="mx-auto max-w-(--breakpoint-sm) px-3 sm:px-0">
       <div class="flex items-center gap-3">
         <div class="size-24 flex-shrink-0">
-          <img
-            class="rounded-tl-md object-cover sm:rounded-tl-none"
-            src={image}
-            alt={sermonTitle}
-          />
+          <img class="object-cover" src={image} alt={sermonTitle} height="96" width="96" />
         </div>
 
         <div class="flex min-w-0 flex-grow flex-col">
@@ -42,12 +38,12 @@ const metadata = {
             class="line-clamp-2 text-sm leading-normal font-bold text-neutral-900 sm:text-base dark:text-neutral-100">
             {sermonTitle}
           </div>
-          <div class="text-xs text-neutral-600 sm:text-sm dark:text-neutral-400">
+          <div class="line-clamp-2 text-xs text-neutral-600 sm:text-sm dark:text-neutral-400">
             {podcastTitle}
           </div>
         </div>
-        <div class="flex flex-shrink-0 items-center gap-2 pr-3 sm:pr-0">
-          <button id="play-toggle-btn" class="cursor-pointer">
+        <div class="flex flex-shrink-0 items-center gap-4 sm:gap-3">
+          <button id="play-toggle-btn" class="cursor-pointer p-0.5">
             <div id="play-icon">
               <svg
                 class="size-5 fill-current"
@@ -86,7 +82,7 @@ const metadata = {
               >
             </div>
           </button>
-          <button id="close-player-btn" class="cursor-pointer">
+          <button id="close-player-btn" class="cursor-pointer p-0.5">
             <svg
               class="size-5 fill-current"
               xmlns="http://www.w3.org/2000/svg"
@@ -103,22 +99,20 @@ const metadata = {
         </div>
       </div>
 
-      <div class="px-3 sm:px-0">
-        <div>
-          <input id="range-input" class="range" type="range" value="0" min="0" />
-        </div>
-        <div class="flex items-center justify-between gap-2">
-          <span
-            id="currentTime"
-            class="font-mono text-xs text-neutral-700 sm:inline-block dark:text-neutral-300"
-            >00:00</span
-          >
-          <span
-            id="duration"
-            class="font-mono text-xs text-neutral-700 sm:inline-block dark:text-neutral-300"
-            >00:00</span
-          >
-        </div>
+      <div>
+        <input id="range-input" class="range" type="range" value="0" min="0" />
+      </div>
+      <div class="flex items-center justify-between gap-2">
+        <span
+          id="currentTime"
+          class="font-mono text-xs text-neutral-700 sm:inline-block dark:text-neutral-300"
+          >00:00</span
+        >
+        <span
+          id="duration"
+          class="font-mono text-xs text-neutral-700 sm:inline-block dark:text-neutral-300"
+          >00:00</span
+        >
       </div>
     </div>
   </div>
