@@ -8,7 +8,3 @@ A personal space where I gather my sermon notes and reflections from each week. 
   - [ ] Make all series page each year be a link to that year.
 - [content sermons](src/content/notes/weekly-word/sermons/2025)
   - [ ] Clean up earlier sermons (add headings, remove emojis, etc.)
-- [audio player](src/components/AudioPlayer.astro)
-  - [ ] Make it more interactive and easier for mobile.
-- [purposes](src/pages/purposes/index.astro)
-  - [ ] Make main page easier to navigate.
