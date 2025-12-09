@@ -1,0 +1,56 @@
+---
+import Container from "@components/Container.astro";
+import BaseLayout from "@layouts/BaseLayout.astro";
+import { generateBibleUrl } from "@lib/generateBibleUrl";
+---
+
+<BaseLayout title="Weekly Verse" description="Showcase weekly verse to memorize.">
+  <Container>
+    <div class="p-1.5">
+      <div class="animate mb-6 text-sm font-medium">
+        <span
+          id="label"
+          class="inline-block rounded-md bg-neutral-300 px-1.5 py-1 dark:bg-neutral-800"></span>
+      </div>
+
+      <h1 id="verses" class="animate mb-2 text-xl font-bold text-black dark:text-white"></h1>
+
+      <p id="text" class="animate mb-6 font-medium"></p>
+      <a
+        id="href"
+        target="_blank"
+        class="animate not-prose flex w-fit cursor-pointer flex-nowrap items-center gap-2 rounded-md border border-black/15 p-1.5 transition-colors duration-300 ease-in-out hover:bg-black/5 hover:text-black focus-visible:bg-black/5 focus-visible:text-black sm:rounded-sm sm:px-3 sm:py-1.5 dark:border-white/20 dark:hover:bg-white/5 dark:hover:text-white dark:focus-visible:bg-white/5 dark:focus-visible:text-white">
+        <div class="text-sm">Open in Bible</div>
+      </a>
+    </div>
+  </Container>
+</BaseLayout>
+
+<script>
+  import { generateBibleUrl } from "@lib/generateBibleUrl";
+  import { getWeekGenerateLabel } from "@lib/getWeekGenerateLabel";
+  import type { WeeklyVerses } from "@types";
+
+  async function main() {
+    const res = await fetch("/weekly-verses.json");
+    const data = (await res.json()) as WeeklyVerses[];
+
+    if (!data) return;
+    const versesEl = document.getElementById("verses") as HTMLHeadingElement;
+    const textEl = document.getElementById("text") as HTMLParagraphElement;
+    const hrefEl = document.getElementById("href") as HTMLAnchorElement;
+    const labelEl = document.getElementById("label") as HTMLSpanElement;
+
+    const { weekNumber, label } = getWeekGenerateLabel();
+    const item = data.find((item) => item.id === weekNumber)!;
+    const href = generateBibleUrl(item.verses)!;
+
+    versesEl.textContent = item.verses;
+    textEl.textContent = item.text;
+    hrefEl.href = href;
+    labelEl.textContent = label;
+  }
+
+  document.addEventListener("DOMContentLoaded", () => main());
+  document.addEventListener("astro:after-swap", () => main());
+</script>

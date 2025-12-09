@@ -13,3 +13,9 @@ export type Heading = {
 export type TOCHeading = Heading & {
   subheadings: TOCHeading[];
 };
+
+export type WeeklyVerses = {
+  id: number;
+  verses: string;
+  text: string;
+};
