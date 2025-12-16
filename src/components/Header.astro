@@ -24,11 +24,7 @@ import Link from "@components/Link.astro";
           </div>
         </div>
       </Link>
-      <nav class="flex items-center gap-1 text-sm sm:gap-2">
-        <Link href="/sermons">sermons</Link>
-        <span>&middot;</span>
-        <Link href="/series">series</Link>
-        <span>&middot;</span>
+      <div class="relative flex items-center gap-2">
         <button
           id="magnifying-glass"
           aria-label="Search"
@@ -51,7 +47,100 @@ import Link from "@components/Link.astro";
             >search</span
           >
         </button>
-      </nav>
+        <button
+          id="mobile-menu-btn-show"
+          class="cursor-pointer rounded-sm px-2 py-1 transition-colors duration-300 ease-in-out hover:bg-neutral-300 hover:text-black focus-visible:bg-neutral-300 focus-visible:text-black dark:hover:bg-neutral-800 dark:hover:text-white dark:focus-visible:bg-neutral-800 dark:focus-visible:text-white"
+          popovertarget="mobile-menu"
+          popovertargetaction="show"
+          aria-label="Open mobile menu"
+          aria-controls="mobile-menu">
+          <svg
+            class="size-5"
+            xmlns="http://www.w3.org/2000/svg"
+            width="24"
+            height="24"
+            viewBox="0 0 24 24"
+            ><path
+              fill="none"
+              stroke="currentColor"
+              stroke-linecap="round"
+              stroke-linejoin="round"
+              stroke-width="1.5"
+              d="M7 5h10M4 12h16M7 19h10"></path></svg
+          >
+        </button>
+
+        <nav
+          id="mobile-menu"
+          popover
+          class="w-72 max-w-[calc(100%-0.75rem)] rounded-md border border-neutral-300 bg-neutral-200 dark:border-neutral-700 dark:bg-neutral-800">
+          <div role="menu" class="popover-menu relative">
+            <button
+              id="mobile-menu-btn-close"
+              class="absolute top-2 right-2 cursor-pointer self-end hover:opacity-70 focus-visible:opacity-70"
+              popovertarget="mobile-menu"
+              popovertargetaction="hide"
+              aria-label="Close mobile menu"
+              aria-controls="mobile-menu">
+              <svg
+                class="size-5"
+                xmlns="http://www.w3.org/2000/svg"
+                width="24"
+                height="24"
+                viewBox="0 0 24 24"
+                ><path
+                  fill="currentColor"
+                  d="M18.3 5.71a.996.996 0 0 0-1.41 0L12 10.59L7.11 5.7A.996.996 0 1 0 5.7 7.11L10.59 12L5.7 16.89a.996.996 0 1 0 1.41 1.41L12 13.41l4.89 4.89a.996.996 0 1 0 1.41-1.41L13.41 12l4.89-4.89c.38-.38.38-1.02 0-1.4"
+                ></path></svg
+              >
+            </button>
+            <div class="flex flex-col gap-2 p-4">
+              <Link href="/sermons">sermons</Link>
+              <Link href="/series">series</Link>
+              <Link href="/pastors">pastors</Link>
+              <hr class="mt-3 mb-1.5 border-neutral-300 dark:border-neutral-700" />
+              <Link href="/verses/weekly">weekly verses</Link>
+              <Link href="/purposes">purposes</Link>
+            </div>
+          </div>
+        </nav>
+      </div>
     </div>
   </Container>
 </header>
+
+<style>
+  #mobile-menu-btn-show {
+    anchor-name: --menu-anchor;
+  }
+
+  @position-try --br {
+    position-area: bottom span-right;
+  }
+
+  @position-try --tl {
+    position-area: top span-left;
+  }
+
+  #mobile-menu {
+    position-anchor: --menu-anchor;
+    position-area: bottom span-left;
+    position-try-fallbacks: --br, --tl;
+    inset-block: 2px;
+  }
+
+  @keyframes enter {
+    0% {
+      opacity: 0;
+      transform: translate3d(-1000px, -1000px, -1000px) scale3d(0.95, 0.95, 0.95) rotate(0);
+    }
+    100% {
+      opacity: 1;
+      transform: translate3d(0, 0, 0) scale3d(1, 1, 1) rotate(0);
+    }
+  }
+
+  .popover-menu:popover-open {
+    animation: enter 0.15s ease 0s 1 normal both;
+  }
+</style>

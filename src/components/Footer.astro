@@ -3,6 +3,7 @@ import { SITE_CONFIG } from "@constants";
 
 import BackToTop from "@components/BackToTop.astro";
 import Container from "@components/Container.astro";
+import Link from "@components/Link.astro";
 ---
 
 <footer data-pagefind-ignore id="footer" class="animate pb-16">
@@ -13,7 +14,32 @@ import Container from "@components/Container.astro";
       </div>
     </div>
     <div class="flex items-center justify-between">
-      <div>{new Date().getFullYear()} &middot; {SITE_CONFIG.title}</div>
+      <div class="flex items-center gap-1">
+        <span>{new Date().getFullYear()}</span>
+        <span>&middot;</span>
+        <span>{SITE_CONFIG.title}</span>
+        <span>&middot;</span>
+        <Link href="/rss.xml">
+          <svg
+            class="size-4"
+            xmlns="http://www.w3.org/2000/svg"
+            width="24"
+            height="24"
+            viewBox="0 0 24 24"
+            ><g
+              fill="none"
+              stroke="currentColor"
+              stroke-linecap="round"
+              stroke-linejoin="round"
+              stroke-width="2"
+              ><path d="M4 11a9 9 0 0 1 9 9M4 4a16 16 0 0 1 16 16"></path><circle
+                cx="5"
+                cy="19"
+                r="1"></circle></g
+            ></svg
+          >
+        </Link>
+      </div>
       <div class="flex flex-wrap items-center gap-1.5">
         <button
           id="light-theme-button"

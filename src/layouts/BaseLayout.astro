@@ -13,12 +13,14 @@ type Props = {
 };
 
 const { title, description, image } = Astro.props;
+
+const metaTitle = title === SITE_CONFIG.title ? title : `${title} | ${SITE_CONFIG.title}`;
 ---
 
 <!doctype html>
 <html lang="en">
   <head>
-    <Head title={`${title} | ${SITE_CONFIG.title}`} description={description} image={image} />
+    <Head title={metaTitle} description={description} image={image} />
   </head>
   <body>
     <noscript>

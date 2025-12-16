@@ -34,23 +34,26 @@ import BaseLayout from "@layouts/BaseLayout.astro";
   async function main() {
     const res = await fetch("/weekly-verses.json");
     const data = (await res.json()) as WeeklyVerses[];
-
     if (!data) return;
+
     const versesEl = document.getElementById("verses") as HTMLHeadingElement;
     const textEl = document.getElementById("text") as HTMLParagraphElement;
     const hrefEl = document.getElementById("href") as HTMLAnchorElement;
     const labelEl = document.getElementById("label") as HTMLSpanElement;
 
     const { weekNumber, label } = getWeekGenerateLabel();
-    const item = data.find((item) => item.id === weekNumber)!;
-    const href = generateBibleUrl(item.verses)!;
+    const item = data.find((item) => item.id === weekNumber);
 
-    versesEl.textContent = item.verses;
-    textEl.textContent = item.text;
-    hrefEl.href = href;
-    labelEl.textContent = label;
+    if (versesEl && item) {
+      const href = generateBibleUrl(item.verses)!;
+
+      versesEl.textContent = item.verses;
+      textEl.textContent = item.text;
+      hrefEl.href = href;
+      labelEl.textContent = label;
+    }
   }
 
   document.addEventListener("DOMContentLoaded", () => main());
-  document.addEventListener("astro:after-swap", () => main());
+  document.addEventListener("astro:page-load", () => main());
 </script>
