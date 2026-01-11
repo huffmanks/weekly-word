@@ -9,9 +9,10 @@ type Props = {
     question: string;
     img: string;
   };
+  linkToDay?: boolean;
 };
 
-const { item } = Astro.props;
+const { item, linkToDay = true } = Astro.props;
 ---
 
 <article
@@ -19,7 +20,17 @@ const { item } = Astro.props;
   style={{ backgroundImage: `url(${item.img})` }}>
   <div class="absolute inset-0 z-0 bg-black/70 backdrop-blur-xs"></div>
   <div class="relative z-10 p-8">
-    <h3 class="mt-0 mb-1 drop-shadow-md">Day {item.day}</h3>
+    <h3 class="mt-0 mb-1 drop-shadow-md">
+      {
+        linkToDay ? (
+          <a class="font-bold" href={`/purposes/${item.day}`}>
+            Day {item.day}
+          </a>
+        ) : (
+          <span>Day {item.day}</span>
+        )
+      }
+    </h3>
     <h4 class="mt-0 mb-3 drop-shadow-md">{item.title}</h4>
     <p class="mt-0 mb-2">
       <strong>Point:</strong>

@@ -15,16 +15,14 @@ export async function getStaticPaths() {
   return series.map((item) => ({
     params: { id: item.id },
     props: {
-      sermons: sermons.filter((sermon) => sermon.data.series.id === item.id),
+      sermons: sermons
+        .filter((sermon) => sermon.data.series.id === item.id)
+        .sort((a, b) => new Date(b.data.date).getTime() - new Date(a.data.date).getTime()),
     },
   }));
 }
 
 const { sermons } = Astro.props;
-
-const sortedSermons = sermons.sort(
-  (a, b) => new Date(b.data.date).getTime() - new Date(a.data.date).getTime()
-);
 
 const seriesId = sermons[0].data.series.id;
 const series = await getEntry("series", seriesId);
@@ -43,7 +41,7 @@ const seriesDescription = "Sermons from this series.";
       <p class="mb-4 text-sm">{seriesDescription}</p>
 
       <ul class="animate flex flex-col gap-4">
-        {sortedSermons.map((sermon) => <SermonCard entry={sermon} />)}
+        {sermons.map((sermon) => <SermonCard entry={sermon} />)}
       </ul>
     </div>
   </Container>

@@ -9,7 +9,7 @@ const [purposes] = await getCollection("purposes");
 <BaseLayout
   title="Purpose Driven Life"
   description="List of all the days in a Purpose Driven Life.">
-  <div class="mx-auto max-w-(--breakpoint-sm) px-3 py-6">
+  <div data-pagefind-ignore class="mx-auto max-w-(--breakpoint-sm) px-3 py-6">
     {
       purposes.data.map((group) => (
         <section class="mb-8 flex flex-col gap-8 not-last:border-b not-last:pb-12">

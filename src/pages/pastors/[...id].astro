@@ -15,16 +15,14 @@ export async function getStaticPaths() {
   return pastors.map((item) => ({
     params: { id: item.id },
     props: {
-      sermons: sermons.filter((sermon) => sermon.data.pastor.id === item.id),
+      sermons: sermons
+        .filter((sermon) => sermon.data.pastor.id === item.id)
+        .sort((a, b) => new Date(b.data.date).getTime() - new Date(a.data.date).getTime()),
     },
   }));
 }
 
 const { sermons } = Astro.props;
-
-const sortedSermons = sermons.sort(
-  (a, b) => new Date(b.data.date).getTime() - new Date(a.data.date).getTime()
-);
 
 const count = sermons.length;
 
@@ -55,7 +53,7 @@ const metaDescription = `Past sermons from ${pastorName}.`;
       </div>
 
       <ul class="animate flex flex-col gap-4">
-        {sortedSermons.map((sermon) => <SermonCard hidePastorBadge entry={sermon} />)}
+        {sermons.map((sermon) => <SermonCard hidePastorBadge entry={sermon} />)}
       </ul>
     </div>
   </Container>

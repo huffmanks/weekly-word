@@ -4,7 +4,5 @@ A personal space where I gather my sermon notes and reflections from each week. 
 
 ## Todo
 
-- [new page: Add series by year](src/pages/series)
-  - [ ] Make all series page each year be a link to that year.
 - [content sermons](src/content/notes/weekly-word/sermons/2025)
   - [ ] Clean up earlier sermons (add headings, remove emojis, etc.)

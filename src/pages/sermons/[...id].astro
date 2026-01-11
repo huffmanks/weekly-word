@@ -1,5 +1,5 @@
 ---
-import { type CollectionEntry, getCollection, getEntry, render } from "astro:content";
+import { getCollection, getEntry, render } from "astro:content";
 
 import BaseLayout from "@layouts/BaseLayout.astro";
 import { readingTime } from "@lib/utils";
@@ -18,36 +18,33 @@ export async function getStaticPaths() {
     (a, b) => b.data.date.valueOf() - a.data.date.valueOf()
   );
 
-  return sermons.map((sermon) => ({
-    params: { id: sermon.id },
-    props: sermon,
-  }));
+  return Promise.all(
+    sermons.map(async (sermon, index) => {
+      const series = await getEntry("series", sermon.data.series.id);
+      const pastor = await getEntry("pastors", sermon.data.pastor.id);
+
+      const prevSermon = sermons[index + 1] ?? null;
+      const nextSermon = sermons[index - 1] ?? null;
+
+      const podcast = sermon.data.podcast;
+      const podcastExist = !!(podcast?.title && podcast?.audio && podcast?.image);
+
+      return {
+        params: { id: sermon.id },
+        props: {
+          sermon,
+          series,
+          pastor,
+          prevSermon,
+          nextSermon,
+          podcastExist,
+        },
+      };
+    })
+  );
 }
 
-type Props = CollectionEntry<"sermons">;
-const url = new URL(Astro.url, Astro.site).href;
-
-const sermons = (await getCollection("sermons", ({ data }) => !data.draft)).sort(
-  (a, b) => a.data.date.valueOf() - b.data.date.valueOf()
-);
-
-function getPrevSermon() {
-  const index = sermons.findIndex((s) => s.id === Astro.params.id);
-  return index > 0 ? sermons[index - 1] : undefined;
-}
-
-function getNextSermon() {
-  const index = sermons.findIndex((s) => s.id === Astro.params.id);
-  return index < sermons.length - 1 ? sermons[index + 1] : undefined;
-}
-
-const nextSermon = getNextSermon();
-const prevSermon = getPrevSermon();
-
-const sermon = Astro.props;
-
-const series = await getEntry("series", sermon.data.series.id);
-const pastor = await getEntry("pastors", sermon.data.pastor.id);
+const { sermon, series, pastor, prevSermon, nextSermon, podcastExist } = Astro.props;
 
 const { Content, headings } = await render(sermon);
 
@@ -55,14 +52,7 @@ const filteredHeadings = headings.filter((h) => h.depth === 2 || h.depth === 3);
 const verses = sermon.data?.verses ?? [];
 const versesExist = verses.length > 0;
 const headingsExist = filteredHeadings.length > 1;
-const podcastExist =
-  sermon?.data?.podcast &&
-  [
-    sermon.data.podcast.title,
-    sermon.data.podcast.image,
-    sermon.data.podcast.audio,
-    sermon.data.podcast.link,
-  ].every((v) => v != null && v !== "");
+const url = new URL(Astro.url, Astro.site).href;
 ---
 
 <BaseLayout
