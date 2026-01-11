@@ -19,7 +19,7 @@ export async function GET(context: APIContext) {
 
         const imageUrl = item.data.podcast?.image
           ? item.data.podcast?.image
-          : `${context.site}covers/default.webp`;
+          : `${context.site}logo/png`;
 
         const primaryPodcastFieldsExist =
           !!item.data.podcast?.duration && !!item.data.podcast?.audio;
