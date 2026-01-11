@@ -19,18 +19,31 @@ export async function GET(context: APIContext) {
 
         const imageUrl = item.data.podcast?.image
           ? item.data.podcast?.image
-          : `${context.site}/covers/default.webp`;
+          : `${context.site}covers/default.webp`;
+
+        const primaryPodcastFieldsExist =
+          !!item.data.podcast?.duration && !!item.data.podcast?.audio;
+
+        const itunesPodcast = primaryPodcastFieldsExist
+          ? `
+            <itunes:duration>${item.data.podcast!.duration}</itunes:duration>
+            <itunes:episodeType>full</itunes:episodeType>
+            <itunes:author>${pastor?.data.name || SITE_CONFIG.title}</itunes:author>
+            <itunes:summary>${item.data.description}</itunes:summary>
+          `
+          : "";
 
         return {
           title: item.data.title,
           description: item.data.description,
-          author: pastor?.data.name || "",
+          author: pastor?.data.name || SITE_CONFIG.title,
           pubDate: item.data.date,
           link: `/${item.collection}/${item.id}/`,
           categories: series?.data ? [`${series.data.title}`] : undefined,
           content: `<![CDATA[${htmlContent}]]>`,
           customData: `
             <itunes:image href="${imageUrl}" />
+            ${itunesPodcast}
           `,
           enclosure: item.data.podcast?.audio
             ? {
@@ -53,9 +66,14 @@ export async function GET(context: APIContext) {
     },
     customData: `
       <language>en-us</language>
-      <category>Christianity</category>
+      <itunes:author>${SITE_CONFIG.title}</itunes:author>
+      <itunes:type>episodic</itunes:type>
+      <itunes:explicit>no</itunes:explicit>
+      <itunes:category text="Religion &amp; Spirituality">
+        <itunes:category text="Christianity" />
+      </itunes:category>
       <image>
-        <url>${context.site}/logo.png</url>
+        <url>${context.site}logo.png</url>
         <title>${SITE_CONFIG.title}</title>
         <link>${context.site}</link>
       </image>
