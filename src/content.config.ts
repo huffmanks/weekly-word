@@ -18,6 +18,7 @@ const sermons = defineCollection({
         image: z.string().nullable().optional(),
         link: z.string().nullable().optional(),
         fileSize: z.number().nullable().optional(),
+        duration: z.number().nullable().optional(),
       })
       .optional(),
     verses: z.array(z.string()).optional(),
