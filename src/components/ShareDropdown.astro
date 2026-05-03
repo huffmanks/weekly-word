@@ -1,5 +1,5 @@
 ---
-const { description, title, tags, url } = Astro.props;
+const { description, title, tags, fullUrl } = Astro.props;
 ---
 
 <button
@@ -20,7 +20,7 @@ const { description, title, tags, url } = Astro.props;
   class="min-w-max"
   popover
   data-description={description}
-  data-url={url}
+  data-url={fullUrl}
   data-title={title}
   data-tags={tags}>
   <div

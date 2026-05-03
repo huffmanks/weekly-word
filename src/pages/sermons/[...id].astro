@@ -27,7 +27,7 @@ export async function getStaticPaths() {
       const nextSermon = sermons[index - 1] ?? null;
 
       const podcast = sermon.data.podcast;
-      const podcastExist = !!(podcast?.title && podcast?.audio && podcast?.image);
+      const podcastExist = !!(podcast?.title && podcast?.audio && podcast?.link);
 
       return {
         params: { id: sermon.id },
@@ -52,13 +52,13 @@ const filteredHeadings = headings.filter((h) => h.depth === 2 || h.depth === 3);
 const verses = sermon.data?.verses ?? [];
 const versesExist = verses.length > 0;
 const headingsExist = filteredHeadings.length > 1;
-const url = new URL(Astro.url, Astro.site).href;
+const fullUrl = new URL(Astro.url, Astro.site).href;
 ---
 
 <BaseLayout
   title={sermon.data.title}
   description={sermon.data.description}
-  image={sermon.data?.podcast?.image}>
+  image={sermon.data.image}>
   <Container>
     <div data-pagefind-ignore class="animate mb-8">
       <BackToPrevious href="/sermons">Back to sermons</BackToPrevious>
@@ -69,7 +69,7 @@ const url = new URL(Astro.url, Astro.site).href;
           sermonTitle={sermon.data.title}
           podcastTitle={sermon.data.podcast!.title}
           seriesTitle={series?.data.title}
-          image={sermon.data.podcast!.image}
+          image={sermon.data.image}
           audio={sermon.data.podcast!.audio}
         />
       )
@@ -94,7 +94,7 @@ const url = new URL(Astro.url, Astro.site).href;
             <ShareDropdown
               description={sermon.data.description}
               title={sermon.data.title}
-              url={url}
+              fullUrl={fullUrl}
               tags={[pastor?.data.name, series?.data.title]}
             />
           </div>

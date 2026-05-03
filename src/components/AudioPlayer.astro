@@ -1,5 +1,6 @@
 ---
 const { podcastTitle, sermonTitle, seriesTitle, image, audio } = Astro.props;
+const fullUrl = new URL(Astro.url, Astro.site);
 
 const metadata = {
   title: sermonTitle,
@@ -7,8 +8,8 @@ const metadata = {
   album: seriesTitle,
   artwork: [
     {
-      src: image,
-      sizes: "1400x1400",
+      src: `${fullUrl.origin}${image}`,
+      sizes: "800x800",
       type: "image/jpg",
     },
   ],

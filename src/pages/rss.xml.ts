@@ -17,9 +17,7 @@ export async function GET(context: APIContext) {
 
         const htmlContent = parse(item.body!);
 
-        const imageUrl = item.data.podcast?.image
-          ? item.data.podcast?.image
-          : `${context.site}logo.png`;
+        const imageUrl = item.data?.image ? item.data.image : `${context.site}logo.png`;
 
         const primaryPodcastFieldsExist =
           !!item.data.podcast?.duration && !!item.data.podcast?.audio;

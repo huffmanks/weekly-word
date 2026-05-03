@@ -13,7 +13,9 @@ interface Props {
 const canonicalURL = new URL(Astro.url);
 
 const { title, description } = Astro.props;
-const image = Astro.props.image || "/logo.png";
+const image = Astro.props.image
+  ? `${canonicalURL.origin}${Astro.props.image}`
+  : `${canonicalURL.origin}/logo.png`;
 ---
 
 <!-- Global Metadata -->
@@ -36,8 +38,8 @@ const image = Astro.props.image || "/logo.png";
 <meta property="og:title" content={title} />
 <meta property="og:description" content={description} />
 <meta property="og:image" content={image} />
-<meta property="og:image:width" content="1400" />
-<meta property="og:image:height" content="1400" />
+<meta property="og:image:width" content="800" />
+<meta property="og:image:height" content="800" />
 <meta property="og:image:alt" content={description} />
 
 <!-- Twitter -->

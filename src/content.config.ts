@@ -11,16 +11,15 @@ const sermons = defineCollection({
     draft: z.boolean().default(false),
     pastor: reference("pastors"),
     series: reference("series").default("uncategorized"),
-    podcast: z
-      .object({
-        title: z.string().nullable().optional(),
-        audio: z.string().nullable().optional(),
-        image: z.string().nullable().optional(),
-        link: z.string().nullable().optional(),
-        fileSize: z.number().nullable().optional(),
-        duration: z.number().nullable().optional(),
-      })
-      .optional(),
+    image: z.string(),
+    podcast: z.object({
+      title: z.string().nullable().optional(),
+      audio: z.string().nullable().optional(),
+      image: z.string().nullable().optional(),
+      link: z.string().nullable().optional(),
+      fileSize: z.number().nullable().optional(),
+      duration: z.number().nullable().optional(),
+    }),
     verses: z.array(z.string()).optional(),
   }),
 });
