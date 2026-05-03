@@ -121,10 +121,10 @@ const metadata = {
 <script is:inline>
   function initAudioPlayer() {
     const audio = document.getElementById("audio");
-    if (!audio) return;
+    const audioPlayer = document.getElementById("audio-player");
+    if (!audio || !audioPlayer) return;
 
     const startBtn = document.getElementById("start-btn");
-    const audioPlayer = document.getElementById("audio-player");
     const playToggleBtn = document.getElementById("play-toggle-btn");
     const playIcon = document.getElementById("play-icon");
     const pauseIcon = document.getElementById("pause-icon");
@@ -134,22 +134,33 @@ const metadata = {
     const closePlayerBtn = document.getElementById("close-player-btn");
     const footer = document.getElementById("footer");
 
+    const urlParams = new URLSearchParams(window.location.search);
+    const shouldAutoplay = urlParams.get("autoplay") === "true";
+
+    if (shouldAutoplay) {
+      handlePlay({
+        startBtnEl: startBtn,
+        audioPlayerEl: audioPlayer,
+        footerEl: footer,
+        audioEl: audio,
+        playIconEl: playIcon,
+        pauseIconEl: pauseIcon,
+        triggerAudioPlay: false,
+      });
+    }
+
     let isSeeking = false;
 
-    startBtn.addEventListener("click", () => {
-      startBtn.disabled = true;
-      audioPlayerToggle(true, audioPlayer, footer);
-      playIconToggle(true, audio, playIcon, pauseIcon);
-
-      const rawMeta = audio.dataset.meta;
-      if (!rawMeta) return;
-
-      const meta = JSON.parse(rawMeta);
-
-      if ("mediaSession" in navigator) {
-        navigator.mediaSession.metadata = new MediaMetadata(meta);
-      }
-    });
+    startBtn.addEventListener("click", () =>
+      handlePlay({
+        startBtnEl: startBtn,
+        audioPlayerEl: audioPlayer,
+        footerEl: footer,
+        audioEl: audio,
+        playIconEl: playIcon,
+        pauseIconEl: pauseIcon,
+      })
+    );
 
     audio.addEventListener("loadedmetadata", () => {
       duration.textContent = formatTime(audio.duration);
@@ -164,8 +175,13 @@ const metadata = {
     });
 
     audio.addEventListener("ended", () => {
-      audioPlayerToggle(false, audioPlayer, footer);
-      playIconToggle(false, audio, playIcon, pauseIcon);
+      audioPlayerToggle({ isOpen: false, audioPlayerEl: audioPlayer, footerEl: footer });
+      playIconToggle({
+        isPaused: false,
+        audioEl: audio,
+        playIconEl: playIcon,
+        pauseIconEl: pauseIcon,
+      });
       audio.currentTime = 0;
       if ("mediaSession" in navigator) {
         navigator.mediaSession.metadata = null;
@@ -187,12 +203,22 @@ const metadata = {
     });
 
     playToggleBtn.addEventListener("click", () => {
-      playIconToggle(audio.paused, audio, playIcon, pauseIcon);
+      playIconToggle({
+        isPaused: audio.paused,
+        audioEl: audio,
+        playIconEl: playIcon,
+        pauseIconEl: pauseIcon,
+      });
     });
 
     closePlayerBtn.addEventListener("click", () => {
-      audioPlayerToggle(false, audioPlayer, footer);
-      playIconToggle(false, audio, playIcon, pauseIcon);
+      audioPlayerToggle({ isOpen: false, audioPlayerEl: audioPlayer, footerEl: footer });
+      playIconToggle({
+        isPaused: false,
+        audioEl: audio,
+        playIconEl: playIcon,
+        pauseIconEl: pauseIcon,
+      });
       audio.currentTime = 0;
       if ("mediaSession" in navigator) {
         navigator.mediaSession.metadata = null;
@@ -201,18 +227,34 @@ const metadata = {
     });
   }
 
-  function formatTime(secs) {
-    const minutes = Math.floor(secs / 60)
-      .toString()
-      .padStart(2, "0");
-    const seconds = Math.floor(secs % 60)
-      .toString()
-      .padStart(2, "0");
-    return `${minutes}:${seconds}`;
+  function handlePlay({
+    startBtnEl,
+    audioPlayerEl,
+    footerEl,
+    audioEl,
+    playIconEl,
+    pauseIconEl,
+    triggerAudioPlay = true,
+  }) {
+    startBtnEl.disabled = true;
+    audioPlayerToggle({ isOpen: true, audioPlayerEl, footerEl });
+
+    if (triggerAudioPlay) {
+      playIconToggle({ isPaused: true, audioEl, playIconEl, pauseIconEl });
+    }
+
+    const rawMeta = audioEl.dataset.meta;
+    if (!rawMeta) return;
+
+    const meta = JSON.parse(rawMeta);
+
+    if ("mediaSession" in navigator) {
+      navigator.mediaSession.metadata = new MediaMetadata(meta);
+    }
   }
 
-  function audioPlayerToggle(open, audioPlayerEl, footerEl) {
-    if (open) {
+  function audioPlayerToggle({ isOpen, audioPlayerEl, footerEl }) {
+    if (isOpen) {
       audioPlayerEl.classList.add("fixed");
       audioPlayerEl.classList.remove("hidden");
       footerEl.classList.add("pb-42", "sm:pb-64");
@@ -225,16 +267,26 @@ const metadata = {
     }
   }
 
-  function playIconToggle(isPaused, audioEl, playIcon, pauseIcon) {
+  function playIconToggle({ isPaused, audioEl, playIconEl, pauseIconEl }) {
     if (isPaused) {
       audioEl.play();
-      playIcon.classList.add("hidden");
-      pauseIcon.classList.remove("hidden");
+      playIconEl.classList.add("hidden");
+      pauseIconEl.classList.remove("hidden");
     } else {
       audioEl.pause();
-      playIcon.classList.remove("hidden");
-      pauseIcon.classList.add("hidden");
+      playIconEl.classList.remove("hidden");
+      pauseIconEl.classList.add("hidden");
     }
+  }
+
+  function formatTime(secs) {
+    const minutes = Math.floor(secs / 60)
+      .toString()
+      .padStart(2, "0");
+    const seconds = Math.floor(secs % 60)
+      .toString()
+      .padStart(2, "0");
+    return `${minutes}:${seconds}`;
   }
 
   if (document.readyState === "loading") {

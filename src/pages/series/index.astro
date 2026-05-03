@@ -27,12 +27,20 @@ const sortedSeries = series
     if (!a.firstDate && b.firstDate) return 1;
     return a.data.title.localeCompare(b.data.title);
   });
+
+const seriesCount = series.length;
 ---
 
 <BaseLayout title="Series" description="List of all series in collection.">
   <Container>
     <div data-pagefind-ignore class="space-y-10">
-      <h1 class="animate text-xl font-bold">All series</h1>
+      <h1 class="animate inline-flex items-center gap-1">
+        <span class="text-xl font-bold">All series</span>
+        <span
+          class="text-sm text-neutral-500 transition-colors duration-300 ease-in-out group-hover:text-neutral-900 group-focus-visible:text-neutral-900 dark:group-hover:text-neutral-100 dark:group-focus-visible:text-neutral-100">
+          ({seriesCount})
+        </span>
+      </h1>
       <div class="animate grid grid-cols-1 gap-2 sm:grid-cols-2">
         {
           sortedSeries.map((series) => {

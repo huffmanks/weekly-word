@@ -6,12 +6,15 @@ import { cn } from "@lib/utils";
 import type { SermonsAccumulator } from "@types";
 
 import Container from "@components/Container.astro";
-import SermonCard from "@components/SermonCard.astro";
+import PodcastCard from "@components/PodcastCard.astro";
 import BaseLayout from "@layouts/BaseLayout.astro";
 
-const data = (await getCollection("sermons", ({ data }) => !data.draft)).sort(
-  (a, b) => b.data.date.valueOf() - a.data.date.valueOf()
-);
+const data = (await getCollection("sermons", ({ data }) => !data.draft))
+  .filter((sermon) => {
+    const p = sermon.data.podcast;
+    return p && Object.values(p).every((value) => value != null);
+  })
+  .sort((a, b) => b.data.date.valueOf() - a.data.date.valueOf());
 
 const sermons = data.reduce((acc: SermonsAccumulator, sermon) => {
   const year = sermon.data.date.getUTCFullYear().toString();
@@ -23,8 +26,7 @@ const sermons = data.reduce((acc: SermonsAccumulator, sermon) => {
 }, {});
 
 const years = Object.keys(sermons).sort((a, b) => parseInt(b) - parseInt(a));
-
-const sermonCount = data.length;
+const podcastCount = data.length;
 ---
 
 <BaseLayout title={SITE_CONFIG.title} description={SITE_CONFIG.description}>
@@ -32,10 +34,10 @@ const sermonCount = data.length;
     <aside data-pagefind-ignore>
       <div class="space-y-10">
         <h1 class="animate inline-flex items-center gap-1">
-          <span class="text-xl font-bold">All sermons</span>
+          <span class="text-xl font-bold">All podcasts</span>
           <span
             class="text-sm text-neutral-500 transition-colors duration-300 ease-in-out group-hover:text-neutral-900 group-focus-visible:text-neutral-900 dark:group-hover:text-neutral-100 dark:group-focus-visible:text-neutral-100">
-            ({sermonCount})
+            ({podcastCount})
           </span>
         </h1>
         <div class="space-y-4">
@@ -49,15 +51,15 @@ const sermonCount = data.length;
                     : "mb-10 border-b border-neutral-400 pb-10 dark:border-neutral-600"
                 )}>
                 <a
-                  href={`/sermons/${year}`}
+                  href={`/podcasts/${year}`}
                   class="mb-5 inline-block rounded-sm border border-black/15 px-2 py-1 text-lg font-bold transition-colors duration-300 ease-in-out hover:bg-black/5 hover:text-black focus-visible:bg-black/5 focus-visible:text-black dark:border-white/20 dark:hover:bg-white/5 dark:hover:text-white dark:focus-visible:bg-white/5 dark:focus-visible:text-white">
                   {year}
                 </a>
                 <div>
-                  <ul class="not-prose flex flex-col gap-4">
+                  <ul class="not-prose grid grid-cols-[repeat(auto-fill,_minmax(min(240px,100%),_1fr))] gap-4">
                     {sermons[year].map((sermon) => (
                       <li>
-                        <SermonCard entry={sermon} />
+                        <PodcastCard entry={sermon} />
                       </li>
                     ))}
                   </ul>

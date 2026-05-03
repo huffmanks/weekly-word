@@ -1,0 +1,71 @@
+---
+import { type CollectionEntry, getEntry } from "astro:content";
+
+import FormattedDate from "@/components/FormattedDate.astro";
+
+type Props = {
+  entry: CollectionEntry<"sermons">;
+};
+
+const { entry } = Astro.props;
+
+const series = await getEntry("series", entry.data.series.id);
+const pastor = await getEntry("pastors", entry.data.pastor.id);
+
+if (!series) return null;
+---
+
+<a
+  href={`/${entry.collection}/${entry.id}?autoplay=true`}
+  class="not-prose group relative flex flex-col flex-nowrap rounded-lg border border-neutral-300 transition-colors duration-300 ease-in-out hover:bg-neutral-200 hover:text-black focus-visible:bg-neutral-200 focus-visible:text-black dark:border-neutral-700 dark:hover:bg-neutral-800 dark:hover:text-white dark:focus-visible:bg-neutral-800 dark:focus-visible:text-white">
+  <div class="relative w-full flex-shrink-0 overflow-hidden rounded-t-lg">
+    <img
+      class="aspect-square w-full object-cover"
+      src={entry.data.podcast?.image}
+      alt={entry.data.title}
+      height="480"
+      width="480"
+    />
+    <div
+      class="absolute inset-0 flex items-center justify-center transition-colors duration-300 ease-in-out group-hover:bg-neutral-200/50 group-hover:text-black group-focus-visible:bg-neutral-200/50 group-focus-visible:text-black dark:group-hover:bg-neutral-800/50 dark:group-hover:text-white dark:group-focus-visible:bg-neutral-800/50 dark:group-focus-visible:text-white">
+      <div class="rounded-full bg-white/70 p-2 drop-shadow-md dark:bg-black/70">
+        <svg
+          class="size-8 fill-current stroke-current"
+          xmlns="http://www.w3.org/2000/svg"
+          width="24"
+          height="24"
+          viewBox="0 0 24 24"
+          fill="none"
+          stroke="currentColor"
+          stroke-width="2"
+          stroke-linecap="round"
+          stroke-linejoin="round">
+          <path
+            d="M5 5a2 2 0 0 1 3.008-1.728l11.997 6.998a2 2 0 0 1 .003 3.458l-12 7A2 2 0 0 1 5 19z">
+          </path>
+        </svg>
+      </div>
+    </div>
+  </div>
+  <div class="flex flex-1 flex-col gap-1 truncate p-3">
+    <div class="truncate font-bold">
+      {entry.data.title}
+    </div>
+    <div class="mb-1 text-xs">
+      <FormattedDate date={entry.data.date} />
+    </div>
+    <div class="mb-2 flex flex-wrap items-center gap-2">
+      {
+        pastor?.data.name && (
+          <span class="rounded-lg border border-black/15 px-1.5 py-1 text-xs dark:border-white/20">
+            {pastor.data.name}
+          </span>
+        )
+      }
+      <span class="rounded-lg border border-black/15 px-1.5 py-1 text-xs dark:border-white/20">
+        {series.data.title}
+      </span>
+    </div>
+    <div class="truncate text-sm">{entry.data.description}</div>
+  </div>
+</a>

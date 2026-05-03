@@ -17,12 +17,20 @@ const sortedPastors = pastors
 
     return aLast!.localeCompare(bLast!) || aFirst.localeCompare(bFirst);
   });
+
+const pastorCount = sortedPastors.length;
 ---
 
 <BaseLayout title="Pastors" description="List of all pastors in collection.">
   <Container>
     <div data-pagefind-ignore class="space-y-10">
-      <h1 class="animate text-xl font-bold">All pastors</h1>
+      <h1 class="animate inline-flex items-center gap-1">
+        <span class="text-xl font-bold">All pastors</span>
+        <span
+          class="text-sm text-neutral-500 transition-colors duration-300 ease-in-out group-hover:text-neutral-900 group-focus-visible:text-neutral-900 dark:group-hover:text-neutral-100 dark:group-focus-visible:text-neutral-100">
+          ({pastorCount})
+        </span>
+      </h1>
       <div class="animate grid grid-cols-1 gap-2 sm:grid-cols-2">
         {
           sortedPastors.map((pastor) => {
