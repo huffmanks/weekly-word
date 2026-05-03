@@ -1,107 +1,107 @@
-<!DOCTYPE html><html lang="en"> <head><!-- Global Metadata --><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><link rel="icon" type="image/svg+xml" href="/favicon.svg"><meta name="generator" content="Astro v5.12.3"><!-- Canonical URL --><link rel="canonical" href="https://word.huffmanks.com/series/all-things-new/"><!-- Primary Meta Tags --><title>All things new | Weekly Word</title><meta name="title" content="All things new | Weekly Word"><meta name="description" content="Sermons from this series."><!-- Open Graph / Facebook --><meta property="og:type" content="website"><meta property="og:url" content="https://word.huffmanks.com/series/all-things-new/"><meta property="og:title" content="All things new | Weekly Word"><meta property="og:description" content="Sermons from this series."><meta property="og:image" content="https://word.huffmanks.com/logo.png"><meta property="og:image:width" content="800"><meta property="og:image:height" content="800"><meta property="og:image:alt" content="Sermons from this series."><!-- Twitter --><meta property="twitter:card" content="summary_large_image"><meta property="twitter:url" content="https://word.huffmanks.com/series/all-things-new/"><meta property="twitter:title" content="All things new | Weekly Word"><meta property="twitter:description" content="Sermons from this series."><meta name="twitter:image" content="https://word.huffmanks.com/logo.png"><meta name="twitter:image:alt" content="Sermons from this series."><meta name="astro-view-transitions-enabled" content="true"><meta name="astro-view-transitions-fallback" content="animate"><script type="module" src="/_astro/ClientRouter.astro_astro_type_script_index_0_lang.D98dxaWf.js"></script><script>
-  function init() {
-    preloadTheme();
-    onScroll();
-    animate();
-    updateThemeButtons();
-
-    const backToTop = document.getElementById("back-to-top");
-    backToTop?.addEventListener("click", (event) => scrollToTop(event));
-
-    const backToPrev = document.getElementById("back-to-prev");
-    backToPrev?.addEventListener("click", () => window.history.back());
-
-    const lightThemeButton = document.getElementById("light-theme-button");
-    lightThemeButton?.addEventListener("click", () => {
-      localStorage.setItem("theme", "light");
-      toggleTheme(false);
+<!DOCTYPE html><html lang="en"> <head><!-- Global Metadata --><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><link rel="icon" type="image/svg+xml" href="/favicon.svg"><meta name="generator" content="Astro v5.12.3"><link rel="canonical" href="https://word.huffmanks.com/series/all-things-new/"><!-- Primary Meta Tags --><title>All things new | Weekly Word</title><meta name="title" content="All things new | Weekly Word"><meta name="description" content="Sermons from this series."><!-- Open Graph / Facebook --><meta property="og:type" content="website"><meta property="og:url" content="https://word.huffmanks.com/series/all-things-new/"><meta property="og:title" content="All things new | Weekly Word"><meta property="og:description" content="Sermons from this series."><meta property="og:image" content="https://word.huffmanks.com/logo.png"><meta property="og:image:width" content="800"><meta property="og:image:height" content="800"><meta property="og:image:alt" content="Sermons from this series."><!-- Twitter --><meta property="twitter:card" content="summary_large_image"><meta property="twitter:url" content="https://word.huffmanks.com/series/all-things-new/"><meta property="twitter:title" content="All things new | Weekly Word"><meta property="twitter:description" content="Sermons from this series."><meta name="twitter:image" content="https://word.huffmanks.com/logo.png"><meta name="twitter:image:alt" content="Sermons from this series."><!-- Transitions & Client Router --><meta name="astro-view-transitions-enabled" content="true"><meta name="astro-view-transitions-fallback" content="animate"><script type="module" src="/_astro/ClientRouter.astro_astro_type_script_index_0_lang.D98dxaWf.js"></script><script>
+    function init() {
+      preloadTheme();
+      onScroll();
+      animate();
       updateThemeButtons();
-    });
 
-    const darkThemeButton = document.getElementById("dark-theme-button");
-    darkThemeButton?.addEventListener("click", () => {
-      localStorage.setItem("theme", "dark");
-      toggleTheme(true);
-      updateThemeButtons();
-    });
+      const backToTop = document.getElementById("back-to-top");
+      backToTop?.addEventListener("click", (event) => scrollToTop(event));
 
-    const systemThemeButton = document.getElementById("system-theme-button");
-    systemThemeButton?.addEventListener("click", () => {
-      localStorage.setItem("theme", "system");
-      toggleTheme(window.matchMedia("(prefers-color-scheme: dark)").matches);
-      updateThemeButtons();
-    });
+      const backToPrev = document.getElementById("back-to-prev");
+      backToPrev?.addEventListener("click", () => window.history.back());
 
-    window.matchMedia("(prefers-color-scheme: dark)").addEventListener("change", (event) => {
-      if (localStorage.theme === "system") {
-        toggleTheme(event.matches);
+      const lightThemeButton = document.getElementById("light-theme-button");
+      lightThemeButton?.addEventListener("click", () => {
+        localStorage.setItem("theme", "light");
+        toggleTheme(false);
+        updateThemeButtons();
+      });
+
+      const darkThemeButton = document.getElementById("dark-theme-button");
+      darkThemeButton?.addEventListener("click", () => {
+        localStorage.setItem("theme", "dark");
+        toggleTheme(true);
+        updateThemeButtons();
+      });
+
+      const systemThemeButton = document.getElementById("system-theme-button");
+      systemThemeButton?.addEventListener("click", () => {
+        localStorage.setItem("theme", "system");
+        toggleTheme(window.matchMedia("(prefers-color-scheme: dark)").matches);
+        updateThemeButtons();
+      });
+
+      window.matchMedia("(prefers-color-scheme: dark)").addEventListener("change", (event) => {
+        if (localStorage.theme === "system") {
+          toggleTheme(event.matches);
+        }
+      });
+
+      document.addEventListener("scroll", onScroll);
+    }
+
+    function updateThemeButtons() {
+      const theme = localStorage.getItem("theme");
+      const lightThemeButton = document.getElementById("light-theme-button");
+      const darkThemeButton = document.getElementById("dark-theme-button");
+      const systemThemeButton = document.getElementById("system-theme-button");
+
+      function removeActiveButtonTheme(button) {
+        button?.classList.remove("bg-neutral-300");
+        button?.classList.remove("dark:bg-neutral-800");
       }
-    });
 
-    document.addEventListener("scroll", onScroll);
-  }
+      function addActiveButtonTheme(button) {
+        button?.classList.add("bg-neutral-300");
+        button?.classList.add("dark:bg-neutral-800");
+      }
 
-  function updateThemeButtons() {
-    const theme = localStorage.getItem("theme");
-    const lightThemeButton = document.getElementById("light-theme-button");
-    const darkThemeButton = document.getElementById("dark-theme-button");
-    const systemThemeButton = document.getElementById("system-theme-button");
+      removeActiveButtonTheme(lightThemeButton);
+      removeActiveButtonTheme(darkThemeButton);
+      removeActiveButtonTheme(systemThemeButton);
 
-    function removeActiveButtonTheme(button) {
-      button?.classList.remove("bg-neutral-300");
-      button?.classList.remove("dark:bg-neutral-800");
+      if (theme === "light") {
+        addActiveButtonTheme(lightThemeButton);
+      } else if (theme === "dark") {
+        addActiveButtonTheme(darkThemeButton);
+      } else {
+        addActiveButtonTheme(systemThemeButton);
+      }
     }
 
-    function addActiveButtonTheme(button) {
-      button?.classList.add("bg-neutral-300");
-      button?.classList.add("dark:bg-neutral-800");
+    function animate() {
+      const animateElements = document.querySelectorAll(".animate");
+
+      animateElements.forEach((element, index) => {
+        setTimeout(() => {
+          element.classList.add("show");
+        }, index * 100);
+      });
     }
 
-    removeActiveButtonTheme(lightThemeButton);
-    removeActiveButtonTheme(darkThemeButton);
-    removeActiveButtonTheme(systemThemeButton);
-
-    if (theme === "light") {
-      addActiveButtonTheme(lightThemeButton);
-    } else if (theme === "dark") {
-      addActiveButtonTheme(darkThemeButton);
-    } else {
-      addActiveButtonTheme(systemThemeButton);
+    function onScroll() {
+      if (window.scrollY > 0) {
+        document.documentElement.classList.add("scrolled");
+      } else {
+        document.documentElement.classList.remove("scrolled");
+      }
     }
-  }
 
-  function animate() {
-    const animateElements = document.querySelectorAll(".animate");
-
-    animateElements.forEach((element, index) => {
-      setTimeout(() => {
-        element.classList.add("show");
-      }, index * 100);
-    });
-  }
-
-  function onScroll() {
-    if (window.scrollY > 0) {
-      document.documentElement.classList.add("scrolled");
-    } else {
-      document.documentElement.classList.remove("scrolled");
+    function scrollToTop(event) {
+      event.preventDefault();
+      window.scrollTo({
+        top: 0,
+        behavior: "smooth",
+      });
     }
-  }
 
-  function scrollToTop(event) {
-    event.preventDefault();
-    window.scrollTo({
-      top: 0,
-      behavior: "smooth",
-    });
-  }
+    function toggleTheme(dark) {
+      const css = document.createElement("style");
 
-  function toggleTheme(dark) {
-    const css = document.createElement("style");
-
-    css.appendChild(
-      document.createTextNode(
-        `* {
+      css.appendChild(
+        document.createTextNode(
+          `* {
              -webkit-transition: none !important;
              -moz-transition: none !important;
              -o-transition: none !important;
@@ -109,35 +109,35 @@
              transition: none !important;
           }
         `
-      )
-    );
+        )
+      );
 
-    document.head.appendChild(css);
+      document.head.appendChild(css);
 
-    if (dark) {
-      document.documentElement.classList.add("dark");
-    } else {
-      document.documentElement.classList.remove("dark");
+      if (dark) {
+        document.documentElement.classList.add("dark");
+      } else {
+        document.documentElement.classList.remove("dark");
+      }
+
+      window.getComputedStyle(css).opacity;
+      document.head.removeChild(css);
     }
 
-    window.getComputedStyle(css).opacity;
-    document.head.removeChild(css);
-  }
+    function preloadTheme() {
+      const userTheme = localStorage.theme;
 
-  function preloadTheme() {
-    const userTheme = localStorage.theme;
-
-    if (userTheme === "light" || userTheme === "dark") {
-      toggleTheme(userTheme === "dark");
-    } else {
-      toggleTheme(window.matchMedia("(prefers-color-scheme: dark)").matches);
+      if (userTheme === "light" || userTheme === "dark") {
+        toggleTheme(userTheme === "dark");
+      } else {
+        toggleTheme(window.matchMedia("(prefers-color-scheme: dark)").matches);
+      }
     }
-  }
 
-  document.addEventListener("DOMContentLoaded", () => init());
-  document.addEventListener("astro:after-swap", () => init());
-  preloadTheme();
-</script><link rel="stylesheet" href="/_astro/index.kT_eNOB7.css"></head> <body> <noscript> <style>
+    document.addEventListener("DOMContentLoaded", () => init());
+    document.addEventListener("astro:after-swap", () => init());
+    preloadTheme();
+  </script><link rel="stylesheet" href="/_astro/index.kT_eNOB7.css"></head><body> <noscript> <style>
         .animate {
           opacity: 1;
           translate: var(--tw-translate-x) calc(var(--spacing) * 0);
