@@ -1,0 +1,53 @@
+---
+import fs from "node:fs";
+import path from "node:path";
+
+import { generateBibleUrl } from "@lib/generateBibleUrl";
+import type { WeeklyVerses } from "@types";
+
+import Container from "@components/Container.astro";
+import BaseLayout from "@layouts/BaseLayout.astro";
+
+export async function getStaticPaths() {
+  const filePath = path.join(process.cwd(), "public", "weekly-verses.json");
+  const fileData = fs.readFileSync(filePath, "utf-8");
+  const data = JSON.parse(fileData) as WeeklyVerses[];
+
+  return data.map((item) => {
+    return {
+      params: { id: String(item.id) },
+      props: { item },
+    };
+  });
+}
+
+const { item } = Astro.props;
+
+const href = generateBibleUrl(item.verses);
+const label = `Weekly Verses | Week #${item.id}`;
+---
+
+<BaseLayout title={label} description=`Memorize ${item.verses} this week.`>
+  <Container>
+    <div class="p-1.5">
+      <div class="animate mb-6 text-sm font-medium">
+        <span
+          class="-ml-0.75 inline-block rounded-md bg-neutral-300 px-1.5 py-1 dark:bg-neutral-800">
+          {label}
+        </span>
+      </div>
+
+      <h1 class="animate mb-2 text-xl font-bold text-black dark:text-white">
+        {item.verses}
+      </h1>
+
+      <p class="animate mb-6 font-medium">{item.text}</p>
+      <a
+        href={href}
+        target="_blank"
+        class="animate not-prose flex w-fit cursor-pointer flex-nowrap items-center gap-2 rounded-md border border-black/15 p-1.5 transition-colors duration-300 ease-in-out hover:bg-black/5 hover:text-black focus-visible:bg-black/5 focus-visible:text-black sm:rounded-sm sm:px-3 sm:py-1.5 dark:border-white/20 dark:hover:bg-white/5 dark:hover:text-white dark:focus-visible:bg-white/5 dark:focus-visible:text-white">
+        <div class="text-sm">Open in Bible</div>
+      </a>
+    </div>
+  </Container>
+</BaseLayout>
