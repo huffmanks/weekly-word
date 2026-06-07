@@ -2,8 +2,8 @@
 import { SITE_CONFIG } from "@constants";
 import BaseLayout from "@layouts/BaseLayout.astro";
 
-import BackToPrevious from "@components/BackToPrevious.astro";
 import Container from "@components/Container.astro";
+import GoToButton from "@components/GoToButton.astro";
 ---
 
 <BaseLayout title="404" description={SITE_CONFIG.description}>
@@ -11,7 +11,7 @@ import Container from "@components/Container.astro";
     <div data-pagefind-ignore class="mt-16 grid place-items-center gap-3">
       <h4 class="animate text-2xl font-bold text-black dark:text-white">404: Page not found</h4>
       <span class="animate">
-        <BackToPrevious href="/">Go to home page.</BackToPrevious>
+        <GoToButton href="/">Go to home page.</GoToButton>
       </span>
     </div>
   </Container>

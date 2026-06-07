@@ -5,9 +5,9 @@ import BaseLayout from "@layouts/BaseLayout.astro";
 import { readingTime } from "@lib/utils";
 
 import AudioPlayer from "@components/AudioPlayer.astro";
-import BackToPrevious from "@components/BackToPrevious.astro";
 import Container from "@components/Container.astro";
 import FormattedDate from "@components/FormattedDate.astro";
+import GoToButton from "@components/GoToButton.astro";
 import SermonBadge from "@components/SermonBadge.astro";
 import SermonNavigation from "@components/SermonNavigation.astro";
 import ShareDropdown from "@components/ShareDropdown.astro";
@@ -61,7 +61,7 @@ const fullUrl = new URL(Astro.url, Astro.site).href;
   image={sermon.data.image}>
   <Container>
     <div data-pagefind-ignore class="animate mb-8">
-      <BackToPrevious href="/sermons">Back to sermons</BackToPrevious>
+      <GoToButton href="/sermons">Back to sermons</GoToButton>
     </div>
     {
       podcastExist && (

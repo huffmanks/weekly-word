@@ -3,8 +3,8 @@ import { getCollection, getEntry } from "astro:content";
 
 import BaseLayout from "@layouts/BaseLayout.astro";
 
-import BackToPrevious from "@components/BackToPrevious.astro";
 import Container from "@components/Container.astro";
+import GoToButton from "@components/GoToButton.astro";
 import SermonCard from "@components/SermonCard.astro";
 
 export async function getStaticPaths() {
@@ -34,7 +34,7 @@ const seriesDescription = "Sermons from this series.";
 <BaseLayout title={seriesTitle} description={seriesDescription}>
   <Container>
     <div data-pagefind-ignore class="space-y-10">
-      <BackToPrevious href="/series">All series</BackToPrevious>
+      <GoToButton href="/series">All series</GoToButton>
       <h1 class="animate mb-1 text-xl font-bold text-black dark:text-white">
         {seriesTitle}
       </h1>

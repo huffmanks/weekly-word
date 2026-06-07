@@ -1,7 +1,7 @@
 ---
 import { getCollection } from "astro:content";
 
-import BackToPrevious from "@components/BackToPrevious.astro";
+import GoToButton from "@components/GoToButton.astro";
 import PurposeCard from "@components/PurposeCard.astro";
 import BaseLayout from "@layouts/BaseLayout.astro";
 
@@ -23,7 +23,7 @@ const { item } = Astro.props;
 <BaseLayout title={item.title} description={item.point} image={item.img}>
   <div class="mx-auto max-w-(--breakpoint-sm) px-3 py-6">
     <div class="space-y-10">
-      <BackToPrevious href="/purposes">All purposes</BackToPrevious>
+      <GoToButton href="/purposes">All purposes</GoToButton>
       <PurposeCard item={item} linkToDay={false} />
     </div>
   </div>

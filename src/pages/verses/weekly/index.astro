@@ -1,56 +1,105 @@
 ---
+import weeklyVerses from "@/data/weekly-verses.json";
+import { generateBibleUrl } from "@lib/generateBibleUrl";
+
 import Container from "@components/Container.astro";
+import GoToButton from "@components/GoToButton.astro";
 import BaseLayout from "@layouts/BaseLayout.astro";
+
+const enrichedVerses = weeklyVerses.map((item) => ({
+  ...item,
+  bibleHref: generateBibleUrl(item.verses),
+  previousHref: item.id > 1 ? `/verses/weekly/${item.id - 1}` : null,
+  nextHref: item.id < 52 ? `/verses/weekly/${item.id + 1}` : null,
+}));
 ---
 
-<BaseLayout title="Weekly Verse" description="Memorize a new Bible verse each week.">
+<BaseLayout title="Weekly Verses" description="Memorize verses weekly.">
   <Container>
     <div class="p-1.5">
-      <div class="animate mb-6 text-sm font-medium">
+      <div class="animate mb-4 flex items-center justify-between gap-4">
         <span
           id="label"
-          class="-ml-0.75 inline-block rounded-md bg-neutral-300 px-1.5 py-1 dark:bg-neutral-800"
-        ></span>
+          class="-ml-0.75 inline-flex rounded-md bg-neutral-300 px-1.5 py-1 text-sm font-medium dark:bg-neutral-800">
+        </span>
+        <a
+          id="bibleHref"
+          target="_blank"
+          class="not-prose flex w-fit cursor-pointer flex-nowrap items-center gap-2 rounded-full border border-black/15 p-1.5 transition-colors duration-300 ease-in-out hover:bg-black/5 hover:text-black focus-visible:bg-black/5 focus-visible:text-black sm:rounded-sm sm:px-3 sm:py-1.5 dark:border-white/20 dark:hover:bg-white/5 dark:hover:text-white dark:focus-visible:bg-white/5 dark:focus-visible:text-white">
+          <svg
+            class="size-4 fill-current"
+            xmlns="http://www.w3.org/2000/svg"
+            fill="none"
+            viewBox="0 0 24 24">
+            <path
+              d="M6 22h15v-2H6.012C5.55 19.988 5 19.805 5 19s.55-.988 1.012-1H21V4a2 2 0 0 0-2-2H6c-1.206 0-3 .799-3 3v14c0 2.201 1.794 3 3 3M8 7h3V5h2v2h3v2h-3v6h-2V9H8z">
+            </path>
+          </svg>
+          <span class="hidden text-sm sm:inline-block">Open in Bible</span>
+        </a>
       </div>
 
       <h1 id="verses" class="animate mb-2 text-xl font-bold text-black dark:text-white"></h1>
 
-      <p id="text" class="animate mb-6 font-medium"></p>
-      <a
-        id="href"
-        target="_blank"
-        class="animate not-prose flex w-fit cursor-pointer flex-nowrap items-center gap-2 rounded-md border border-black/15 p-1.5 transition-colors duration-300 ease-in-out hover:bg-black/5 hover:text-black focus-visible:bg-black/5 focus-visible:text-black sm:rounded-sm sm:px-3 sm:py-1.5 dark:border-white/20 dark:hover:bg-white/5 dark:hover:text-white dark:focus-visible:bg-white/5 dark:focus-visible:text-white">
-        <div class="text-sm">Open in Bible</div>
-      </a>
+      <p id="text" class="animate mb-8 font-medium"></p>
+
+      <div class="animate mb-6 flex items-center justify-between gap-4">
+        <GoToButton href={null}>Previous</GoToButton>
+        <GoToButton href={null} isNext>Next</GoToButton>
+      </div>
     </div>
   </Container>
 </BaseLayout>
 
+<script
+  is:inline
+  id="verses-data"
+  type="application/json"
+  set:html={JSON.stringify(enrichedVerses)}
+/>
 <script>
-  import { generateBibleUrl } from "@lib/generateBibleUrl";
-import { getWeekGenerateLabel } from "@lib/getWeekGenerateLabel";
-import type { WeeklyVerses } from "@types";
+  import { generateWeeklyVerseMeta } from "@lib/generateWeeklyVerseMeta";
 
-  async function main() {
-    const res = await fetch("/weekly-verses.json");
-    const data = (await res.json()) as WeeklyVerses[];
-    if (!data) return;
+  function main() {
+    const dataEl = document.getElementById("verses-data");
+    const versesList = dataEl ? JSON.parse(dataEl.textContent || "[]") : [];
 
-    const versesEl = document.getElementById("verses") as HTMLHeadingElement;
-    const textEl = document.getElementById("text") as HTMLParagraphElement;
-    const hrefEl = document.getElementById("href") as HTMLAnchorElement;
-    const labelEl = document.getElementById("label") as HTMLSpanElement;
+    const { weekNumber, label } = generateWeeklyVerseMeta();
+    const currentWeekItem = versesList.find((v: any) => v.id === weekNumber);
 
-    const { weekNumber, label } = getWeekGenerateLabel();
-    const item = data.find((item) => item.id === weekNumber);
+    if (currentWeekItem) {
+      const labelEl = document.getElementById("label") as HTMLSpanElement;
+      const versesEl = document.getElementById("verses") as HTMLHeadingElement;
+      const textEl = document.getElementById("text") as HTMLParagraphElement;
+      const bibleHrefEl = document.getElementById("bibleHref") as HTMLAnchorElement;
 
-    if (versesEl && item) {
-      const href = generateBibleUrl(item.verses)!;
-
-      versesEl.textContent = item.verses;
-      textEl.textContent = item.text;
-      hrefEl.href = href;
       labelEl.textContent = label;
+      versesEl.textContent = currentWeekItem.verses;
+      textEl.textContent = currentWeekItem.text;
+      bibleHrefEl.setAttribute("href", currentWeekItem.bibleHref);
+
+      const prevBtn = document.getElementById("prevBtn") as HTMLAnchorElement;
+      const nextBtn = document.getElementById("nextBtn") as HTMLAnchorElement;
+
+      if (currentWeekItem.previousHref) {
+        prevBtn.setAttribute("href", currentWeekItem.previousHref);
+        prevBtn.removeAttribute("data-disabled");
+        prevBtn.removeAttribute("aria-disabled");
+      } else {
+        prevBtn.removeAttribute("href");
+        prevBtn.setAttribute("data-disabled", "true");
+        prevBtn.setAttribute("aria-disabled", "true");
+      }
+
+      if (currentWeekItem.nextHref) {
+        nextBtn.setAttribute("href", currentWeekItem.nextHref);
+        nextBtn.removeAttribute("data-disabled");
+        nextBtn.removeAttribute("aria-disabled");
+      } else {
+        nextBtn.removeAttribute("href");
+        nextBtn.setAttribute("data-disabled", "true");
+        nextBtn.setAttribute("aria-disabled", "true");
+      }
     }
   }
 
