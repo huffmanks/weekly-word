@@ -13,6 +13,16 @@ const MONTHS = [
   "Dec.",
 ] as const;
 
+const DAYS = [
+  "Sunday",
+  "Monday",
+  "Tuesday",
+  "Wednesday",
+  "Thursday",
+  "Friday",
+  "Saturday",
+] as const;
+
 function getFirstMondayOfYear(year: number): Date {
   const jan1 = new Date(year, 0, 1, 12, 0, 0);
   const dayOfWeek = jan1.getDay();
@@ -32,7 +42,7 @@ function getCurrentWeekDate(weekId: number): Date {
   return firstMonday;
 }
 
-export function generateWeeklyVerseMeta(weekId?: number) {
+export function generateWeeklyMemoryMeta(weekId?: number) {
   const date = weekId ? getCurrentWeekDate(weekId) : new Date();
   date.setHours(12, 0, 0, 0);
 
@@ -69,7 +79,29 @@ export function generateWeeklyVerseMeta(weekId?: number) {
 
   return {
     weekNumber,
-    title: "Weekly Verses",
+    title: "Weekly Memory",
     label: `Week #${weekNumber} | ${labelRange}`,
+  };
+}
+
+export function generateDailyReadingMeta(itemDate?: string) {
+  const date = itemDate ? new Date(`${itemDate}T12:00:00`) : new Date();
+
+  const day = date.getDay();
+  if (day === 6) date.setDate(date.getDate() + 2);
+  if (day === 0) date.setDate(date.getDate() + 1);
+
+  const dayName = DAYS[date.getDay()];
+  const monthName = MONTHS[date.getMonth()];
+  const dayOfMonth = date.getDate();
+
+  const label = `${dayName}, ${monthName} ${dayOfMonth}`;
+  const localISODate = new Intl.DateTimeFormat("en-CA").format(date);
+
+  return {
+    date: localISODate,
+    title: "Daily Reading",
+    label,
+    description: `Daily reading for ${label}`,
   };
 }

@@ -1,0 +1,32 @@
+[
+  {
+    "id": 1,
+    "verses": "Numbers 1",
+    "text": "some test",
+    "date": "2026-06-27"
+  },
+  {
+    "id": 2,
+    "verses": "Numbers 2",
+    "text": "some test",
+    "date": "2026-06-28"
+  },
+  {
+    "id": 3,
+    "verses": "Numbers 3",
+    "text": "some test",
+    "date": "2026-06-29"
+  },
+  {
+    "id": 4,
+    "verses": "Numbers 4",
+    "text": "some test",
+    "date": "2026-06-30"
+  },
+  {
+    "id": 5,
+    "verses": "Numbers 5",
+    "text": "some test",
+    "date": "2026-07-01"
+  }
+]

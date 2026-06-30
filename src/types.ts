@@ -16,10 +16,14 @@ export type TOCHeading = Heading & {
   subheadings: TOCHeading[];
 };
 
-export type WeeklyVerses = {
+export type ScriptureData = {
   id: number;
   verses: string;
   text: string;
+};
+
+export type DailyReading = ScriptureData & {
+  date: string;
 };
 
 export type SermonsAccumulator = {

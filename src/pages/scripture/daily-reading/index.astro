@@ -1,5 +1,5 @@
 ---
-import weeklyVerses from "@/data/weekly-verses.json";
+import weeklyVerses from "@/data/scripture_daily-reading.json";
 import { generateBibleUrl } from "@lib/generateBibleUrl";
 
 import Container from "@components/Container.astro";
@@ -9,12 +9,14 @@ import BaseLayout from "@layouts/BaseLayout.astro";
 const enrichedVerses = weeklyVerses.map((item) => ({
   ...item,
   bibleHref: generateBibleUrl(item.verses),
-  previousHref: item.id > 1 ? `/verses/weekly/${item.id - 1}` : null,
-  nextHref: item.id < 52 ? `/verses/weekly/${item.id + 1}` : null,
+  previousHref: item.id > 1 ? `/scripture/daily-reading/${item.id - 1}` : null,
+  nextHref: item.id < 52 ? `/scripture/daily-reading/${item.id + 1}` : null,
 }));
 ---
 
-<BaseLayout title="Weekly Verses" description="Memorize verses weekly.">
+<BaseLayout
+  title="Daily Reading"
+  description="Follow the daily reading to explore one chapter of the Bible each day.">
   <Container>
     <div class="p-1.5">
       <div class="animate mb-4 flex items-center justify-between gap-4">
@@ -58,31 +60,32 @@ const enrichedVerses = weeklyVerses.map((item) => ({
   set:html={JSON.stringify(enrichedVerses)}
 />
 <script>
-  import { generateWeeklyVerseMeta } from "@lib/generateWeeklyVerseMeta";
+  import { generateDailyReadingMeta } from "@lib/generateScriptureMeta";
+  import type { DailyReading } from "@types";
 
   function main() {
     const dataEl = document.getElementById("verses-data");
     const versesList = dataEl ? JSON.parse(dataEl.textContent || "[]") : [];
 
-    const { weekNumber, label } = generateWeeklyVerseMeta();
-    const currentWeekItem = versesList.find((v: any) => v.id === weekNumber);
+    const { date, label } = generateDailyReadingMeta();
+    const currentReadingItem = versesList.find((v: DailyReading) => v.date === date);
 
-    if (currentWeekItem) {
+    if (currentReadingItem) {
       const labelEl = document.getElementById("label") as HTMLSpanElement;
       const versesEl = document.getElementById("verses") as HTMLHeadingElement;
       const textEl = document.getElementById("text") as HTMLParagraphElement;
       const bibleHrefEl = document.getElementById("bibleHref") as HTMLAnchorElement;
 
       labelEl.textContent = label;
-      versesEl.textContent = currentWeekItem.verses;
-      textEl.textContent = currentWeekItem.text;
-      bibleHrefEl.setAttribute("href", currentWeekItem.bibleHref);
+      versesEl.textContent = currentReadingItem.verses;
+      textEl.textContent = currentReadingItem.text;
+      bibleHrefEl.setAttribute("href", currentReadingItem.bibleHref);
 
       const prevBtn = document.getElementById("prevBtn") as HTMLAnchorElement;
       const nextBtn = document.getElementById("nextBtn") as HTMLAnchorElement;
 
-      if (currentWeekItem.previousHref) {
-        prevBtn.setAttribute("href", currentWeekItem.previousHref);
+      if (currentReadingItem.previousHref) {
+        prevBtn.setAttribute("href", currentReadingItem.previousHref);
         prevBtn.removeAttribute("data-disabled");
         prevBtn.removeAttribute("aria-disabled");
       } else {
@@ -91,8 +94,8 @@ const enrichedVerses = weeklyVerses.map((item) => ({
         prevBtn.setAttribute("aria-disabled", "true");
       }
 
-      if (currentWeekItem.nextHref) {
-        nextBtn.setAttribute("href", currentWeekItem.nextHref);
+      if (currentReadingItem.nextHref) {
+        nextBtn.setAttribute("href", currentReadingItem.nextHref);
         nextBtn.removeAttribute("data-disabled");
         nextBtn.removeAttribute("aria-disabled");
       } else {

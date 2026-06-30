@@ -20,7 +20,7 @@ const { item, linkToDay = true } = Astro.props;
   style={{ backgroundImage: `url(${item.img})` }}>
   <div class="absolute inset-0 z-0 bg-black/70 backdrop-blur-xs"></div>
   <div class="relative z-10 p-8">
-    <h3 class="mt-0 mb-1 drop-shadow-md">
+    <h3 id={item.id} class="mt-0 mb-1 drop-shadow-md">
       {
         linkToDay ? (
           <a class="font-bold" href={`/purposes/${item.day}`}>

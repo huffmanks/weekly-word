@@ -9,22 +9,33 @@ export async function getStaticPaths() {
   const collection = await getCollection("purposes");
   const allPurposes = collection[0].data;
 
+  const totalCount = allPurposes.reduce((acc, purpose) => acc + purpose.group.length, 0);
+
   return allPurposes.flatMap((purpose) =>
     purpose.group.map((item) => ({
       params: { day: item.day.toString() },
-      props: { item },
+      props: { item, totalCount },
     }))
   );
 }
 
-const { item } = Astro.props;
+const { item, totalCount } = Astro.props;
+
+const isPreviousDisabled = item.day < 2;
+const previousHref = !isPreviousDisabled ? `/purposes/${item.day - 1}` : null;
+const isNextDisabled = item.day === totalCount;
+const nextHref = !isNextDisabled ? `/purposes/${item.day + 1}` : null;
 ---
 
 <BaseLayout title={item.title} description={item.point} image={item.img}>
   <div class="mx-auto max-w-(--breakpoint-sm) px-3 py-6">
     <div class="space-y-10">
-      <GoToButton href="/purposes">All purposes</GoToButton>
+      <GoToButton href={`/purposes#${item.id}`}>All purposes</GoToButton>
       <PurposeCard item={item} linkToDay={false} />
+      <div class="animate mb-6 flex items-center justify-between gap-4">
+        <GoToButton href={previousHref} isDisabled={isPreviousDisabled}>Previous</GoToButton>
+        <GoToButton href={nextHref} isNext isDisabled={isNextDisabled}>Next</GoToButton>
+      </div>
     </div>
   </div>
 </BaseLayout>
