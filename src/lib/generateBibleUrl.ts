@@ -1,4 +1,4 @@
-const bookMap: Record<string, string> = {
+export const bookMap: Record<string, string> = {
   Genesis: "GEN",
   Exodus: "EXO",
   Leviticus: "LEV",

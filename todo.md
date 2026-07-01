@@ -1,4 +1,1 @@
-- [x] When going back from purposes day 6 and go back go back to that same part e.g. use hash url.
-- [x] Also on day page add previous and next buttons.
-- [ ] Create daily Bible reading plan page. Similar to weekly verses
 - [ ] Optional songs to sermon that were sung in service

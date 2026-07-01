@@ -8,7 +8,7 @@ import BaseLayout from "@layouts/BaseLayout.astro";
 
 const enrichedVerses = weeklyVerses.map((item) => ({
   ...item,
-  bibleHref: generateBibleUrl(item.verses),
+  bibleHref: generateBibleUrl(item.verse),
   previousHref: item.id > 1 ? `/scripture/weekly-memory/${item.id - 1}` : null,
   nextHref: item.id < 52 ? `/scripture/weekly-memory/${item.id + 1}` : null,
 }));
@@ -39,7 +39,7 @@ const enrichedVerses = weeklyVerses.map((item) => ({
         </a>
       </div>
 
-      <h1 id="verses" class="animate mb-2 text-xl font-bold text-black dark:text-white"></h1>
+      <h1 id="verse" class="animate mb-2 text-xl font-bold text-black dark:text-white"></h1>
 
       <p id="text" class="animate mb-8 font-medium"></p>
 
@@ -59,23 +59,23 @@ const enrichedVerses = weeklyVerses.map((item) => ({
 />
 <script>
   import { generateWeeklyMemoryMeta } from "@lib/generateScriptureMeta";
-  import type { ScriptureData } from "@types";
+  import type { WeeklyMemory } from "@types";
 
   function main() {
     const dataEl = document.getElementById("verses-data");
     const versesList = dataEl ? JSON.parse(dataEl.textContent || "[]") : [];
 
     const { weekNumber, label } = generateWeeklyMemoryMeta();
-    const currentWeekItem = versesList.find((v: ScriptureData) => v.id === weekNumber);
+    const currentWeekItem = versesList.find((v: WeeklyMemory) => v.id === weekNumber);
 
     if (currentWeekItem) {
       const labelEl = document.getElementById("label") as HTMLSpanElement;
-      const versesEl = document.getElementById("verses") as HTMLHeadingElement;
+      const verseEl = document.getElementById("verse") as HTMLHeadingElement;
       const textEl = document.getElementById("text") as HTMLParagraphElement;
       const bibleHrefEl = document.getElementById("bibleHref") as HTMLAnchorElement;
 
       labelEl.textContent = label;
-      versesEl.textContent = currentWeekItem.verses;
+      verseEl.textContent = currentWeekItem.verse;
       textEl.textContent = currentWeekItem.text;
       bibleHrefEl.setAttribute("href", currentWeekItem.bibleHref);
 

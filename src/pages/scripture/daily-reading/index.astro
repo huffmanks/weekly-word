@@ -6,11 +6,13 @@ import Container from "@components/Container.astro";
 import GoToButton from "@components/GoToButton.astro";
 import BaseLayout from "@layouts/BaseLayout.astro";
 
+const maxId = weeklyVerses.length > 0 ? weeklyVerses[weeklyVerses.length - 1].id : 0;
+
 const enrichedVerses = weeklyVerses.map((item) => ({
   ...item,
-  bibleHref: generateBibleUrl(item.verses),
+  bibleHref: generateBibleUrl(item.chapter),
   previousHref: item.id > 1 ? `/scripture/daily-reading/${item.id - 1}` : null,
-  nextHref: item.id < 52 ? `/scripture/daily-reading/${item.id + 1}` : null,
+  nextHref: item.id < maxId ? `/scripture/daily-reading/${item.id + 1}` : null,
 }));
 ---
 
@@ -19,7 +21,7 @@ const enrichedVerses = weeklyVerses.map((item) => ({
   description="Follow the daily reading to explore one chapter of the Bible each day.">
   <Container>
     <div class="p-1.5">
-      <div class="animate mb-4 flex items-center justify-between gap-4">
+      <div class="animate mb-8 flex items-center justify-between gap-4">
         <span
           id="label"
           class="-ml-0.75 inline-flex rounded-md bg-neutral-300 px-1.5 py-1 text-sm font-medium dark:bg-neutral-800">
@@ -41,9 +43,18 @@ const enrichedVerses = weeklyVerses.map((item) => ({
         </a>
       </div>
 
-      <h1 id="verses" class="animate mb-2 text-xl font-bold text-black dark:text-white"></h1>
+      <div class="animate mb-3 flex flex-wrap items-center gap-2">
+        <h1 id="chapter" class="text-xl font-bold text-black dark:text-white"></h1>
+        <span>&bull;</span>
+        <div id="versesLength" class="text-sm font-medium text-black/60 dark:text-white/50"></div>
+        <span>&bull;</span>
+        <div id="readingTime" class="text-sm font-medium text-black/60 dark:text-white/50"></div>
+      </div>
 
-      <p id="text" class="animate mb-8 font-medium"></p>
+      <div
+        id="text"
+        class="animate mb-8 grid grid-cols-[auto_1fr] gap-x-2 gap-y-3 text-lg font-medium">
+      </div>
 
       <div class="animate mb-6 flex items-center justify-between gap-4">
         <GoToButton href={null}>Previous</GoToButton>
@@ -61,7 +72,8 @@ const enrichedVerses = weeklyVerses.map((item) => ({
 />
 <script>
   import { generateDailyReadingMeta } from "@lib/generateScriptureMeta";
-  import type { DailyReading } from "@types";
+  import { readingTime } from "@lib/utils";
+  import type { DailyReading, DailyReadingVerse } from "@types";
 
   function main() {
     const dataEl = document.getElementById("verses-data");
@@ -72,14 +84,27 @@ const enrichedVerses = weeklyVerses.map((item) => ({
 
     if (currentReadingItem) {
       const labelEl = document.getElementById("label") as HTMLSpanElement;
-      const versesEl = document.getElementById("verses") as HTMLHeadingElement;
-      const textEl = document.getElementById("text") as HTMLParagraphElement;
+      const chapterEl = document.getElementById("chapter") as HTMLHeadingElement;
+      const versesLengthEl = document.getElementById("versesLength") as HTMLHeadingElement;
+      const readingTimeEl = document.getElementById("readingTime") as HTMLHeadingElement;
+      const textContainerEl = document.getElementById("text") as HTMLDivElement;
       const bibleHrefEl = document.getElementById("bibleHref") as HTMLAnchorElement;
 
       labelEl.textContent = label;
-      versesEl.textContent = currentReadingItem.verses;
-      textEl.textContent = currentReadingItem.text;
+      chapterEl.textContent = currentReadingItem.chapter;
+      versesLengthEl.textContent = `${currentReadingItem.verses.length} verses`;
       bibleHrefEl.setAttribute("href", currentReadingItem.bibleHref);
+
+      const contentHtml = currentReadingItem.verses
+        .map((v: DailyReadingVerse) => {
+          return `
+            <span class="text-right text-black/60 dark:text-white/50">${v.number}</span>
+            <span>${v.text}</span>
+          `;
+        })
+        .join("");
+      textContainerEl.innerHTML = contentHtml;
+      readingTimeEl.textContent = readingTime(contentHtml);
 
       const prevBtn = document.getElementById("prevBtn") as HTMLAnchorElement;
       const nextBtn = document.getElementById("nextBtn") as HTMLAnchorElement;

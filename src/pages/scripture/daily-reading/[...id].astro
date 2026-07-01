@@ -4,6 +4,7 @@ import path from "node:path";
 
 import { generateBibleUrl } from "@lib/generateBibleUrl";
 import { generateDailyReadingMeta } from "@lib/generateScriptureMeta";
+import { readingTime } from "@lib/utils";
 import type { DailyReading } from "@types";
 
 import Container from "@components/Container.astro";
@@ -15,29 +16,40 @@ export async function getStaticPaths() {
   const fileData = fs.readFileSync(filePath, "utf-8");
   const data = JSON.parse(fileData) as DailyReading[];
 
+  const maxId = data.length > 0 ? data[data.length - 1].id : 0;
+
   return data.map((item) => {
     return {
       params: { id: String(item.id) },
-      props: { item, totalCount: data.length },
+      props: { item, maxId },
     };
   });
 }
 
-const { item, totalCount } = Astro.props;
+const { item, maxId } = Astro.props;
 
 const { title, label, description } = generateDailyReadingMeta(item.date);
-const bibleHref = generateBibleUrl(item.verses);
+const bibleHref = generateBibleUrl(item.chapter);
 
 const isPreviousDisabled = item.id < 2;
 const previousHref = !isPreviousDisabled ? `/scripture/daily-reading/${item.id - 1}` : null;
-const isNextDisabled = item.id === totalCount;
+const isNextDisabled = item.id === maxId;
 const nextHref = !isNextDisabled ? `/scripture/daily-reading/${item.id + 1}` : null;
+
+const itemVersesHtml = item.verses
+  .map(
+    (v) => `
+    <span class="text-right text-black/60 dark:text-white/50">${v.number}</span>
+    <span>${v.text}</span>
+  `
+  )
+  .join("");
 ---
 
 <BaseLayout title={title} description={description}>
   <Container>
     <div class="p-1.5">
-      <div class="animate mb-4 flex items-center justify-between gap-4">
+      <div class="animate mb-8 flex items-center justify-between gap-4">
         <span
           class="-ml-0.75 inline-flex rounded-md bg-neutral-300 px-1.5 py-1 text-sm font-medium dark:bg-neutral-800">
           {label}
@@ -59,11 +71,24 @@ const nextHref = !isNextDisabled ? `/scripture/daily-reading/${item.id + 1}` : n
         </a>
       </div>
 
-      <h1 class="animate mb-2 text-xl font-bold text-black dark:text-white">
-        {item.verses}
-      </h1>
+      <div class="animate mb-3 flex flex-wrap items-center gap-2">
+        <h1 class="text-xl font-bold text-black dark:text-white">
+          {item.chapter}
+        </h1>
+        <span>&bull;</span>
+        <div class="text-sm font-medium text-black/60 dark:text-white/50">
+          {item.verses.length} verses
+        </div>
+        <span>&bull;</span>
+        <div class="text-sm font-medium text-black/60 dark:text-white/50">
+          {readingTime(itemVersesHtml)}
+        </div>
+      </div>
 
-      <p class="animate mb-8 font-medium">{item.text}</p>
+      <div
+        class="animate mb-8 grid grid-cols-[auto_1fr] gap-x-2 gap-y-3 text-lg font-medium"
+        set:html={itemVersesHtml}
+      />
 
       <div class="animate mb-6 flex items-center justify-between gap-4">
         <GoToButton href={previousHref} isDisabled={isPreviousDisabled}>Previous</GoToButton>

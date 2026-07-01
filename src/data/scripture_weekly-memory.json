@@ -1,262 +1,262 @@
 [
   {
     "id": 1,
-    "verses": "Numbers 6:24-26",
-    "text": "‘Yahweh bless you, and keep you. Yahweh make his face to shine on you, and be gracious to you. Yahweh lift up his face toward you, and give you peace.’"
+    "verse": "Genesis 1:1",
+    "text": "In the beginning God created the heavens and the earth."
   },
   {
     "id": 2,
-    "verses": "Deuteronomy 6:4-5",
-    "text": "Hear, Israel: Yahweh is our God. Yahweh is one. You shall love Yahweh your God with all your heart, with all your soul, and with all your might."
+    "verse": "Deuteronomy 6:5",
+    "text": "Love the Lord your God with all your heart and with all your soul and with all your strength."
   },
   {
     "id": 3,
-    "verses": "Joshua 1:9",
-    "text": "Haven’t I commanded you? Be strong and courageous. Don’t be afraid. Don’t be dismayed, for Yahweh your God is with you wherever you go.”"
+    "verse": "Joshua 1:9",
+    "text": "Have I not commanded you? Be strong and courageous. Do not be afraid; do not be discouraged, for the Lord your God will be with you wherever you go.”"
   },
   {
     "id": 4,
-    "verses": "Nehemiah 8:10",
-    "text": "Then he said to them, “Go your way. Eat the fat, drink the sweet, and send portions to him for whom nothing is prepared, for today is holy to our Lord. Don’t be grieved, for the joy of Yahweh is your strength.”"
+    "verse": "Psalms 23:1",
+    "text": "The Lord is my shepherd, I lack nothing."
   },
   {
     "id": 5,
-    "verses": "Psalms 23:1-3",
-    "text": "Yahweh is my shepherd: I shall lack nothing. He makes me lie down in green pastures. He leads me beside still waters. He restores my soul. He guides me in the paths of righteousness for his name’s sake."
+    "verse": "Psalms 27:1",
+    "text": "The Lord is my light and my salvation— whom shall I fear? The Lord is the stronghold of my life— of whom shall I be afraid?"
   },
   {
     "id": 6,
-    "verses": "Psalms 27:1",
-    "text": "Yahweh is my light and my salvation. Whom shall I fear? Yahweh is the strength of my life. Of whom shall I be afraid?"
+    "verse": "Psalms 46:1",
+    "text": "God is our refuge and strength, an ever-present help in trouble."
   },
   {
     "id": 7,
-    "verses": "Psalms 46:1",
-    "text": "God is our refuge and strength, a very present help in trouble."
+    "verse": "Psalms 46:10",
+    "text": "He says, “Be still, and know that I am God; I will be exalted among the nations, I will be exalted in the earth.”"
   },
   {
     "id": 8,
-    "verses": "Psalms 46:10",
-    "text": "“Be still, and know that I am God. I will be exalted among the nations. I will be exalted in the earth.”"
+    "verse": "Psalms 56:3",
+    "text": "When I am afraid, I put my trust in you."
   },
   {
     "id": 9,
-    "verses": "Psalms 119:105",
-    "text": "Your word is a lamp to my feet, and a light for my path."
+    "verse": "Psalms 118:1",
+    "text": "Give thanks to the Lord, for he is good; his love endures forever."
   },
   {
     "id": 10,
-    "verses": "Psalms 121:1-2",
-    "text": "I will lift up my eyes to the hills. Where does my help come from? My help comes from Yahweh, who made heaven and earth."
+    "verse": "Psalms 119:11",
+    "text": "I have hidden your word in my heart that I might not sin against you."
   },
   {
     "id": 11,
-    "verses": "Proverbs 1:7",
-    "text": "The fear of Yahweh is the beginning of knowledge; but the foolish despise wisdom and instruction."
+    "verse": "Psalms 119:105",
+    "text": "Your word is a lamp for my feet, a light on my path."
   },
   {
     "id": 12,
-    "verses": "Proverbs 3:5-6",
-    "text": "Trust in Yahweh with all your heart, and don’t lean on your own understanding. In all your ways acknowledge him, and he will make your paths straight."
+    "verse": "Psalms 121:2",
+    "text": "My help comes from the Lord, the Maker of heaven and earth."
   },
   {
     "id": 13,
-    "verses": "Isaiah 40:31",
-    "text": "But those who wait for Yahweh will renew their strength. They will mount up with wings like eagles. They will run, and not be weary. They will walk, and not faint."
+    "verse": "Proverbs 1:7",
+    "text": "The fear of the Lord is the beginning of knowledge, but fools despise wisdom and instruction."
   },
   {
     "id": 14,
-    "verses": "Isaiah 43:1",
-    "text": "But now Yahweh who created you, Jacob, and he who formed you, Israel says: “Don’t be afraid, for I have redeemed you. I have called you by your name. You are mine."
+    "verse": "Proverbs 3:5",
+    "text": "Trust in the Lord with all your heart and lean not on your own understanding;"
   },
   {
     "id": 15,
-    "verses": "Jeremiah 29:11",
-    "text": "For I know the thoughts that I think toward you,” says Yahweh, “thoughts of peace, and not of evil, to give you hope and a future."
+    "verse": "Proverbs 3:6",
+    "text": "in all your ways submit to him, and he will make your paths straight."
   },
   {
     "id": 16,
-    "verses": "Lamentations 3:22-23",
-    "text": "It is because of Yahweh’s loving kindnesses that we are not consumed, because his compassion doesn’t fail. They are new every morning. Great is your faithfulness."
+    "verse": "Proverbs 4:23",
+    "text": "Above all else, guard your heart, for everything you do flows from it."
   },
   {
     "id": 17,
-    "verses": "Joel 2:13",
-    "text": "Tear your heart, and not your garments, and turn to Yahweh, your God; for he is gracious and merciful, slow to anger, and abundant in loving kindness, and relents from sending calamity."
+    "verse": "Nehemiah 8:10",
+    "text": "Nehemiah said, “Go and enjoy choice food and sweet drinks, and send some to those who have nothing prepared. This day is holy to our Lord. Do not grieve, for the joy of the Lord is your strength.”"
   },
   {
     "id": 18,
-    "verses": "Micah 6:8",
-    "text": "He has shown you, O man, what is good. What does Yahweh require of you, but to act justly, to love mercy, and to walk humbly with your God?"
+    "verse": "Isaiah 9:6",
+    "text": "For to us a child is born, to us a son is given, and the government will be on his shoulders. And he will be called Wonderful Counselor, Mighty God, Everlasting Father, Prince of Peace."
   },
   {
     "id": 19,
-    "verses": "Matthew 5:16",
-    "text": "Even so, let your light shine before men; that they may see your good works, and glorify your Father who is in heaven."
+    "verse": "Isaiah 26:3",
+    "text": "You will keep in perfect peace those whose minds are steadfast, because they trust in you."
   },
   {
     "id": 20,
-    "verses": "Matthew 6:33",
-    "text": "But seek first God’s Kingdom, and his righteousness; and all these things will be given to you as well."
+    "verse": "Isaiah 40:31",
+    "text": "but those who hope in the Lord will renew their strength. They will soar on wings like eagles; they will run and not grow weary, they will walk and not be faint."
   },
   {
     "id": 21,
-    "verses": "Matthew 11:28-30",
-    "text": "“Come to me, all you who labor and are heavily burdened, and I will give you rest. Take my yoke upon you, and learn from me, for I am gentle and humble in heart; and you will find rest for your souls. For my yoke is easy, and my burden is light.”"
+    "verse": "Isaiah 41:10",
+    "text": "So do not fear, for I am with you; do not be dismayed, for I am your God. I will strengthen you and help you; I will uphold you with my righteous right hand."
   },
   {
     "id": 22,
-    "verses": "Matthew 22:37-39",
-    "text": "Jesus said to him, “‘You shall love the Lord your God with all your heart, with all your soul, and with all your mind.’This is the first and great commandment. A second likewise is this, ‘You shall love your neighbor as yourself.’"
+    "verse": "Isaiah 43:1",
+    "text": "But now, this is what the Lord says— he who created you, Jacob, he who formed you, Israel: “Do not fear, for I have redeemed you; I have summoned you by name; you are mine."
   },
   {
     "id": 23,
-    "verses": "Matthew 28:18-20",
-    "text": "Jesus came to them and spoke to them, saying, “All authority has been given to me in heaven and on earth. Go and make disciples of all nations, baptizing them in the name of the Father and of the Son and of the Holy Spirit, teaching them to observe all things that I commanded you. Behold, I am with you always, even to the end of the age.” Amen."
+    "verse": "Jeremiah 29:11",
+    "text": "For I know the plans I have for you,” declares the Lord, “plans to prosper you and not to harm you, plans to give you hope and a future."
   },
   {
     "id": 24,
-    "verses": "Mark 1:15",
-    "text": "And saying, “The time is fulfilled, and God’s Kingdom is at hand! Repent, and believe in the Good News.”"
+    "verse": "Lamentations 3:23",
+    "text": "They are new every morning; great is your faithfulness."
   },
   {
     "id": 25,
-    "verses": "Luke 2:10-12",
-    "text": "The angel said to them, “Don’t be afraid, for behold, I bring you good news of great joy which will be to all the people. For there is born to you today, in David’s city, a Savior, who is Christ the Lord. This is the sign to you: you will find a baby wrapped in strips of cloth, lying in a feeding trough.”"
+    "verse": "Joel 2:13",
+    "text": "Rend your heart and not your garments. Return to the Lord your God, for he is gracious and compassionate, slow to anger and abounding in love, and he relents from sending calamity."
   },
   {
     "id": 26,
-    "verses": "John 1:14",
-    "text": "The Word became flesh, and lived among us. We saw his glory, such glory as of the one and only Son of the Father, full of grace and truth."
+    "verse": "Micah 6:8",
+    "text": "He has shown you, O mortal, what is good. And what does the Lord require of you? To act justly and to love mercy and to walk humbly with your God."
   },
   {
     "id": 27,
-    "verses": "John 3:16-17",
-    "text": "For God so loved the world, that he gave his one and only Son, that whoever believes in him should not perish, but have eternal life. For God didn’t send his Son into the world to judge the world, but that the world should be saved through him."
+    "verse": "Matthew 5:16",
+    "text": "In the same way, let your light shine before others, that they may see your good deeds and glorify your Father in heaven."
   },
   {
     "id": 28,
-    "verses": "John 6:35",
-    "text": "Jesus said to them, “I am the bread of life. He who comes to me will not be hungry, and he who believes in me will never be thirsty."
+    "verse": "Matthew 6:33",
+    "text": "But seek first his kingdom and his righteousness, and all these things will be given to you as well."
   },
   {
     "id": 29,
-    "verses": "John 8:12",
-    "text": "Again, therefore, Jesus spoke to them, saying, “I am the light of the world. He who follows me will not walk in the darkness, but will have the light of life.”"
+    "verse": "Matthew 11:28",
+    "text": "“Come to me, all you who are weary and burdened, and I will give you rest."
   },
   {
     "id": 30,
-    "verses": "John 14:1-3",
-    "text": "“Don’t let your heart be troubled. Believe in God. Believe also in me. In my Father’s house are many homes. If it weren’t so, I would have told you. I am going to prepare a place for you. If I go and prepare a place for you, I will come again, and will receive you to myself; that where I am, you may be there also."
+    "verse": "Matthew 22:37",
+    "text": "Jesus replied: “ ‘Love the Lord your God with all your heart and with all your soul and with all your mind.’"
   },
   {
     "id": 31,
-    "verses": "John 14:27",
-    "text": "Peace I leave with you. My peace I give to you; not as the world gives, give I to you. Don’t let your heart be troubled, neither let it be fearful."
+    "verse": "Matthew 28:20",
+    "text": "and teaching them to obey everything I have commanded you. And surely I am with you always, to the very end of the age.”"
   },
   {
     "id": 32,
-    "verses": "John 15:1-2",
-    "text": "“I am the true vine, and my Father is the farmer. Every branch in me that doesn’t bear fruit, he takes away. Every branch that bears fruit, he prunes, that it may bear more fruit."
+    "verse": "Mark 1:15",
+    "text": "“The time has come,” he said. “The kingdom of God has come near. Repent and believe the good news!”"
   },
   {
     "id": 33,
-    "verses": "Romans 8:26-27",
-    "text": "In the same way, the Spirit also helps our weaknesses, for we don’t know how to pray as we ought. But the Spirit himself makes intercession for us with groanings which can’t be uttered. He who searches the hearts knows what is on the Spirit’s mind, because he makes intercession for the saints according to God."
+    "verse": "Luke 2:11",
+    "text": "Today in the town of David a Savior has been born to you; he is the Messiah, the Lord."
   },
   {
     "id": 34,
-    "verses": "Romans 8:28",
-    "text": "We know that all things work together for good for those who love God, to those who are called according to his purpose."
+    "verse": "John 1:14",
+    "text": "The Word became flesh and made his dwelling among us. We have seen his glory, the glory of the one and only Son, who came from the Father, full of grace and truth."
   },
   {
     "id": 35,
-    "verses": "Romans 12:2",
-    "text": "Don’t be conformed to this world, but be transformed by the renewing of your mind, so that you may prove what is the good, well-pleasing, and perfect will of God."
+    "verse": "John 3:16",
+    "text": "For God so loved the world that he gave his one and only Son, that whoever believes in him shall not perish but have eternal life."
   },
   {
     "id": 36,
-    "verses": "1 Corinthians 10:31",
-    "text": "Whether therefore you eat, or drink, or whatever you do, do all to the glory of God."
+    "verse": "John 6:35",
+    "text": "Then Jesus declared, “I am the bread of life. Whoever comes to me will never go hungry, and whoever believes in me will never be thirsty."
   },
   {
     "id": 37,
-    "verses": "1 Corinthians 13:4-8",
-    "text": "Love is patient and is kind; love doesn’t envy. Love doesn’t brag, is not proud, doesn’t behave itself inappropriately, doesn’t seek its own way, is not provoked, takes no account of evil; doesn’t rejoice in unrighteousness, but rejoices with the truth; bears all things, believes all things, hopes all things, endures all things. Love never fails. But where there are prophecies, they will be done away with. Where there are various languages, they will cease. Where there is knowledge, it will be done away with."
+    "verse": "John 8:12",
+    "text": "When Jesus spoke again to the people, he said, “I am the light of the world. Whoever follows me will never walk in darkness, but will have the light of life.”"
   },
   {
     "id": 38,
-    "verses": "2 Corinthians 13:13",
-    "text": "All the saints greet you."
+    "verse": "John 11:35",
+    "text": "Jesus wept."
   },
   {
     "id": 39,
-    "verses": "2 Corinthians 5:17",
-    "text": "Therefore if anyone is in Christ, he is a new creation. The old things have passed away. Behold, all things have become new."
+    "verse": "John 14:1",
+    "text": "“Do not let your hearts be troubled. You believe in God ; believe also in me."
   },
   {
     "id": 40,
-    "verses": "Galatians 2:20",
-    "text": "I have been crucified with Christ, and it is no longer I that live, but Christ lives in me. That life which I now live in the flesh, I live by faith in the Son of God, who loved me, and gave himself up for me."
+    "verse": "John 14:6",
+    "text": "Jesus answered, “I am the way and the truth and the life. No one comes to the Father except through me."
   },
   {
     "id": 41,
-    "verses": "Galatians 5:22-23",
-    "text": "But the fruit of the Spirit is love, joy, peace, patience, kindness, goodness, faith, gentleness, and self-control. Against such things there is no law."
+    "verse": "John 14:27",
+    "text": "Peace I leave with you; my peace I give you. I do not give to you as the world gives. Do not let your hearts be troubled and do not be afraid."
   },
   {
     "id": 42,
-    "verses": "Ephesians 2:8-9",
-    "text": "For by grace you have been saved through faith, and that not of yourselves; it is the gift of God, not of works, that no one would boast."
+    "verse": "Romans 3:23",
+    "text": "for all have sinned and fall short of the glory of God,"
   },
   {
     "id": 43,
-    "verses": "Philippians 4:13",
-    "text": "I can do all things through Christ, who strengthens me."
+    "verse": "Romans 6:23",
+    "text": "For the wages of sin is death, but the gift of God is eternal life inChrist Jesus our Lord."
   },
   {
     "id": 44,
-    "verses": "Philippians 4:4-7",
-    "text": "Rejoice in the Lord always! Again I will say, “Rejoice!” Let your gentleness be known to all men. The Lord is at hand. In nothing be anxious, but in everything, by prayer and petition with thanksgiving, let your requests be made known to God. And the peace of God, which surpasses all understanding, will guard your hearts and your thoughts in Christ Jesus."
+    "verse": "Romans 8:28",
+    "text": "And we know that in all things God works for the good of those who love him, who have been called according to his purpose."
   },
   {
     "id": 45,
-    "verses": "Colossians 3:1-3",
-    "text": "If then you were raised together with Christ, seek the things that are above, where Christ is, seated on the right hand of God. Set your mind on the things that are above, not on the things that are on the earth. For you died, and your life is hidden with Christ in God."
+    "verse": "Romans 12:2",
+    "text": "Do not conform to the pattern of this world, but be transformed by the renewing of your mind. Then you will be able to test and approve what God’s will is—his good, pleasing and perfect will."
   },
   {
     "id": 46,
-    "verses": "1 Thessalonians 5:16-18",
-    "text": "Rejoice always. Pray without ceasing. In everything give thanks, for this is the will of God in Christ Jesus toward you."
+    "verse": "1 Corinthians 10:31",
+    "text": "So whether you eat or drink or whatever you do, do it all for the glory of God."
   },
   {
     "id": 47,
-    "verses": "2 Timothy 3:16",
-    "text": "Every Scripture is God-breathed and profitable for teaching, for reproof, for correction, and for instruction in righteousness."
+    "verse": "1 Corinthians 13:4",
+    "text": "Love is patient, love is kind. It does not envy, it does not boast, it is not proud."
   },
   {
     "id": 48,
-    "verses": "2 Timothy 4:7",
-    "text": "I have fought the good fight. I have finished the course. I have kept the faith."
+    "verse": "1 Corinthians 16:14",
+    "text": "Do everything in love."
   },
   {
     "id": 49,
-    "verses": "Hebrews 11:1",
-    "text": "Now faith is assurance of things hoped for, proof of things not seen."
+    "verse": "2 Corinthians 5:17",
+    "text": "Therefore, if anyone is in Christ, the new creation has come: The old has gone, the new is here!"
   },
   {
     "id": 50,
-    "verses": "Hebrews 12:1",
-    "text": "Therefore let us also, seeing we are surrounded by so great a cloud of witnesses, lay aside every weight and the sin which so easily entangles us, and let us run with perseverance the race that is set before us."
+    "verse": "Galatians 2:20",
+    "text": "I have been crucified with Christ and I no longer live, but Christ lives in me. The life I now live in the body, I live by faith in the Son of God, who loved me and gave himself for me."
   },
   {
     "id": 51,
-    "verses": "1 Peter 5:7",
-    "text": "Casting all your worries on him, because he cares for you."
+    "verse": "Philippians 4:13",
+    "text": "I can do all this through him who gives me strength."
   },
   {
     "id": 52,
-    "verses": "Revelation 3:20",
-    "text": "Behold, I stand at the door and knock. If anyone hears my voice and opens the door, then I will come in to him, and will dine with him, and he with me."
+    "verse": "1 Peter 5:7",
+    "text": "Cast all your anxiety on him because he cares for you."
   }
 ]
