@@ -1,0 +1,406 @@
+<!DOCTYPE html><html lang="en"> <head><!-- Global Metadata --><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><link rel="icon" type="image/svg+xml" href="/favicon.svg"><meta name="generator" content="Astro v5.12.3"><link rel="canonical" href="https://word.huffmanks.com/scripture/daily-reading/142/"><!-- Primary Meta Tags --><title>Daily Reading | Weekly Word</title><meta name="title" content="Daily Reading | Weekly Word"><meta name="description" content="Daily reading for Monday, July 20"><!-- Open Graph / Facebook --><meta property="og:type" content="website"><meta property="og:url" content="https://word.huffmanks.com/scripture/daily-reading/142/"><meta property="og:title" content="Daily Reading | Weekly Word"><meta property="og:description" content="Daily reading for Monday, July 20"><meta property="og:image" content="https://word.huffmanks.com/logo.png"><meta property="og:image:width" content="800"><meta property="og:image:height" content="800"><meta property="og:image:alt" content="Daily reading for Monday, July 20"><!-- Twitter --><meta property="twitter:card" content="summary_large_image"><meta property="twitter:url" content="https://word.huffmanks.com/scripture/daily-reading/142/"><meta property="twitter:title" content="Daily Reading | Weekly Word"><meta property="twitter:description" content="Daily reading for Monday, July 20"><meta name="twitter:image" content="https://word.huffmanks.com/logo.png"><meta name="twitter:image:alt" content="Daily reading for Monday, July 20"><!-- Transitions & Client Router --><meta name="astro-view-transitions-enabled" content="true"><meta name="astro-view-transitions-fallback" content="animate"><script type="module" src="/_astro/ClientRouter.astro_astro_type_script_index_0_lang.D98dxaWf.js"></script><script>
+    function init() {
+      preloadTheme();
+      onScroll();
+      animate();
+      updateThemeButtons();
+
+      const backToTop = document.getElementById("back-to-top");
+      backToTop?.addEventListener("click", (event) => scrollToTop(event));
+
+      const backToPrev = document.getElementById("back-to-prev");
+      backToPrev?.addEventListener("click", () => window.history.back());
+
+      const lightThemeButton = document.getElementById("light-theme-button");
+      lightThemeButton?.addEventListener("click", () => {
+        localStorage.setItem("theme", "light");
+        toggleTheme(false);
+        updateThemeButtons();
+      });
+
+      const darkThemeButton = document.getElementById("dark-theme-button");
+      darkThemeButton?.addEventListener("click", () => {
+        localStorage.setItem("theme", "dark");
+        toggleTheme(true);
+        updateThemeButtons();
+      });
+
+      const systemThemeButton = document.getElementById("system-theme-button");
+      systemThemeButton?.addEventListener("click", () => {
+        localStorage.setItem("theme", "system");
+        toggleTheme(window.matchMedia("(prefers-color-scheme: dark)").matches);
+        updateThemeButtons();
+      });
+
+      window.matchMedia("(prefers-color-scheme: dark)").addEventListener("change", (event) => {
+        if (localStorage.theme === "system") {
+          toggleTheme(event.matches);
+        }
+      });
+
+      document.addEventListener("scroll", onScroll);
+    }
+
+    function updateThemeButtons() {
+      const theme = localStorage.getItem("theme");
+      const lightThemeButton = document.getElementById("light-theme-button");
+      const darkThemeButton = document.getElementById("dark-theme-button");
+      const systemThemeButton = document.getElementById("system-theme-button");
+
+      function removeActiveButtonTheme(button) {
+        button?.classList.remove("bg-neutral-300");
+        button?.classList.remove("dark:bg-neutral-800");
+      }
+
+      function addActiveButtonTheme(button) {
+        button?.classList.add("bg-neutral-300");
+        button?.classList.add("dark:bg-neutral-800");
+      }
+
+      removeActiveButtonTheme(lightThemeButton);
+      removeActiveButtonTheme(darkThemeButton);
+      removeActiveButtonTheme(systemThemeButton);
+
+      if (theme === "light") {
+        addActiveButtonTheme(lightThemeButton);
+      } else if (theme === "dark") {
+        addActiveButtonTheme(darkThemeButton);
+      } else {
+        addActiveButtonTheme(systemThemeButton);
+      }
+    }
+
+    function animate() {
+      const animateElements = document.querySelectorAll(".animate");
+
+      animateElements.forEach((element, index) => {
+        setTimeout(() => {
+          element.classList.add("show");
+        }, index * 100);
+      });
+    }
+
+    function onScroll() {
+      if (window.scrollY > 0) {
+        document.documentElement.classList.add("scrolled");
+      } else {
+        document.documentElement.classList.remove("scrolled");
+      }
+    }
+
+    function scrollToTop(event) {
+      event.preventDefault();
+      window.scrollTo({
+        top: 0,
+        behavior: "smooth",
+      });
+    }
+
+    function toggleTheme(dark) {
+      const css = document.createElement("style");
+
+      css.appendChild(
+        document.createTextNode(
+          `* {
+             -webkit-transition: none !important;
+             -moz-transition: none !important;
+             -o-transition: none !important;
+             -ms-transition: none !important;
+             transition: none !important;
+          }
+        `
+        )
+      );
+
+      document.head.appendChild(css);
+
+      if (dark) {
+        document.documentElement.classList.add("dark");
+      } else {
+        document.documentElement.classList.remove("dark");
+      }
+
+      window.getComputedStyle(css).opacity;
+      document.head.removeChild(css);
+    }
+
+    function preloadTheme() {
+      const userTheme = localStorage.theme;
+
+      if (userTheme === "light" || userTheme === "dark") {
+        toggleTheme(userTheme === "dark");
+      } else {
+        toggleTheme(window.matchMedia("(prefers-color-scheme: dark)").matches);
+      }
+    }
+
+    document.addEventListener("DOMContentLoaded", () => init());
+    document.addEventListener("astro:after-swap", () => init());
+    preloadTheme();
+  </script><link rel="stylesheet" href="/_astro/index.DSTgJCPF.css"></head><body> <noscript> <style>
+        .animate {
+          opacity: 1;
+          translate: var(--tw-translate-x) calc(var(--spacing) * 0);
+        }
+      </style> </noscript> <header data-astro-cid-3ef6ksr2 data-astro-transition-persist="astro-l7r54iwe-1"> <div class="mx-auto max-w-(--breakpoint-sm) px-3"> <div data-pagefind-ignore class="flex flex-wrap items-end justify-between gap-y-2" data-astro-cid-3ef6ksr2> <a href="/" target="_self" class="inline-block decoration-black/30 dark:decoration-white/30 hover:decoration-black/50 focus-visible:decoration-black/50 dark:hover:decoration-white/50 dark:focus-visible:decoration-white/50 text-current hover:text-black focus-visible:text-black dark:hover:text-white dark:focus-visible:text-white transition-colors duration-300 ease-in-out" data-astro-cid-3ef6ksr2="true">  <div class="flex items-center gap-1" data-astro-cid-3ef6ksr2> <svg class="size-4 fill-current sm:size-5" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" data-astro-cid-3ef6ksr2> <path d="M6 22h15v-2H6.012C5.55 19.988 5 19.805 5 19s.55-.988 1.012-1H21V4a2 2 0 0 0-2-2H6c-1.206 0-3 .799-3 3v14c0 2.201 1.794 3 3 3M8 7h3V5h2v2h3v2h-3v6h-2V9H8z" data-astro-cid-3ef6ksr2></path> </svg> <div class="font-bold sm:text-lg" data-astro-cid-3ef6ksr2> Weekly Word </div> </div>  </a> <div class="relative flex items-center gap-2" data-astro-cid-3ef6ksr2> <button id="magnifying-glass" aria-label="Search" class="group flex cursor-pointer items-center gap-1 rounded-sm border border-neutral-400 bg-transparent py-1 pr-2.5 pl-1.5 text-xs transition-colors duration-300 ease-in-out hover:bg-neutral-300 hover:text-black focus-visible:bg-neutral-300 focus-visible:text-black dark:border-neutral-700 dark:hover:bg-neutral-800 dark:hover:text-white dark:focus-visible:bg-neutral-800 dark:focus-visible:text-white" data-astro-cid-3ef6ksr2> <svg height="16" stroke-linejoin="round" viewBox="0 0 16 16" width="16" style="color: currentcolor;" data-astro-cid-3ef6ksr2> <path fill-rule="evenodd" clip-rule="evenodd" d="M3.5 7C3.5 5.067 5.067 3.5 7 3.5C8.933 3.5 10.5 5.067 10.5 7C10.5 7.88461 10.1718 8.69256 9.63058 9.30876L9.30876 9.63058C8.69256 10.1718 7.88461 10.5 7 10.5C5.067 10.5 3.5 8.933 3.5 7ZM9.96544 11.0261C9.13578 11.6382 8.11014 12 7 12C4.23858 12 2 9.76142 2 7C2 4.23858 4.23858 2 7 2C9.76142 2 12 4.23858 12 7C12 8.11014 11.6382 9.13578 11.0261 9.96544L14.0303 12.9697L14.5607 13.5L13.5 14.5607L12.9697 14.0303L9.96544 11.0261Z" fill="currentColor" data-astro-cid-3ef6ksr2></path> </svg> <span class="group-hover:text-neutral-900 group-focus-visible:text-neutral-900 dark:group-hover:text-neutral-100 dark:group-focus-visible:text-neutral-100" data-astro-cid-3ef6ksr2>search</span> </button> <button id="mobile-menu-btn-show" class="cursor-pointer rounded-sm px-2 py-1 transition-colors duration-300 ease-in-out hover:bg-neutral-300 hover:text-black focus-visible:bg-neutral-300 focus-visible:text-black dark:hover:bg-neutral-800 dark:hover:text-white dark:focus-visible:bg-neutral-800 dark:focus-visible:text-white" popovertarget="mobile-menu" popovertargetaction="show" aria-label="Open mobile menu" aria-controls="mobile-menu" data-astro-cid-3ef6ksr2> <svg class="size-5" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" data-astro-cid-3ef6ksr2> <path fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M7 5h10M4 12h16M7 19h10" data-astro-cid-3ef6ksr2></path> </svg> </button> <nav id="mobile-menu" popover class="w-72 max-w-[calc(100%-0.75rem)] rounded-md border border-neutral-300 bg-neutral-200 dark:border-neutral-700 dark:bg-neutral-800" data-astro-cid-3ef6ksr2> <div role="menu" class="popover-menu relative" data-astro-cid-3ef6ksr2> <button id="mobile-menu-btn-close" class="absolute top-2 right-2 cursor-pointer self-end hover:opacity-70 focus-visible:opacity-70" popovertarget="mobile-menu" popovertargetaction="hide" aria-label="Close mobile menu" aria-controls="mobile-menu" data-astro-cid-3ef6ksr2> <svg class="size-5" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" data-astro-cid-3ef6ksr2> <path fill="currentColor" d="M18.3 5.71a.996.996 0 0 0-1.41 0L12 10.59L7.11 5.7A.996.996 0 1 0 5.7 7.11L10.59 12L5.7 16.89a.996.996 0 1 0 1.41 1.41L12 13.41l4.89 4.89a.996.996 0 1 0 1.41-1.41L13.41 12l4.89-4.89c.38-.38.38-1.02 0-1.4" data-astro-cid-3ef6ksr2></path> </svg> </button> <div class="flex flex-col gap-2 p-4" data-astro-cid-3ef6ksr2> <a href="/sermons" target="_self" class="inline-block decoration-black/30 dark:decoration-white/30 hover:decoration-black/50 focus-visible:decoration-black/50 dark:hover:decoration-white/50 dark:focus-visible:decoration-white/50 text-current hover:text-black focus-visible:text-black dark:hover:text-white dark:focus-visible:text-white transition-colors duration-300 ease-in-out underline underline-offset-[3px]" data-astro-cid-3ef6ksr2="true"> sermons </a> <a href="/series" target="_self" class="inline-block decoration-black/30 dark:decoration-white/30 hover:decoration-black/50 focus-visible:decoration-black/50 dark:hover:decoration-white/50 dark:focus-visible:decoration-white/50 text-current hover:text-black focus-visible:text-black dark:hover:text-white dark:focus-visible:text-white transition-colors duration-300 ease-in-out underline underline-offset-[3px]" data-astro-cid-3ef6ksr2="true"> series </a> <a href="/pastors" target="_self" class="inline-block decoration-black/30 dark:decoration-white/30 hover:decoration-black/50 focus-visible:decoration-black/50 dark:hover:decoration-white/50 dark:focus-visible:decoration-white/50 text-current hover:text-black focus-visible:text-black dark:hover:text-white dark:focus-visible:text-white transition-colors duration-300 ease-in-out underline underline-offset-[3px]" data-astro-cid-3ef6ksr2="true"> pastors </a> <a href="/podcasts" target="_self" class="inline-block decoration-black/30 dark:decoration-white/30 hover:decoration-black/50 focus-visible:decoration-black/50 dark:hover:decoration-white/50 dark:focus-visible:decoration-white/50 text-current hover:text-black focus-visible:text-black dark:hover:text-white dark:focus-visible:text-white transition-colors duration-300 ease-in-out underline underline-offset-[3px]" data-astro-cid-3ef6ksr2="true"> podcasts </a> <hr class="mt-3 mb-1.5 border-neutral-300 dark:border-neutral-700" data-astro-cid-3ef6ksr2> <a href="/scripture/daily-reading" target="_self" class="inline-block decoration-black/30 dark:decoration-white/30 hover:decoration-black/50 focus-visible:decoration-black/50 dark:hover:decoration-white/50 dark:focus-visible:decoration-white/50 text-current hover:text-black focus-visible:text-black dark:hover:text-white dark:focus-visible:text-white transition-colors duration-300 ease-in-out underline underline-offset-[3px]" data-astro-cid-3ef6ksr2="true"> daily reading </a> <a href="/purposes" target="_self" class="inline-block decoration-black/30 dark:decoration-white/30 hover:decoration-black/50 focus-visible:decoration-black/50 dark:hover:decoration-white/50 dark:focus-visible:decoration-white/50 text-current hover:text-black focus-visible:text-black dark:hover:text-white dark:focus-visible:text-white transition-colors duration-300 ease-in-out underline underline-offset-[3px]" data-astro-cid-3ef6ksr2="true"> purposes </a> <a href="/scripture/weekly-memory" target="_self" class="inline-block decoration-black/30 dark:decoration-white/30 hover:decoration-black/50 focus-visible:decoration-black/50 dark:hover:decoration-white/50 dark:focus-visible:decoration-white/50 text-current hover:text-black focus-visible:text-black dark:hover:text-white dark:focus-visible:text-white transition-colors duration-300 ease-in-out underline underline-offset-[3px]" data-astro-cid-3ef6ksr2="true"> weekly memory </a> </div> </div> </nav> </div> </div> </div> </header>  <main>  <div class="mx-auto max-w-(--breakpoint-sm) px-3"> <div class="p-1.5"> <div class="animate mb-8 flex items-center justify-between gap-4"> <span class="-ml-0.75 inline-flex rounded-md bg-neutral-300 px-1.5 py-1 text-sm font-medium dark:bg-neutral-800"> Monday, July 20 </span> <a href="https://www.bible.com/bible/111/LEV.14.NIV" target="_blank" class="not-prose flex w-fit cursor-pointer flex-nowrap items-center gap-2 rounded-full border border-black/15 p-1.5 transition-colors duration-300 ease-in-out hover:bg-black/5 hover:text-black focus-visible:bg-black/5 focus-visible:text-black sm:rounded-sm sm:px-3 sm:py-1.5 dark:border-white/20 dark:hover:bg-white/5 dark:hover:text-white dark:focus-visible:bg-white/5 dark:focus-visible:text-white"> <svg class="size-4 fill-current" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"> <path d="M6 22h15v-2H6.012C5.55 19.988 5 19.805 5 19s.55-.988 1.012-1H21V4a2 2 0 0 0-2-2H6c-1.206 0-3 .799-3 3v14c0 2.201 1.794 3 3 3M8 7h3V5h2v2h3v2h-3v6h-2V9H8z"></path> </svg> <span class="hidden text-sm sm:inline-block">Open in Bible</span> </a> </div> <div class="animate mb-3 flex flex-wrap items-center gap-2"> <h1 class="text-xl font-bold text-black dark:text-white"> Leviticus 14 </h1> <span>&bull;</span> <div class="text-sm font-medium text-black/60 dark:text-white/50"> 57 verses
+</div> <span>&bull;</span> <div class="text-sm font-medium text-black/60 dark:text-white/50"> 9 min read </div> </div> <div class="animate mb-8 grid grid-cols-[auto_1fr] gap-x-2 gap-y-3 text-lg font-medium">
+    <span class="text-right text-black/60 dark:text-white/50">1</span>
+    <span>The Lord said to Moses,</span>
+  
+    <span class="text-right text-black/60 dark:text-white/50">2</span>
+    <span>“These are the regulations for any diseased person at the time of their ceremonial cleansing, when they are brought to the priest:</span>
+  
+    <span class="text-right text-black/60 dark:text-white/50">3</span>
+    <span>The priest is to go outside the camp and examine them. If they have been healed of their defiling skin disease,</span>
+  
+    <span class="text-right text-black/60 dark:text-white/50">4</span>
+    <span>the priest shall order that two live clean birds and some cedar wood, scarlet yarn and hyssop be brought for the person to be cleansed.</span>
+  
+    <span class="text-right text-black/60 dark:text-white/50">5</span>
+    <span>Then the priest shall order that one of the birds be killed over fresh water in a clay pot.</span>
+  
+    <span class="text-right text-black/60 dark:text-white/50">6</span>
+    <span>He is then to take the live bird and dip it, together with the cedar wood, the scarlet yarn and the hyssop, into the blood of the bird that was killed over the fresh water.</span>
+  
+    <span class="text-right text-black/60 dark:text-white/50">7</span>
+    <span>Seven times he shall sprinkle the one to be cleansed of the defiling disease, and then pronounce them clean. After that, he is to release the live bird in the open fields.</span>
+  
+    <span class="text-right text-black/60 dark:text-white/50">8</span>
+    <span>“The person to be cleansed must wash their clothes, shave off all their hair and bathe with water; then they will be ceremonially clean. After this they may come into the camp, but they must stay outside their tent for seven days.</span>
+  
+    <span class="text-right text-black/60 dark:text-white/50">9</span>
+    <span>On the seventh day they must shave off all their hair; they must shave their head, their beard, their eyebrows and the rest of their hair. They must wash their clothes and bathe themselves with water, and they will be clean.</span>
+  
+    <span class="text-right text-black/60 dark:text-white/50">10</span>
+    <span>“On the eighth day they must bring two male lambs and one ewe lamb a year old, each without defect, along with three-tenths of an ephah of the finest flour mixed with olive oil for a grain offering, and one log of oil.</span>
+  
+    <span class="text-right text-black/60 dark:text-white/50">11</span>
+    <span>The priest who pronounces them clean shall present both the one to be cleansed and their offerings before the Lord at the entrance to the tent of meeting.</span>
+  
+    <span class="text-right text-black/60 dark:text-white/50">12</span>
+    <span>“Then the priest is to take one of the male lambs and offer it as a guilt offering, along with the log of oil; he shall wave them before the Lord as a wave offering.</span>
+  
+    <span class="text-right text-black/60 dark:text-white/50">13</span>
+    <span>He is to slaughter the lamb in the sanctuary area where the sin offering and the burnt offering are slaughtered. Like the sin offering, the guilt offering belongs to the priest; it is most holy.</span>
+  
+    <span class="text-right text-black/60 dark:text-white/50">14</span>
+    <span>The priest is to take some of the blood of the guilt offering and put it on the lobe of the right ear of the one to be cleansed, on the thumb of their right hand and on the big toe of their right foot.</span>
+  
+    <span class="text-right text-black/60 dark:text-white/50">15</span>
+    <span>The priest shall then take some of the log of oil, pour it in the palm of his own left hand,</span>
+  
+    <span class="text-right text-black/60 dark:text-white/50">16</span>
+    <span>dip his right forefinger into the oil in his palm, and with his finger sprinkle some of it before the Lord seven times.</span>
+  
+    <span class="text-right text-black/60 dark:text-white/50">17</span>
+    <span>The priest is to put some of the oil remaining in his palm on the lobe of the right ear of the one to be cleansed, on the thumb of their right hand and on the big toe of their right foot, on top of the blood of the guilt offering.</span>
+  
+    <span class="text-right text-black/60 dark:text-white/50">18</span>
+    <span>The rest of the oil in his palm the priest shall put on the head of the one to be cleansed and make atonement for them before the Lord.</span>
+  
+    <span class="text-right text-black/60 dark:text-white/50">19</span>
+    <span>“Then the priest is to sacrifice the sin offering and make atonement for the one to be cleansed from their uncleanness. After that, the priest shall slaughter the burnt offering</span>
+  
+    <span class="text-right text-black/60 dark:text-white/50">20</span>
+    <span>and offer it on the altar, together with the grain offering, and make atonement for them, and they will be clean.</span>
+  
+    <span class="text-right text-black/60 dark:text-white/50">21</span>
+    <span>“If, however, they are poor and cannot afford these, they must take one male lamb as a guilt offering to be waved to make atonement for them, together with a tenth of an ephah of the finest flour mixed with olive oil for a grain offering, a log of oil,</span>
+  
+    <span class="text-right text-black/60 dark:text-white/50">22</span>
+    <span>and two doves or two young pigeons, such as they can afford, one for a sin offering and the other for a burnt offering.</span>
+  
+    <span class="text-right text-black/60 dark:text-white/50">23</span>
+    <span>“On the eighth day they must bring them for their cleansing to the priest at the entrance to the tent of meeting, before the Lord.</span>
+  
+    <span class="text-right text-black/60 dark:text-white/50">24</span>
+    <span>The priest is to take the lamb for the guilt offering, together with the log of oil, and wave them before the Lord as a wave offering.</span>
+  
+    <span class="text-right text-black/60 dark:text-white/50">25</span>
+    <span>He shall slaughter the lamb for the guilt offering and take some of its blood and put it on the lobe of the right ear of the one to be cleansed, on the thumb of their right hand and on the big toe of their right foot.</span>
+  
+    <span class="text-right text-black/60 dark:text-white/50">26</span>
+    <span>The priest is to pour some of the oil into the palm of his own left hand,</span>
+  
+    <span class="text-right text-black/60 dark:text-white/50">27</span>
+    <span>and with his right forefinger sprinkle some of the oil from his palm seven times before the Lord.</span>
+  
+    <span class="text-right text-black/60 dark:text-white/50">28</span>
+    <span>Some of the oil in his palm he is to put on the same places he put the blood of the guilt offering—on the lobe of the right ear of the one to be cleansed, on the thumb of their right hand and on the big toe of their right foot.</span>
+  
+    <span class="text-right text-black/60 dark:text-white/50">29</span>
+    <span>The rest of the oil in his palm the priest shall put on the head of the one to be cleansed, to make atonement for them before the Lord.</span>
+  
+    <span class="text-right text-black/60 dark:text-white/50">30</span>
+    <span>Then he shall sacrifice the doves or the young pigeons, such as the person can afford,</span>
+  
+    <span class="text-right text-black/60 dark:text-white/50">31</span>
+    <span>one as a sin offering and the other as a burnt offering, together with the grain offering. In this way the priest will make atonement before the Lord on behalf of the one to be cleansed.”</span>
+  
+    <span class="text-right text-black/60 dark:text-white/50">32</span>
+    <span>These are the regulations for anyone who has a defiling skin disease and who cannot afford the regular offerings for their cleansing.</span>
+  
+    <span class="text-right text-black/60 dark:text-white/50">33</span>
+    <span>The Lord said to Moses and Aaron,</span>
+  
+    <span class="text-right text-black/60 dark:text-white/50">34</span>
+    <span>“When you enter the land of Canaan, which I am giving you as your possession, and I put a spreading mold in a house in that land,</span>
+  
+    <span class="text-right text-black/60 dark:text-white/50">35</span>
+    <span>the owner of the house must go and tell the priest, ‘I have seen something that looks like a defiling mold in my house.’</span>
+  
+    <span class="text-right text-black/60 dark:text-white/50">36</span>
+    <span>The priest is to order the house to be emptied before he goes in to examine the mold, so that nothing in the house will be pronounced unclean. After this the priest is to go in and inspect the house.</span>
+  
+    <span class="text-right text-black/60 dark:text-white/50">37</span>
+    <span>He is to examine the mold on the walls, and if it has greenish or reddish depressions that appear to be deeper than the surface of the wall,</span>
+  
+    <span class="text-right text-black/60 dark:text-white/50">38</span>
+    <span>the priest shall go out the doorway of the house and close it up for seven days.</span>
+  
+    <span class="text-right text-black/60 dark:text-white/50">39</span>
+    <span>On the seventh day the priest shall return to inspect the house. If the mold has spread on the walls,</span>
+  
+    <span class="text-right text-black/60 dark:text-white/50">40</span>
+    <span>he is to order that the contaminated stones be torn out and thrown into an unclean place outside the town.</span>
+  
+    <span class="text-right text-black/60 dark:text-white/50">41</span>
+    <span>He must have all the inside walls of the house scraped and the material that is scraped off dumped into an unclean place outside the town.</span>
+  
+    <span class="text-right text-black/60 dark:text-white/50">42</span>
+    <span>Then they are to take other stones to replace these and take new clay and plaster the house.</span>
+  
+    <span class="text-right text-black/60 dark:text-white/50">43</span>
+    <span>“If the defiling mold reappears in the house after the stones have been torn out and the house scraped and plastered,</span>
+  
+    <span class="text-right text-black/60 dark:text-white/50">44</span>
+    <span>the priest is to go and examine it and, if the mold has spread in the house, it is a persistent defiling mold; the house is unclean.</span>
+  
+    <span class="text-right text-black/60 dark:text-white/50">45</span>
+    <span>It must be torn down—its stones, timbers and all the plaster—and taken out of the town to an unclean place.</span>
+  
+    <span class="text-right text-black/60 dark:text-white/50">46</span>
+    <span>“Anyone who goes into the house while it is closed up will be unclean till evening.</span>
+  
+    <span class="text-right text-black/60 dark:text-white/50">47</span>
+    <span>Anyone who sleeps or eats in the house must wash their clothes.</span>
+  
+    <span class="text-right text-black/60 dark:text-white/50">48</span>
+    <span>“But if the priest comes to examine it and the mold has not spread after the house has been plastered, he shall pronounce the house clean, because the defiling mold is gone.</span>
+  
+    <span class="text-right text-black/60 dark:text-white/50">49</span>
+    <span>To purify the house he is to take two birds and some cedar wood, scarlet yarn and hyssop.</span>
+  
+    <span class="text-right text-black/60 dark:text-white/50">50</span>
+    <span>He shall kill one of the birds over fresh water in a clay pot.</span>
+  
+    <span class="text-right text-black/60 dark:text-white/50">51</span>
+    <span>Then he is to take the cedar wood, the hyssop, the scarlet yarn and the live bird, dip them into the blood of the dead bird and the fresh water, and sprinkle the house seven times.</span>
+  
+    <span class="text-right text-black/60 dark:text-white/50">52</span>
+    <span>He shall purify the house with the bird’s blood, the fresh water, the live bird, the cedar wood, the hyssop and the scarlet yarn.</span>
+  
+    <span class="text-right text-black/60 dark:text-white/50">53</span>
+    <span>Then he is to release the live bird in the open fields outside the town. In this way he will make atonement for the house, and it will be clean.”</span>
+  
+    <span class="text-right text-black/60 dark:text-white/50">54</span>
+    <span>These are the regulations for any defiling skin disease, for a sore,</span>
+  
+    <span class="text-right text-black/60 dark:text-white/50">55</span>
+    <span>for defiling molds in fabric or in a house,</span>
+  
+    <span class="text-right text-black/60 dark:text-white/50">56</span>
+    <span>and for a swelling, a rash or a shiny spot,</span>
+  
+    <span class="text-right text-black/60 dark:text-white/50">57</span>
+    <span>to determine when something is clean or unclean. These are the regulations for defiling skin diseases and defiling molds.</span>
+  </div> <div class="animate mb-6 flex items-center justify-between gap-4"> <a id="prevBtn" href="/scripture/daily-reading/141" aria-disabled="false" class="not-prose group relative flex w-fit flex-nowrap rounded-sm border border-black/15 py-1.5 transition-colors duration-300 ease-in-out hover:bg-black/5 hover:text-black focus-visible:bg-black/5 focus-visible:text-black dark:border-white/20 dark:hover:bg-white/5 dark:hover:text-white dark:focus-visible:bg-white/5 dark:focus-visible:text-white pr-3 pl-7 data-[disabled=true]:pointer-events-none data-[disabled=true]:cursor-not-allowed data-[disabled=true]:opacity-50"> <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" class="absolute top-1/2 left-2 size-4 -translate-y-1/2 fill-none stroke-current stroke-2"> <line x1="5" y1="12" x2="19" y2="12" class="translate-x-2 scale-x-0 transition-transform duration-300 ease-in-out group-hover:translate-x-0 group-hover:scale-x-100 group-focus-visible:translate-x-0 group-focus-visible:scale-x-100"></line> <polyline points="12 5 5 12 12 19" class="translate-x-1 transition-transform duration-300 ease-in-out group-hover:translate-x-0 group-focus-visible:translate-x-0"></polyline> </svg> <div class="text-sm"> Previous </div>  </a> <a id="nextBtn" href="/scripture/daily-reading/143" aria-disabled="false" class="not-prose group relative flex w-fit flex-nowrap rounded-sm border border-black/15 py-1.5 transition-colors duration-300 ease-in-out hover:bg-black/5 hover:text-black focus-visible:bg-black/5 focus-visible:text-black dark:border-white/20 dark:hover:bg-white/5 dark:hover:text-white dark:focus-visible:bg-white/5 dark:focus-visible:text-white pr-7 pl-3 data-[disabled=true]:pointer-events-none data-[disabled=true]:cursor-not-allowed data-[disabled=true]:opacity-50">  <div class="text-sm"> Next </div> <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" class="absolute top-1/2 right-2 size-4 -translate-y-1/2 fill-none stroke-current stroke-2"> <line x1="5" y1="12" x2="19" y2="12" class="-translate-x-2 scale-x-0 transition-transform duration-300 ease-in-out group-hover:translate-x-0 group-hover:scale-x-100 group-focus-visible:translate-x-0 group-focus-visible:scale-x-100"></line> <polyline points="12 5 19 12 12 19" class="-translate-x-1 transition-transform duration-300 ease-in-out group-hover:translate-x-0 group-focus-visible:translate-x-0"></polyline> </svg> </a> </div> </div> </div>  </main> <footer data-pagefind-ignore id="footer" class="animate pb-16"> <div class="mx-auto max-w-(--breakpoint-sm) px-3"> <div class="relative"> <div class="absolute -top-18 right-0"> <script type="module">typeof window<"u"&&window.addEventListener("DOMContentLoaded",()=>{const e=document.getElementById("back-to-top");e&&e.addEventListener("click",()=>{window.scrollTo({top:0,behavior:"smooth"})})});</script> <button id="back-to-top" class="group relative flex w-fit cursor-pointer flex-nowrap rounded-sm border border-black/15 py-1.5 pr-3 pl-8 transition-colors duration-300 ease-in-out hover:bg-black/5 hover:text-black focus-visible:bg-black/5 focus-visible:text-black dark:border-white/20 dark:hover:bg-white/5 dark:hover:text-white dark:focus-visible:bg-white/5 dark:focus-visible:text-white"> <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" class="absolute top-1/2 left-2 size-4 -translate-y-1/2 rotate-90 fill-none stroke-current stroke-2"> <line x1="5" y1="12" x2="19" y2="12" class="translate-x-2 scale-x-0 transition-transform duration-300 ease-in-out group-hover:translate-x-0 group-hover:scale-x-100 group-focus-visible:translate-x-0 group-focus-visible:scale-x-100"></line> <polyline points="12 5 5 12 12 19" class="translate-x-1 transition-transform duration-300 ease-in-out group-hover:translate-x-0 group-focus-visible:translate-x-0"></polyline> </svg> <div class="text-sm">Back to top</div> </button> </div> </div> <div class="flex items-center justify-between"> <div class="flex items-center gap-1"> <span>2026</span> <span>&middot;</span> <span>Weekly Word</span> <span>&middot;</span> <a href="/rss.xml" target="_self" class="inline-block decoration-black/30 dark:decoration-white/30 hover:decoration-black/50 focus-visible:decoration-black/50 dark:hover:decoration-white/50 dark:focus-visible:decoration-white/50 text-current hover:text-black focus-visible:text-black dark:hover:text-white dark:focus-visible:text-white transition-colors duration-300 ease-in-out underline underline-offset-[3px]">  <svg class="size-4" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"><g fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"><path d="M4 11a9 9 0 0 1 9 9M4 4a16 16 0 0 1 16 16"></path><circle cx="5" cy="19" r="1"></circle></g></svg>  </a> </div> <div class="flex flex-wrap items-center gap-1.5"> <button id="light-theme-button" aria-label="Light theme" class="group flex size-9 cursor-pointer items-center justify-center rounded-full hover:bg-neutral-300 focus-visible:bg-neutral-300 dark:hover:bg-neutral-800 dark:focus-visible:bg-neutral-800"> <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" class="transition-colors duration-300 ease-in-out group-hover:animate-pulse group-hover:stroke-black group-focus-visible:animate-pulse group-focus-visible:stroke-black dark:group-hover:stroke-white dark:group-focus-visible:stroke-white"> <circle cx="12" cy="12" r="5"></circle> <line x1="12" y1="1" x2="12" y2="3"></line> <line x1="12" y1="21" x2="12" y2="23"></line> <line x1="4.22" y1="4.22" x2="5.64" y2="5.64"></line> <line x1="18.36" y1="18.36" x2="19.78" y2="19.78"></line> <line x1="1" y1="12" x2="3" y2="12"></line> <line x1="21" y1="12" x2="23" y2="12"></line> <line x1="4.22" y1="19.78" x2="5.64" y2="18.36"></line> <line x1="18.36" y1="5.64" x2="19.78" y2="4.22"></line> </svg> </button> <button id="dark-theme-button" aria-label="Dark theme" class="group flex size-9 cursor-pointer items-center justify-center rounded-full hover:bg-neutral-300 focus-visible:bg-neutral-300 dark:hover:bg-neutral-800 dark:focus-visible:bg-neutral-800"> <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" class="transition-colors duration-300 ease-in-out group-hover:animate-pulse group-hover:stroke-black group-focus-visible:animate-pulse group-focus-visible:stroke-black dark:group-hover:stroke-white dark:group-focus-visible:stroke-white"> <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path> </svg> </button> <button id="system-theme-button" aria-label="System theme" class="group flex size-9 cursor-pointer items-center justify-center rounded-full hover:bg-neutral-300 focus-visible:bg-neutral-300 dark:hover:bg-neutral-800 dark:focus-visible:bg-neutral-800"> <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" class="transition-colors duration-300 ease-in-out group-hover:animate-pulse group-hover:stroke-black group-focus-visible:animate-pulse group-focus-visible:stroke-black dark:group-hover:stroke-white dark:group-focus-visible:stroke-white"> <rect x="2" y="3" width="20" height="14" rx="2" ry="2"></rect> <line x1="8" y1="21" x2="16" y2="21"></line> <line x1="12" y1="17" x2="12" y2="21"></line> </svg> </button> </div> </div> </div> </footer> <aside data-pagefind-ignore> <div id="backdrop" class="bg-[rgba(0, 0, 0, 0.5] invisible fixed top-0 left-0 z-50 flex h-screen w-full justify-center p-6 backdrop-blur-xs" data-astro-transition-persist="astro-3snakcvo-2"> <div id="pagefind-container" class="m-0 flex h-fit max-h-[80%] w-full max-w-(--breakpoint-sm) flex-col overflow-auto rounded-sm border border-neutral-300 bg-neutral-100 p-2 px-4 py-3 shadow-lg dark:border-neutral-700 dark:bg-neutral-900"> <div id="search" class="pagefind-ui pagefind-init" data-pagefind-ui data-bundle-path="/pagefind/" data-ui-options="{&#34;showImages&#34;:false,&#34;excerptLength&#34;:15,&#34;resetStyles&#34;:false}"></div> <script type="module" src="/_astro/Search.astro_astro_type_script_index_0_lang.mBpmxV9R.js"></script> <div class="dark:prose-invert mr-2 pt-4 pb-1 text-right text-xs">
+Press <span class="prose dark:prose-invert text-xs"><kbd>Esc</kbd></span> or click anywhere to
+        close
+</div> </div> </div> </aside> <script>
+  const magnifyingGlass = document.getElementById("magnifying-glass");
+  const backdrop = document.getElementById("backdrop");
+
+  function openPagefind() {
+    const searchDiv = document.getElementById("search");
+    const search = searchDiv.querySelector("input");
+    setTimeout(() => {
+      search.focus();
+    }, 0);
+    backdrop?.classList.remove("invisible");
+    backdrop?.classList.add("visible");
+  }
+
+  function closePagefind() {
+    const search = document.getElementById("search");
+    search.value = "";
+    backdrop?.classList.remove("visible");
+    backdrop?.classList.add("invisible");
+  }
+
+  magnifyingGlass?.addEventListener("click", () => {
+    openPagefind();
+  });
+
+  document.addEventListener("keydown", (e) => {
+    if (e.key === "/") {
+      e.preventDefault();
+      openPagefind();
+    } else if ((e.metaKey || e.ctrlKey) && e.key === "k") {
+      e.preventDefault();
+      openPagefind();
+    }
+  });
+
+  document.addEventListener("keydown", (e) => {
+    if (e.key === "Escape") {
+      closePagefind();
+    }
+  });
+
+  document.addEventListener("click", (event) => {
+    if (event.target.classList.contains("pagefind-ui__result-link")) {
+      closePagefind();
+    }
+  });
+
+  backdrop?.addEventListener("click", (event) => {
+    if (!event.target.closest("#pagefind-container")) {
+      closePagefind();
+    }
+  });
+
+  const form = document.getElementById("form");
+  form?.addEventListener("submit", (event) => {
+    event.preventDefault();
+  });
+
+  function makeResultsClickable() {
+    const results = document.querySelectorAll(".pagefind-ui__result");
+    results.forEach((result) => {
+      const link = result.querySelector(".pagefind-ui__result-link");
+      const excerpt = result.querySelector(".pagefind-ui__result-excerpt");
+
+      if (!excerpt || excerpt.dataset.clickable) return;
+
+      if (link) {
+        excerpt.addEventListener("click", (e) => {
+          if (e.target.closest("a")) return;
+          link.click();
+        });
+        excerpt.dataset.clickable = "true";
+      }
+    });
+  }
+
+  function initObserver() {
+    const searchContainer = document.getElementById("search");
+    if (searchContainer) {
+      const observer = new MutationObserver(makeResultsClickable);
+      observer.observe(searchContainer, { childList: true, subtree: true });
+    }
+  }
+
+  document.addEventListener("DOMContentLoaded", initObserver);
+  document.addEventListener("astro:after-swap", initObserver);
+</script>  </body></html>
