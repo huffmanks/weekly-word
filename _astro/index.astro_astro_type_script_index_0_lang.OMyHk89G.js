@@ -1,0 +1,1 @@
+import{a as o}from"./generateScriptureMeta.hJ0or4i0.js";const a=document.getElementById("schedule-data"),e=a?JSON.parse(a.dataset.ids||"[]"):[],{weekNumber:d}=o(),n=e.find(t=>t===d)||e.find(t=>t>d)||e[e.length-1];n&&window.location.replace(`/scripture/weekly-memory/${n}`);
