@@ -14,7 +14,7 @@ import BaseLayout from "@layouts/BaseLayout.astro";
 export async function getStaticPaths() {
   const filePath = path.join(process.cwd(), "src", "data", "scripture_daily-reading.json");
   const fileData = fs.readFileSync(filePath, "utf-8");
-  const data = JSON.parse(fileData) as DailyReading[];
+  const data = JSON.parse(fileData) as Array<DailyReading>;
 
   const maxId = data.length > 0 ? data[data.length - 1].id : 0;
 
@@ -90,9 +90,26 @@ const itemVersesHtml = item.verses
         set:html={itemVersesHtml}
       />
 
-      <div class="animate mb-6 flex items-center justify-between gap-4">
-        <GoToButton href={previousHref} isDisabled={isPreviousDisabled}>Previous</GoToButton>
-        <GoToButton href={nextHref} isNext isDisabled={isNextDisabled}>Next</GoToButton>
+      <div class="fixed right-0 bottom-0 left-0 z-40">
+        <div
+          class="mx-auto max-w-(--breakpoint-sm) bg-neutral-100/75 p-3 saturate-200 backdrop-blur-xs dark:bg-neutral-900/75">
+          <div class="animate flex items-center justify-between gap-4">
+            <GoToButton href={previousHref} isDisabled={isPreviousDisabled}>Previous</GoToButton>
+            <div class="flex flex-col items-center gap-x-2 gap-y-1 sm:flex-row">
+              <span class="text-center text-[11px] leading-none font-bold sm:text-sm">
+                {item.chapter}
+              </span>
+              <span class="hidden text-sm text-black/60 sm:inline-block dark:text-white/50">
+                &bull;
+              </span>
+              <span
+                class="sm:text-black/85a sm:dark:text-white/85a text-center text-[11px] leading-none font-bold text-black/60 sm:text-sm dark:text-white/50">
+                {label}
+              </span>
+            </div>
+            <GoToButton href={nextHref} isNext isDisabled={isNextDisabled}>Next</GoToButton>
+          </div>
+        </div>
       </div>
     </div>
   </Container>

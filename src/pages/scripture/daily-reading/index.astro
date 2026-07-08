@@ -1,136 +1,40 @@
 ---
 import weeklyVerses from "@/data/scripture_daily-reading.json";
-import { generateBibleUrl } from "@lib/generateBibleUrl";
-
-import Container from "@components/Container.astro";
-import GoToButton from "@components/GoToButton.astro";
 import BaseLayout from "@layouts/BaseLayout.astro";
 
-const maxId = weeklyVerses.length > 0 ? weeklyVerses[weeklyVerses.length - 1].id : 0;
-
-const enrichedVerses = weeklyVerses.map((item) => ({
-  ...item,
-  bibleHref: generateBibleUrl(item.chapter),
-  previousHref: item.id > 1 ? `/scripture/daily-reading/${item.id - 1}` : null,
-  nextHref: item.id < maxId ? `/scripture/daily-reading/${item.id + 1}` : null,
-}));
+const schedule = weeklyVerses.map(({ date, id }) => ({ date, id }));
 ---
 
-<BaseLayout
-  title="Daily Reading"
-  description="Follow the daily reading to explore one chapter of the Bible each day.">
-  <Container>
-    <div class="p-1.5">
-      <div class="animate mb-8 flex items-center justify-between gap-4">
-        <span
-          id="label"
-          class="-ml-0.75 inline-flex rounded-md bg-neutral-300 px-1.5 py-1 text-sm font-medium dark:bg-neutral-800">
-        </span>
-        <a
-          id="bibleHref"
-          target="_blank"
-          class="not-prose flex w-fit cursor-pointer flex-nowrap items-center gap-2 rounded-full border border-black/15 p-1.5 transition-colors duration-300 ease-in-out hover:bg-black/5 hover:text-black focus-visible:bg-black/5 focus-visible:text-black sm:rounded-sm sm:px-3 sm:py-1.5 dark:border-white/20 dark:hover:bg-white/5 dark:hover:text-white dark:focus-visible:bg-white/5 dark:focus-visible:text-white">
-          <svg
-            class="size-4 fill-current"
-            xmlns="http://www.w3.org/2000/svg"
-            fill="none"
-            viewBox="0 0 24 24">
-            <path
-              d="M6 22h15v-2H6.012C5.55 19.988 5 19.805 5 19s.55-.988 1.012-1H21V4a2 2 0 0 0-2-2H6c-1.206 0-3 .799-3 3v14c0 2.201 1.794 3 3 3M8 7h3V5h2v2h3v2h-3v6h-2V9H8z">
-            </path>
-          </svg>
-          <span class="hidden text-sm sm:inline-block">Open in Bible</span>
-        </a>
-      </div>
+<BaseLayout title="Redirecting..." description="Going to today's daily reading.">
+  <div id="schedule-data" data-schedule={JSON.stringify(schedule)}></div>
 
-      <div class="animate mb-3 flex flex-wrap items-center gap-2">
-        <h1 id="chapter" class="text-xl font-bold text-black dark:text-white"></h1>
-        <span>&bull;</span>
-        <div id="versesLength" class="text-sm font-medium text-black/60 dark:text-white/50"></div>
-        <span>&bull;</span>
-        <div id="readingTime" class="text-sm font-medium text-black/60 dark:text-white/50"></div>
-      </div>
+  <script>
+    import { generateDailyReadingMeta } from "@lib/generateScriptureMeta";
+    import { paramOverrideDateTime } from "@lib/utils";
+    import type { DailyReading } from "@types";
 
-      <div
-        id="text"
-        class="animate mb-8 grid grid-cols-[auto_1fr] gap-x-2 gap-y-3 text-lg font-medium">
-      </div>
+    const dataEl = document.getElementById("schedule-data");
+    const schedule = dataEl
+      ? (JSON.parse(dataEl.dataset.schedule || "[]") as Array<DailyReading>)
+      : [];
 
-      <div class="animate mb-6 flex items-center justify-between gap-4">
-        <GoToButton href={null}>Previous</GoToButton>
-        <GoToButton href={null} isNext>Next</GoToButton>
-      </div>
-    </div>
-  </Container>
-</BaseLayout>
+    const urlParams = new URLSearchParams(window.location.search);
+    const paramDate = urlParams.get("date");
+    const paramTime = urlParams.get("time") || "00:00";
 
-<script
-  is:inline
-  id="verses-data"
-  type="application/json"
-  set:html={JSON.stringify(enrichedVerses)}
-/>
-<script>
-  import { generateDailyReadingMeta } from "@lib/generateScriptureMeta";
-  import { readingTime } from "@lib/utils";
-  import type { DailyReading, DailyReadingVerse } from "@types";
-
-  function main() {
-    const dataEl = document.getElementById("verses-data");
-    const versesList = dataEl ? JSON.parse(dataEl.textContent || "[]") : [];
-
-    const { date, label } = generateDailyReadingMeta();
-    const currentReadingItem = versesList.find((v: DailyReading) => v.date === date);
-
-    if (currentReadingItem) {
-      const labelEl = document.getElementById("label") as HTMLSpanElement;
-      const chapterEl = document.getElementById("chapter") as HTMLHeadingElement;
-      const versesLengthEl = document.getElementById("versesLength") as HTMLHeadingElement;
-      const readingTimeEl = document.getElementById("readingTime") as HTMLHeadingElement;
-      const textContainerEl = document.getElementById("text") as HTMLDivElement;
-      const bibleHrefEl = document.getElementById("bibleHref") as HTMLAnchorElement;
-
-      labelEl.textContent = label;
-      chapterEl.textContent = currentReadingItem.chapter;
-      versesLengthEl.textContent = `${currentReadingItem.verses.length} verses`;
-      bibleHrefEl.setAttribute("href", currentReadingItem.bibleHref);
-
-      const contentHtml = currentReadingItem.verses
-        .map((v: DailyReadingVerse) => {
-          return `
-            <span class="text-right text-black/60 dark:text-white/50">${v.number}</span>
-            <span>${v.text}</span>
-          `;
-        })
-        .join("");
-      textContainerEl.innerHTML = contentHtml;
-      readingTimeEl.textContent = readingTime(contentHtml);
-
-      const prevBtn = document.getElementById("prevBtn") as HTMLAnchorElement;
-      const nextBtn = document.getElementById("nextBtn") as HTMLAnchorElement;
-
-      if (currentReadingItem.previousHref) {
-        prevBtn.setAttribute("href", currentReadingItem.previousHref);
-        prevBtn.removeAttribute("data-disabled");
-        prevBtn.removeAttribute("aria-disabled");
-      } else {
-        prevBtn.removeAttribute("href");
-        prevBtn.setAttribute("data-disabled", "true");
-        prevBtn.setAttribute("aria-disabled", "true");
-      }
-
-      if (currentReadingItem.nextHref) {
-        nextBtn.setAttribute("href", currentReadingItem.nextHref);
-        nextBtn.removeAttribute("data-disabled");
-        nextBtn.removeAttribute("aria-disabled");
-      } else {
-        nextBtn.removeAttribute("href");
-        nextBtn.setAttribute("data-disabled", "true");
-        nextBtn.setAttribute("aria-disabled", "true");
-      }
+    if (paramDate) {
+      paramOverrideDateTime(paramDate, paramTime);
     }
-  }
 
-  document.addEventListener("DOMContentLoaded", () => main());
-  document.addEventListener("astro:page-load", () => main());
-</script>
+    const { date: targetDate } = generateDailyReadingMeta();
+
+    const match =
+      schedule.find((item) => item.date === targetDate) ||
+      schedule.find((item) => item.date > targetDate) ||
+      schedule[schedule.length - 1];
+
+    if (match) {
+      window.location.replace(`/scripture/daily-reading/${match.id}`);
+    }
+  </script>
+</BaseLayout>
