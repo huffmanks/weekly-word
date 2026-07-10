@@ -1,4 +1,4 @@
-<!DOCTYPE html><html lang="en"> <head><!-- Global Metadata --><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><link rel="icon" type="image/svg+xml" href="/favicon.svg"><meta name="generator" content="Astro v5.12.3"><link rel="canonical" href="https://word.huffmanks.com/sermons/2026/2026-03-08/"><!-- Primary Meta Tags --><title>The gospel in everyday life | Weekly Word</title><meta name="title" content="The gospel in everyday life | Weekly Word"><meta name="description" content="Instruction on how the gospel reshapes relationships, work and daily responsibilities."><!-- Open Graph / Facebook --><meta property="og:type" content="website"><meta property="og:url" content="https://word.huffmanks.com/sermons/2026/2026-03-08/"><meta property="og:title" content="The gospel in everyday life | Weekly Word"><meta property="og:description" content="Instruction on how the gospel reshapes relationships, work and daily responsibilities."><meta property="og:image" content="https://word.huffmanks.com/covers/series/the-book-of-colossians.webp"><meta property="og:image:width" content="800"><meta property="og:image:height" content="800"><meta property="og:image:alt" content="Instruction on how the gospel reshapes relationships, work and daily responsibilities."><!-- Twitter --><meta property="twitter:card" content="summary_large_image"><meta property="twitter:url" content="https://word.huffmanks.com/sermons/2026/2026-03-08/"><meta property="twitter:title" content="The gospel in everyday life | Weekly Word"><meta property="twitter:description" content="Instruction on how the gospel reshapes relationships, work and daily responsibilities."><meta name="twitter:image" content="https://word.huffmanks.com/covers/series/the-book-of-colossians.webp"><meta name="twitter:image:alt" content="Instruction on how the gospel reshapes relationships, work and daily responsibilities."><!-- Transitions & Client Router --><meta name="astro-view-transitions-enabled" content="true"><meta name="astro-view-transitions-fallback" content="animate"><script type="module" src="/_astro/ClientRouter.astro_astro_type_script_index_0_lang.D98dxaWf.js"></script><script>
+<!DOCTYPE html><html lang="en"> <head><!-- Global Metadata --><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover"><link rel="icon" type="image/svg+xml" href="/favicon.svg"><meta name="generator" content="Astro v5.12.3"><link rel="canonical" href="https://word.huffmanks.com/sermons/2026/2026-03-08/"><!-- Primary Meta Tags --><title>The gospel in everyday life | Weekly Word</title><meta name="title" content="The gospel in everyday life | Weekly Word"><meta name="description" content="Instruction on how the gospel reshapes relationships, work and daily responsibilities."><!-- Open Graph / Facebook --><meta property="og:type" content="website"><meta property="og:url" content="https://word.huffmanks.com/sermons/2026/2026-03-08/"><meta property="og:title" content="The gospel in everyday life | Weekly Word"><meta property="og:description" content="Instruction on how the gospel reshapes relationships, work and daily responsibilities."><meta property="og:image" content="https://word.huffmanks.com/covers/series/the-book-of-colossians.webp"><meta property="og:image:width" content="800"><meta property="og:image:height" content="800"><meta property="og:image:alt" content="Instruction on how the gospel reshapes relationships, work and daily responsibilities."><!-- Twitter --><meta property="twitter:card" content="summary_large_image"><meta property="twitter:url" content="https://word.huffmanks.com/sermons/2026/2026-03-08/"><meta property="twitter:title" content="The gospel in everyday life | Weekly Word"><meta property="twitter:description" content="Instruction on how the gospel reshapes relationships, work and daily responsibilities."><meta name="twitter:image" content="https://word.huffmanks.com/covers/series/the-book-of-colossians.webp"><meta name="twitter:image:alt" content="Instruction on how the gospel reshapes relationships, work and daily responsibilities."><!-- Transitions & Client Router --><meta name="astro-view-transitions-enabled" content="true"><meta name="astro-view-transitions-fallback" content="animate"><script type="module" src="/_astro/ClientRouter.astro_astro_type_script_index_0_lang.D98dxaWf.js"></script><script>
     function init() {
       preloadTheme();
       onScroll();
@@ -138,7 +138,7 @@
     document.addEventListener("astro:after-swap", () => init());
     preloadTheme();
   </script><link rel="stylesheet" href="/_astro/_id_.CinWsnd2.css">
-<link rel="stylesheet" href="/_astro/index.CQ6ur-sI.css"></head><body> <noscript> <style>
+<link rel="stylesheet" href="/_astro/index.B4WemZam.css"></head><body> <noscript> <style>
         .animate {
           opacity: 1;
           translate: var(--tw-translate-x) calc(var(--spacing) * 0);
@@ -162,7 +162,7 @@
     const urlParams = new URLSearchParams(window.location.search);
     const shouldAutoplay = urlParams.get("autoplay") === "true";
 
-    if (shouldAutoplay) {
+    if (shouldAutoplay && startBtn) {
       handlePlay({
         startBtnEl: startBtn,
         audioPlayerEl: audioPlayer,
@@ -176,16 +176,18 @@
 
     let isSeeking = false;
 
-    startBtn.addEventListener("click", () =>
-      handlePlay({
-        startBtnEl: startBtn,
-        audioPlayerEl: audioPlayer,
-        footerEl: footer,
-        audioEl: audio,
-        playIconEl: playIcon,
-        pauseIconEl: pauseIcon,
-      })
-    );
+    if (startBtn) {
+      startBtn.onclick = () => {
+        handlePlay({
+          startBtnEl: startBtn,
+          audioPlayerEl: audioPlayer,
+          footerEl: footer,
+          audioEl: audio,
+          playIconEl: playIcon,
+          pauseIconEl: pauseIcon,
+        });
+      };
+    }
 
     audio.addEventListener("loadedmetadata", () => {
       duration.textContent = formatTime(audio.duration);
@@ -227,16 +229,16 @@
       }, 50);
     });
 
-    playToggleBtn.addEventListener("click", () => {
+    playToggleBtn.onclick = () => {
       playIconToggle({
         isPaused: audio.paused,
         audioEl: audio,
         playIconEl: playIcon,
         pauseIconEl: pauseIcon,
       });
-    });
+    };
 
-    closePlayerBtn.addEventListener("click", () => {
+    closePlayerBtn.onclick = () => {
       audioPlayerToggle({ isOpen: false, audioPlayerEl: audioPlayer, footerEl: footer });
       playIconToggle({
         isPaused: false,
@@ -245,11 +247,9 @@
         pauseIconEl: pauseIcon,
       });
       audio.currentTime = 0;
-      if ("mediaSession" in navigator) {
-        navigator.mediaSession.metadata = null;
-      }
-      startBtn.disabled = false;
-    });
+      if ("mediaSession" in navigator) navigator.mediaSession.metadata = null;
+      if (startBtn) startBtn.disabled = false;
+    };
   }
 
   function handlePlay({
@@ -261,7 +261,7 @@
     pauseIconEl,
     triggerAudioPlay = true,
   }) {
-    startBtnEl.disabled = true;
+    if (startBtnEl) startBtnEl.disabled = true;
     audioPlayerToggle({ isOpen: true, audioPlayerEl, footerEl });
 
     if (triggerAudioPlay) {
@@ -293,6 +293,8 @@
   }
 
   function playIconToggle({ isPaused, audioEl, playIconEl, pauseIconEl }) {
+    if (!audioEl.currentSrc || audioEl.currentSrc === window.location.href) return;
+
     if (isPaused) {
       audioEl.play();
       playIconEl.classList.add("hidden");
