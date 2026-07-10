@@ -11,6 +11,9 @@ const isDev = process.env.NODE_ENV === "development";
 // https://astro.build/config
 export default defineConfig({
   site: isDev ? "http://localhost:4321" : "https://word.huffmanks.com",
+  devToolbar: {
+    enabled: false,
+  },
   base: "/",
   vite: {
     plugins: [tailwindcss()],

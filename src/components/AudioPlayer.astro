@@ -17,13 +17,17 @@ const metadata = {
 ---
 
 <div data-pagefind-ignore>
-  <audio
-    id="audio"
-    class="invisible absolute -top-full -left-full opacity-0"
-    src={audio}
-    preload="metadata"
-    data-meta={JSON.stringify(metadata)}>
-  </audio>
+  {
+    audio && (
+      <audio
+        id="audio"
+        class="invisible absolute -top-full -left-full opacity-0"
+        src={audio}
+        preload="metadata"
+        data-meta={JSON.stringify(metadata)}
+      />
+    )
+  }
 
   <div
     id="audio-player"
@@ -138,7 +142,7 @@ const metadata = {
     const urlParams = new URLSearchParams(window.location.search);
     const shouldAutoplay = urlParams.get("autoplay") === "true";
 
-    if (shouldAutoplay) {
+    if (shouldAutoplay && startBtn) {
       handlePlay({
         startBtnEl: startBtn,
         audioPlayerEl: audioPlayer,
@@ -152,16 +156,18 @@ const metadata = {
 
     let isSeeking = false;
 
-    startBtn.addEventListener("click", () =>
-      handlePlay({
-        startBtnEl: startBtn,
-        audioPlayerEl: audioPlayer,
-        footerEl: footer,
-        audioEl: audio,
-        playIconEl: playIcon,
-        pauseIconEl: pauseIcon,
-      })
-    );
+    if (startBtn) {
+      startBtn.onclick = () => {
+        handlePlay({
+          startBtnEl: startBtn,
+          audioPlayerEl: audioPlayer,
+          footerEl: footer,
+          audioEl: audio,
+          playIconEl: playIcon,
+          pauseIconEl: pauseIcon,
+        });
+      };
+    }
 
     audio.addEventListener("loadedmetadata", () => {
       duration.textContent = formatTime(audio.duration);
@@ -203,16 +209,16 @@ const metadata = {
       }, 50);
     });
 
-    playToggleBtn.addEventListener("click", () => {
+    playToggleBtn.onclick = () => {
       playIconToggle({
         isPaused: audio.paused,
         audioEl: audio,
         playIconEl: playIcon,
         pauseIconEl: pauseIcon,
       });
-    });
+    };
 
-    closePlayerBtn.addEventListener("click", () => {
+    closePlayerBtn.onclick = () => {
       audioPlayerToggle({ isOpen: false, audioPlayerEl: audioPlayer, footerEl: footer });
       playIconToggle({
         isPaused: false,
@@ -221,11 +227,9 @@ const metadata = {
         pauseIconEl: pauseIcon,
       });
       audio.currentTime = 0;
-      if ("mediaSession" in navigator) {
-        navigator.mediaSession.metadata = null;
-      }
-      startBtn.disabled = false;
-    });
+      if ("mediaSession" in navigator) navigator.mediaSession.metadata = null;
+      if (startBtn) startBtn.disabled = false;
+    };
   }
 
   function handlePlay({
@@ -237,7 +241,7 @@ const metadata = {
     pauseIconEl,
     triggerAudioPlay = true,
   }) {
-    startBtnEl.disabled = true;
+    if (startBtnEl) startBtnEl.disabled = true;
     audioPlayerToggle({ isOpen: true, audioPlayerEl, footerEl });
 
     if (triggerAudioPlay) {
@@ -269,6 +273,8 @@ const metadata = {
   }
 
   function playIconToggle({ isPaused, audioEl, playIconEl, pauseIconEl }) {
+    if (!audioEl.currentSrc || audioEl.currentSrc === window.location.href) return;
+
     if (isPaused) {
       audioEl.play();
       playIconEl.classList.add("hidden");

@@ -3,3 +3,4 @@
 - [x] Daily reading and weekly memory make landing page just redirect to correct id page
 - [ ] Check daily reading html version vs text if better
 - [x] Daily reading id page and landing is off by one day
+- [ ] Fix ClientRouter audioplayer buggy sometimes loads and sometimes doesnt work.

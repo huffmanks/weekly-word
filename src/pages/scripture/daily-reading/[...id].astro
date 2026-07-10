@@ -85,29 +85,33 @@ const itemVersesHtml = item.verses
         </div>
       </div>
 
-      <div
-        class="animate mb-8 grid grid-cols-[auto_1fr] gap-x-2 gap-y-3 text-lg font-medium"
-        set:html={itemVersesHtml}
-      />
+      <div class="relative flex min-h-screen flex-col">
+        <div class="flex-grow">
+          <div
+            class="animate mb-8 grid grid-cols-[auto_1fr] gap-x-2 gap-y-3 text-lg font-medium"
+            set:html={itemVersesHtml}
+          />
+        </div>
 
-      <div class="fixed right-0 bottom-0 left-0 z-40">
-        <div
-          class="mx-auto max-w-(--breakpoint-sm) bg-neutral-100/75 p-3 saturate-200 backdrop-blur-xs dark:bg-neutral-900/75">
-          <div class="animate flex items-center justify-between gap-4">
-            <GoToButton href={previousHref} isDisabled={isPreviousDisabled}>Previous</GoToButton>
-            <div class="flex flex-col items-center gap-x-2 gap-y-1 sm:flex-row">
-              <span class="text-center text-[11px] leading-none font-bold sm:text-sm">
-                {item.chapter}
-              </span>
-              <span class="hidden text-sm text-black/60 sm:inline-block dark:text-white/50">
-                &bull;
-              </span>
-              <span
-                class="sm:text-black/85a sm:dark:text-white/85a text-center text-[11px] leading-none font-bold text-black/60 sm:text-sm dark:text-white/50">
-                {label}
-              </span>
+        <div class="sticky bottom-0 z-40">
+          <div
+            class="mx-auto max-w-(--breakpoint-sm) bg-neutral-100/75 py-5 saturate-200 backdrop-blur-xs dark:bg-neutral-900/75">
+            <div class="animate flex items-center justify-between gap-4">
+              <GoToButton href={previousHref} isDisabled={isPreviousDisabled}>Prev</GoToButton>
+              <div class="flex flex-col items-center gap-x-2 gap-y-1 sm:flex-row">
+                <span class="text-center text-[11px] leading-none font-bold sm:text-sm">
+                  {item.chapter}
+                </span>
+                <span class="hidden text-sm text-black/60 sm:inline-block dark:text-white/50">
+                  &bull;
+                </span>
+                <span
+                  class="sm:text-black/85a sm:dark:text-white/85a text-center text-[11px] leading-none font-bold text-black/60 sm:text-sm dark:text-white/50">
+                  {label}
+                </span>
+              </div>
+              <GoToButton href={nextHref} isNext isDisabled={isNextDisabled}>Next</GoToButton>
             </div>
-            <GoToButton href={nextHref} isNext isDisabled={isNextDisabled}>Next</GoToButton>
           </div>
         </div>
       </div>

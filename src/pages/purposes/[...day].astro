@@ -33,7 +33,7 @@ const nextHref = !isNextDisabled ? `/purposes/${item.day + 1}` : null;
       <GoToButton href={`/purposes#${item.id}`}>All purposes</GoToButton>
       <PurposeCard item={item} linkToDay={false} />
       <div class="animate mb-6 flex items-center justify-between gap-4">
-        <GoToButton href={previousHref} isDisabled={isPreviousDisabled}>Previous</GoToButton>
+        <GoToButton href={previousHref} isDisabled={isPreviousDisabled}>Prev</GoToButton>
         <GoToButton href={nextHref} isNext isDisabled={isNextDisabled}>Next</GoToButton>
       </div>
     </div>

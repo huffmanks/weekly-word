@@ -59,6 +59,15 @@
     U+A720-A7FF;
 }
 
+@font-face {
+  font-family: "Chivo Mono Variable";
+  font-style: normal;
+  font-display: swap;
+  font-weight: 200 900;
+  src: url(@fontsource-variable/chivo-mono/files/chivo-mono-latin-wght-normal.woff2)
+    format("woff2-variations");
+}
+
 @theme {
   --font-sans:
     "Open Sans", ui-sans-serif, system-ui, sans-serif, "Apple Color Emoji", "Segoe UI Emoji",
