@@ -16,9 +16,12 @@ const { item, linkToDay = true } = Astro.props;
 ---
 
 <article
-  class="relative overflow-hidden rounded-md bg-cover bg-center"
-  style={{ backgroundImage: `url(${item.img})` }}>
-  <div class="absolute inset-0 z-0 bg-black/70 backdrop-blur-xs"></div>
+  class="relative isolate overflow-hidden rounded-md [mask-image:linear-gradient(white,white)]">
+  <div
+    class="absolute inset-0 z-0 scale-105 bg-cover bg-center blur-xs"
+    style={{ backgroundImage: `url(/purposes/${item.day}_${item.id}.webp)` }}>
+  </div>
+  <div class="absolute inset-0 z-0 bg-black/70"></div>
   <div class="relative z-10 p-8">
     <h3 id={item.id} class="mt-0 mb-1 drop-shadow-md">
       {

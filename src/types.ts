@@ -34,6 +34,21 @@ export type DailyReadingVerse = {
   text: string;
 };
 
+export type PurposeGroup = {
+  id: string;
+  title: string;
+  day: number;
+  point: string;
+  verse: string;
+  question: string;
+  img: string;
+};
+
+export type Purpose = {
+  purpose: string;
+  group: Array<PurposeGroup>;
+};
+
 export type SermonsAccumulator = {
   [year: string]: CollectionEntry<"sermons">[];
 };
