@@ -123,26 +123,73 @@ const metadata = {
   </div>
 </div>
 
-<script is:inline>
+<script>
+  interface HandlePlayParams {
+    startBtnEl: HTMLButtonElement | null;
+    audioPlayerEl: HTMLElement | null;
+    footerEl: HTMLElement | null;
+    audioEl: HTMLAudioElement;
+    playIconEl: HTMLElement | null;
+    pauseIconEl: HTMLElement | null;
+    triggerAudioPlay?: boolean;
+  }
+
+  interface AudioPlayerToggleParams {
+    isOpen: boolean;
+    audioPlayerEl: HTMLElement | null;
+    footerEl: HTMLElement | null;
+  }
+
+  interface PlayIconToggleParams {
+    isPaused: boolean;
+    audioEl: HTMLAudioElement | null;
+    playIconEl: HTMLElement | null;
+    pauseIconEl: HTMLElement | null;
+  }
+
+  let cleanupController: AbortController | null = null;
+
   function initAudioPlayer() {
-    const audio = document.getElementById("audio");
+    cleanupController?.abort();
+    cleanupController = new AbortController();
+    const { signal } = cleanupController;
+
+    const audio = document.getElementById("audio") as HTMLAudioElement | null;
     const audioPlayer = document.getElementById("audio-player");
     if (!audio || !audioPlayer) return;
 
-    const startBtn = document.getElementById("start-btn");
+    const startBtn = document.getElementById("start-btn") as HTMLButtonElement | null;
     const playToggleBtn = document.getElementById("play-toggle-btn");
     const playIcon = document.getElementById("play-icon");
     const pauseIcon = document.getElementById("pause-icon");
     const currentTime = document.getElementById("currentTime");
-    const rangeInput = document.getElementById("range-input");
-    const duration = document.getElementById("duration");
+    const rangeInput = document.getElementById("range-input") as HTMLInputElement | null;
+    const durationEl = document.getElementById("duration");
     const closePlayerBtn = document.getElementById("close-player-btn");
     const footer = document.getElementById("footer");
 
-    const urlParams = new URLSearchParams(window.location.search);
-    const shouldAutoplay = urlParams.get("autoplay") === "true";
+    let isSeeking = false;
 
-    if (shouldAutoplay && startBtn) {
+    if (audio.src && audio.readyState === 0) {
+      audio.load();
+    }
+
+    const syncDuration = () => {
+      if (audio.duration && !isNaN(audio.duration) && audio.duration !== Infinity) {
+        if (durationEl) durationEl.textContent = formatTime(audio.duration);
+        if (rangeInput) rangeInput.max = Math.floor(audio.duration).toString();
+      }
+    };
+
+    if (audio.readyState >= 1) {
+      syncDuration();
+    }
+    audio.addEventListener("loadedmetadata", syncDuration, { signal });
+    audio.addEventListener("durationchange", syncDuration, { signal });
+    audio.addEventListener("canplay", syncDuration, { signal });
+
+    const urlParams = new URLSearchParams(window.location.search);
+    if (urlParams.get("autoplay") === "true" && startBtn) {
       handlePlay({
         startBtnEl: startBtn,
         audioPlayerEl: audioPlayer,
@@ -154,82 +201,91 @@ const metadata = {
       });
     }
 
-    let isSeeking = false;
-
     if (startBtn) {
-      startBtn.onclick = () => {
-        handlePlay({
-          startBtnEl: startBtn,
-          audioPlayerEl: audioPlayer,
-          footerEl: footer,
+      startBtn.addEventListener(
+        "click",
+        () => {
+          syncDuration();
+          handlePlay({
+            startBtnEl: startBtn,
+            audioPlayerEl: audioPlayer,
+            footerEl: footer,
+            audioEl: audio,
+            playIconEl: playIcon,
+            pauseIconEl: pauseIcon,
+          });
+        },
+        { signal }
+      );
+    }
+
+    audio.addEventListener(
+      "timeupdate",
+      () => {
+        if (!isSeeking && rangeInput && currentTime) {
+          rangeInput.value = Math.floor(audio.currentTime).toString();
+          currentTime.textContent = formatTime(audio.currentTime);
+        }
+      },
+      { signal }
+    );
+
+    const stopPlayback = () => {
+      audioPlayerToggle({ isOpen: false, audioPlayerEl: audioPlayer, footerEl: footer });
+      playIconToggle({
+        isPaused: false,
+        audioEl: audio,
+        playIconEl: playIcon,
+        pauseIconEl: pauseIcon,
+      });
+
+      if (audio.readyState >= 1) {
+        audio.currentTime = 0;
+      }
+      if ("mediaSession" in navigator) navigator.mediaSession.metadata = null;
+      if (startBtn) startBtn.disabled = false;
+    };
+
+    audio.addEventListener("ended", stopPlayback, { signal });
+    closePlayerBtn?.addEventListener("click", stopPlayback, { signal });
+
+    if (rangeInput) {
+      rangeInput.addEventListener(
+        "input",
+        () => {
+          isSeeking = true;
+          if (currentTime) currentTime.textContent = formatTime(parseInt(rangeInput.value, 10));
+        },
+        { signal }
+      );
+
+      rangeInput.addEventListener(
+        "change",
+        () => {
+          if (audio.readyState >= 1) {
+            audio.currentTime = parseInt(rangeInput.value, 10);
+          }
+          setTimeout(() => {
+            isSeeking = false;
+          }, 50);
+        },
+        { signal }
+      );
+    }
+
+    playToggleBtn?.addEventListener(
+      "click",
+      () => {
+        syncDuration();
+        playIconToggle({
+          isPaused: audio.paused,
           audioEl: audio,
           playIconEl: playIcon,
           pauseIconEl: pauseIcon,
         });
-      };
-    }
-
-    audio.addEventListener("loadedmetadata", () => {
-      duration.textContent = formatTime(audio.duration);
-      rangeInput.max = Math.floor(audio.duration).toString();
-    });
-
-    audio.addEventListener("timeupdate", () => {
-      if (!isSeeking) {
-        rangeInput.value = Math.floor(audio.currentTime).toString();
-        currentTime.textContent = formatTime(audio.currentTime);
-      }
-    });
-
-    audio.addEventListener("ended", () => {
-      audioPlayerToggle({ isOpen: false, audioPlayerEl: audioPlayer, footerEl: footer });
-      playIconToggle({
-        isPaused: false,
-        audioEl: audio,
-        playIconEl: playIcon,
-        pauseIconEl: pauseIcon,
-      });
-      audio.currentTime = 0;
-      if ("mediaSession" in navigator) {
-        navigator.mediaSession.metadata = null;
-      }
-      startBtn.disabled = false;
-    });
-
-    rangeInput.addEventListener("input", () => {
-      isSeeking = true;
-      currentTime.textContent = formatTime(parseInt(rangeInput.value));
-    });
-
-    rangeInput.addEventListener("change", () => {
-      audio.currentTime = parseInt(rangeInput.value);
-
-      setTimeout(() => {
-        isSeeking = false;
-      }, 50);
-    });
-
-    playToggleBtn.onclick = () => {
-      playIconToggle({
-        isPaused: audio.paused,
-        audioEl: audio,
-        playIconEl: playIcon,
-        pauseIconEl: pauseIcon,
-      });
-    };
-
-    closePlayerBtn.onclick = () => {
-      audioPlayerToggle({ isOpen: false, audioPlayerEl: audioPlayer, footerEl: footer });
-      playIconToggle({
-        isPaused: false,
-        audioEl: audio,
-        playIconEl: playIcon,
-        pauseIconEl: pauseIcon,
-      });
-      audio.currentTime = 0;
-      if ("mediaSession" in navigator) navigator.mediaSession.metadata = null;
-      if (startBtn) startBtn.disabled = false;
-    };
+      },
+      { signal }
+    );
   }
 
   function handlePlay({
@@ -240,7 +296,7 @@ const metadata = {
     playIconEl,
     pauseIconEl,
     triggerAudioPlay = true,
-  }) {
+  }: HandlePlayParams) {
     if (startBtnEl) startBtnEl.disabled = true;
     audioPlayerToggle({ isOpen: true, audioPlayerEl, footerEl });
 
@@ -249,44 +305,52 @@ const metadata = {
     }
 
     const rawMeta = audioEl.dataset.meta;
-    if (!rawMeta) return;
-
-    const meta = JSON.parse(rawMeta);
-
-    if ("mediaSession" in navigator) {
-      navigator.mediaSession.metadata = new MediaMetadata(meta);
+    if (rawMeta && "mediaSession" in navigator) {
+      try {
+        navigator.mediaSession.metadata = new MediaMetadata(JSON.parse(rawMeta));
+      } catch (e) {}
     }
   }
 
-  function audioPlayerToggle({ isOpen, audioPlayerEl, footerEl }) {
-    if (isOpen) {
-      audioPlayerEl.classList.add("fixed");
-      audioPlayerEl.classList.remove("hidden");
-      footerEl.classList.add("pb-42", "sm:pb-64");
-      footerEl.classList.remove("pb-16");
-    } else {
-      audioPlayerEl.classList.add("hidden");
-      audioPlayerEl.classList.remove("fixed");
-      footerEl.classList.add("pb-16");
-      footerEl.classList.remove("pb-42", "sm:pb-64");
-    }
+  function audioPlayerToggle({ isOpen, audioPlayerEl, footerEl }: AudioPlayerToggleParams) {
+    if (!audioPlayerEl || !footerEl) return;
+    audioPlayerEl.classList.toggle("fixed", isOpen);
+    audioPlayerEl.classList.toggle("hidden", !isOpen);
+    footerEl.classList.toggle("pb-42", isOpen);
+    footerEl.classList.toggle("sm:pb-64", isOpen);
+    footerEl.classList.toggle("pb-16", !isOpen);
   }
 
-  function playIconToggle({ isPaused, audioEl, playIconEl, pauseIconEl }) {
-    if (!audioEl.currentSrc || audioEl.currentSrc === window.location.href) return;
+  function playIconToggle({ isPaused, audioEl, playIconEl, pauseIconEl }: PlayIconToggleParams) {
+    if (!audioEl) return;
 
     if (isPaused) {
-      audioEl.play();
-      playIconEl.classList.add("hidden");
-      pauseIconEl.classList.remove("hidden");
+      if (audioEl.readyState === 0) {
+        audioEl.load();
+      }
+
+      const playPromise = audioEl.play();
+      if (playPromise !== undefined) {
+        playPromise
+          .then(() => {
+            playIconEl?.classList.add("hidden");
+            pauseIconEl?.classList.remove("hidden");
+          })
+          .catch((err: Error) => {
+            console.warn("Playback interrupted or blocked:", err);
+            playIconEl?.classList.remove("hidden");
+            pauseIconEl?.classList.add("hidden");
+          });
+      }
     } else {
       audioEl.pause();
-      playIconEl.classList.remove("hidden");
-      pauseIconEl.classList.add("hidden");
+      playIconEl?.classList.remove("hidden");
+      pauseIconEl?.classList.add("hidden");
     }
   }
 
-  function formatTime(secs) {
+  function formatTime(secs: number) {
+    if (isNaN(secs) || secs === Infinity) return "00:00";
     const minutes = Math.floor(secs / 60)
       .toString()
       .padStart(2, "0");
@@ -296,17 +360,7 @@ const metadata = {
     return `${minutes}:${seconds}`;
   }
 
-  if (document.readyState === "loading") {
-    document.addEventListener("DOMContentLoaded", initAudioPlayer);
-  } else {
-    initAudioPlayer();
-  }
-
-  document.addEventListener("astro:after-swap", () => {
-    if (window.location.pathname.startsWith("/sermons/")) {
-      initAudioPlayer();
-    }
-  });
+  document.addEventListener("astro:page-load", initAudioPlayer);
 </script>
 
 <style>
