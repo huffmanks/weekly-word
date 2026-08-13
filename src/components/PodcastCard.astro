@@ -18,9 +18,10 @@ if (!series) return null;
 <a
   href={`/${entry.collection}/${entry.id}?autoplay=true`}
   class="not-prose group relative flex flex-col flex-nowrap rounded-lg border border-neutral-300 transition-colors duration-300 ease-in-out hover:bg-neutral-200 hover:text-black focus-visible:bg-neutral-200 focus-visible:text-black dark:border-neutral-700 dark:hover:bg-neutral-800 dark:hover:text-white dark:focus-visible:bg-neutral-800 dark:focus-visible:text-white">
-  <div class="relative w-full flex-shrink-0 overflow-hidden rounded-t-lg">
+  <div
+    class="relative w-full flex-shrink-0 overflow-hidden rounded-t-lg bg-neutral-200 dark:bg-neutral-800">
     <img
-      class="aspect-square w-full object-cover"
+      class="mx-auto aspect-square w-50 object-cover sm:w-full"
       src={entry.data.image}
       alt={entry.data.title}
       height="480"

@@ -188,6 +188,40 @@ const metadata = {
     audio.addEventListener("durationchange", syncDuration, { signal });
     audio.addEventListener("canplay", syncDuration, { signal });
 
+    const syncPlayUI = () => {
+      if (audio.paused) {
+        playIcon?.classList.remove("hidden");
+        pauseIcon?.classList.add("hidden");
+      } else {
+        playIcon?.classList.add("hidden");
+        pauseIcon?.classList.remove("hidden");
+      }
+    };
+
+    const clearMediaSession = () => {
+      if (!("mediaSession" in navigator)) return;
+      navigator.mediaSession.metadata = null;
+      navigator.mediaSession.playbackState = "none";
+      navigator.mediaSession.setActionHandler("play", null);
+      navigator.mediaSession.setActionHandler("pause", null);
+    };
+
+    const setupMediaSession = () => {
+      if (!("mediaSession" in navigator)) return;
+      navigator.mediaSession.setActionHandler("play", () => audio.play());
+      navigator.mediaSession.setActionHandler("pause", () => audio.pause());
+    };
+
+    audio.addEventListener(
+      "play",
+      () => {
+        syncPlayUI();
+        setupMediaSession();
+      },
+      { signal }
+    );
+    audio.addEventListener("pause", syncPlayUI, { signal });
+
     const urlParams = new URLSearchParams(window.location.search);
     if (urlParams.get("autoplay") === "true" && startBtn) {
       handlePlay({
@@ -231,18 +265,16 @@ const metadata = {
     );
 
     const stopPlayback = () => {
+      audio.pause();
       audioPlayerToggle({ isOpen: false, audioPlayerEl: audioPlayer, footerEl: footer });
-      playIconToggle({
-        isPaused: false,
-        audioEl: audio,
-        playIconEl: playIcon,
-        pauseIconEl: pauseIcon,
-      });
 
-      if (audio.readyState >= 1) {
-        audio.currentTime = 0;
-      }
-      if ("mediaSession" in navigator) navigator.mediaSession.metadata = null;
+      const currentSrc = audio.src;
+      audio.removeAttribute("src");
+      audio.load();
+      audio.src = currentSrc;
+
+      clearMediaSession();
+
       if (startBtn) startBtn.disabled = false;
     };
 

@@ -1,2 +1,3 @@
 - [ ] Optional songs to sermon that were sung in service.
 - [ ] Check daily reading html version vs text if better.
+- [ ] sermon id page make audio player swipe up for full screen.
