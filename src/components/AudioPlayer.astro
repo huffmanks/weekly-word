@@ -189,12 +189,18 @@ const metadata = {
     audio.addEventListener("canplay", syncDuration, { signal });
 
     const syncPlayUI = () => {
-      if (audio.paused) {
+      const isAudioPaused = audio.paused;
+
+      if (isAudioPaused) {
         playIcon?.classList.remove("hidden");
         pauseIcon?.classList.add("hidden");
       } else {
         playIcon?.classList.add("hidden");
         pauseIcon?.classList.remove("hidden");
+      }
+
+      if ("mediaSession" in navigator) {
+        navigator.mediaSession.playbackState = isAudioPaused ? "paused" : "playing";
       }
     };
 
@@ -231,7 +237,7 @@ const metadata = {
         audioEl: audio,
         playIconEl: playIcon,
         pauseIconEl: pauseIcon,
-        triggerAudioPlay: false,
+        triggerAudioPlay: true,
       });
     }
 
@@ -332,15 +338,15 @@ const metadata = {
     if (startBtnEl) startBtnEl.disabled = true;
     audioPlayerToggle({ isOpen: true, audioPlayerEl, footerEl });
 
-    if (triggerAudioPlay) {
-      playIconToggle({ isPaused: true, audioEl, playIconEl, pauseIconEl });
-    }
-
     const rawMeta = audioEl.dataset.meta;
     if (rawMeta && "mediaSession" in navigator) {
       try {
         navigator.mediaSession.metadata = new MediaMetadata(JSON.parse(rawMeta));
       } catch (e) {}
+    }
+
+    if (triggerAudioPlay) {
+      playIconToggle({ isPaused: true, audioEl, playIconEl, pauseIconEl });
     }
   }
 
