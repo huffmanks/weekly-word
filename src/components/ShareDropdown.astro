@@ -13,9 +13,11 @@ const { description, title, tags, fullUrl } = Astro.props;
   data-tags={tags}>
   <button
     slot="trigger"
-    id="share-btn"
     popovertarget="share-popover"
-    class="not-prose flex w-fit cursor-pointer flex-nowrap items-center gap-2 rounded-full border border-black/15 p-1.5 transition-colors duration-300 ease-in-out hover:bg-black/5 hover:text-black focus-visible:bg-black/5 focus-visible:text-black sm:rounded-sm sm:px-3 sm:py-1.5 dark:border-white/20 dark:hover:bg-white/5 dark:hover:text-white dark:focus-visible:bg-white/5 dark:focus-visible:text-white">
+    popovertargetaction="toggle"
+    class="not-prose flex w-fit cursor-pointer flex-nowrap items-center gap-2 rounded-full border border-black/15 p-1.5 transition-colors duration-300 ease-in-out hover:bg-black/5 hover:text-black focus-visible:bg-black/5 focus-visible:text-black sm:rounded-sm sm:px-3 sm:py-1.5 dark:border-white/20 dark:hover:bg-white/5 dark:hover:text-white dark:focus-visible:bg-white/5 dark:focus-visible:text-white"
+    aria-label="Open share menu"
+    aria-controls="share-popover">
     <svg
       class="size-4"
       xmlns="http://www.w3.org/2000/svg"
@@ -33,9 +35,9 @@ const { description, title, tags, fullUrl } = Astro.props;
 
   <div
     role="menu"
+    tabindex="-1"
     aria-orientation="vertical"
-    class="popover-menu pointer-events-auto overflow-x-hidden overflow-y-auto rounded-md border border-black/15 bg-neutral-200 p-1 text-zinc-950 shadow-md outline-none dark:border-white/20 dark:bg-neutral-800 dark:text-zinc-50"
-    tabindex="-1">
+    class="overflow-x-hidden overflow-y-auto rounded-md border border-black/15 bg-neutral-200 p-1 text-zinc-950 shadow-md outline-none dark:border-white/20 dark:bg-neutral-800 dark:text-zinc-50">
     <div role="group">
       <div
         id="share-facebook"

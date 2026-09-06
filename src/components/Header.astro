@@ -54,9 +54,8 @@ import PopoverShell from "./PopoverShell.astro";
           class="w-72 max-w-[calc(100%-0.75rem)] rounded-md border border-neutral-300 bg-neutral-200 dark:border-neutral-700 dark:bg-neutral-800">
           <button
             slot="trigger"
-            id="mobile-menu-btn-show"
             popovertarget="mobile-menu"
-            popovertargetaction="show"
+            popovertargetaction="toggle"
             class="cursor-pointer rounded-sm px-2 py-1 transition-colors duration-300 ease-in-out hover:bg-neutral-300 hover:text-black focus-visible:bg-neutral-300 focus-visible:text-black dark:hover:bg-neutral-800 dark:hover:text-white dark:focus-visible:bg-neutral-800 dark:focus-visible:text-white"
             aria-label="Open mobile menu"
             aria-controls="mobile-menu">
@@ -77,7 +76,6 @@ import PopoverShell from "./PopoverShell.astro";
           </button>
 
           <button
-            id="mobile-menu-btn-close"
             class="absolute top-2 right-2 cursor-pointer self-end hover:opacity-70 focus-visible:opacity-70"
             popovertarget="mobile-menu"
             popovertargetaction="hide"
