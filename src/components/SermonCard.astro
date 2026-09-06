@@ -18,6 +18,7 @@ if (!series) return null;
 
 <a
   href={`/${entry.collection}/${entry.id}`}
+  aria-label="View sermon article"
   class="not-prose group relative flex flex-nowrap rounded-lg border border-neutral-300 px-4 py-3 pr-10 transition-colors duration-300 ease-in-out hover:bg-neutral-200 hover:text-black focus-visible:bg-neutral-200 focus-visible:text-black dark:border-neutral-700 dark:hover:bg-neutral-800 dark:hover:text-white dark:focus-visible:bg-neutral-800 dark:focus-visible:text-white">
   <div class="flex flex-1 flex-col gap-1 truncate">
     <div class="truncate font-bold">
@@ -30,11 +31,12 @@ if (!series) return null;
       {
         pastor?.data.name && !hidePastorBadge && (
           <span class="rounded-lg border border-black/15 px-1.5 py-1 text-xs dark:border-white/20">
-            {pastor.data.name}
+            <span class="hidden">Pastor:</span> {pastor.data.name}
           </span>
         )
       }
       <span class="rounded-lg border border-black/15 px-1.5 py-1 text-xs dark:border-white/20">
+        <span class="hidden">Series:</span>
         {series.data.title}
       </span>
     </div>
@@ -43,7 +45,10 @@ if (!series) return null;
   <svg
     xmlns="http://www.w3.org/2000/svg"
     viewBox="0 0 24 24"
-    class="absolute top-1/2 right-2 size-5 -translate-y-1/2 fill-none stroke-current stroke-2">
+    width="20"
+    height="20"
+    class="absolute top-1/2 right-2 size-5 -translate-y-1/2 fill-none stroke-current stroke-2"
+    aria-hidden="true">
     <line
       x1="5"
       y1="12"

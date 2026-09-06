@@ -112,7 +112,7 @@
     @apply text-black/85 dark:text-white/85;
   }
 
-  header {
+  header.site-header {
     @apply fixed top-0 right-0 left-0 z-50 py-6;
     @apply bg-neutral-100/75 dark:bg-neutral-900/75;
     @apply saturate-200 backdrop-blur-xs;

@@ -74,108 +74,119 @@ const fullUrl = new URL(Astro.url, Astro.site).href;
         />
       )
     }
-    <div class="mb-10 space-y-1">
-      <div class="animate mb-8 flex flex-wrap items-center justify-between gap-2">
-        <div class="flex items-center gap-1.5">
-          <div data-pagefind-meta="date" class="font-base text-sm">
-            <FormattedDate date={sermon.data.date} />
+    <article>
+      <div class="mb-10 space-y-1">
+        <div class="animate mb-8 flex flex-wrap items-center justify-between gap-2">
+          <div class="flex items-center gap-1.5">
+            <span data-pagefind-meta="date" class="font-base text-sm">
+              <FormattedDate date={sermon.data.date} />
+            </span>
+            <span aria-hidden="true">&bull;</span>
+            {
+              sermon?.body ? (
+                <span data-pagefind-ignore class="font-base text-sm">
+                  {readingTime(sermon.body)}
+                </span>
+              ) : null
+            }
           </div>
-          <span>&bull;</span>
+          <div class="flex items-center gap-2" data-pagefind-ignore>
+            <div>
+              <ShareDropdown
+                description={sermon.data.description}
+                title={sermon.data.title}
+                fullUrl={fullUrl}
+                tags={[pastor?.data.name, series?.data.title]}
+              />
+            </div>
+            {
+              podcastExist && (
+                <div>
+                  <button
+                    id="start-btn"
+                    aria-label="Listen to sermon podcast"
+                    class="not-prose flex w-fit cursor-pointer flex-nowrap items-center gap-2 rounded-full border border-black/15 p-1.5 transition-colors duration-300 ease-in-out hover:bg-black/5 hover:text-black focus-visible:bg-black/5 focus-visible:text-black sm:rounded-sm sm:px-3 sm:py-1.5 dark:border-white/20 dark:hover:bg-white/5 dark:hover:text-white dark:focus-visible:bg-white/5 dark:focus-visible:text-white">
+                    <svg
+                      class="size-4"
+                      xmlns="http://www.w3.org/2000/svg"
+                      width="16"
+                      height="16"
+                      viewBox="0 0 24 24"
+                      aria-hidden="true">
+                      <g
+                        fill="none"
+                        stroke="currentColor"
+                        stroke-linecap="round"
+                        stroke-linejoin="round"
+                        stroke-width="2">
+                        <path fill="currentColor" d="M13 17a1 1 0 1 0-2 0l.5 4.5a.5.5 0 0 0 1 0z" />
+                        <path d="M16.85 18.58a9 9 0 1 0-9.7 0" />
+                        <path d="M8 14a5 5 0 1 1 8 0" />
+                        <circle cx="12" cy="11" r="1" fill="currentColor" />
+                      </g>
+                    </svg>
+                    <span class="hidden text-sm sm:inline-block">Listen</span>
+                  </button>
+                </div>
+              )
+            }
+          </div>
+        </div>
+
+        <div class="animate mb-6">
+          <h1 class="mb-2 text-3xl font-bold text-black dark:text-white">
+            {sermon.data.title}
+          </h1>
           {
-            sermon?.body ? (
-              <div data-pagefind-ignore class="font-base text-sm">
-                {readingTime(sermon.body)}
-              </div>
+            sermon.data?.subtitle ? (
+              <p class="mb-2 text-xl font-bold text-black dark:text-white">
+                {sermon.data.subtitle}
+              </p>
             ) : null
           }
-        </div>
-        <div class="flex items-center gap-2" data-pagefind-ignore>
-          <div>
-            <ShareDropdown
-              description={sermon.data.description}
-              title={sermon.data.title}
-              fullUrl={fullUrl}
-              tags={[pastor?.data.name, series?.data.title]}
-            />
-          </div>
-          {
-            podcastExist && (
-              <div>
-                <button
-                  id="start-btn"
-                  class="not-prose flex w-fit cursor-pointer flex-nowrap items-center gap-2 rounded-full border border-black/15 p-1.5 transition-colors duration-300 ease-in-out hover:bg-black/5 hover:text-black focus-visible:bg-black/5 focus-visible:text-black sm:rounded-sm sm:px-3 sm:py-1.5 dark:border-white/20 dark:hover:bg-white/5 dark:hover:text-white dark:focus-visible:bg-white/5 dark:focus-visible:text-white">
-                  <svg
-                    class="size-4"
-                    xmlns="http://www.w3.org/2000/svg"
-                    width="24"
-                    height="24"
-                    viewBox="0 0 24 24">
-                    <g
-                      fill="none"
-                      stroke="currentColor"
-                      stroke-linecap="round"
-                      stroke-linejoin="round"
-                      stroke-width="2">
-                      <path fill="currentColor" d="M13 17a1 1 0 1 0-2 0l.5 4.5a.5.5 0 0 0 1 0z" />
-                      <path d="M16.85 18.58a9 9 0 1 0-9.7 0" />
-                      <path d="M8 14a5 5 0 1 1 8 0" />
-                      <circle cx="12" cy="11" r="1" fill="currentColor" />
-                    </g>
-                  </svg>
-                  <span class="hidden text-sm sm:inline-block">Listen</span>
-                </button>
-              </div>
-            )
-          }
+
+          <p class="mb-5">{sermon.data.description}</p>
+
+          <ul class="animate not-prose m-0 flex list-none flex-wrap items-center gap-2 p-0">
+            {
+              pastor ? (
+                <li>
+                  <SermonBadge
+                    meta="pastor"
+                    href={`/pastors/${pastor.data.id}`}
+                    title={pastor.data.name}
+                    ariaLabel="View the pastor’s other sermons"
+                  />
+                </li>
+              ) : null
+            }
+            {
+              series?.data ? (
+                <li>
+                  <SermonBadge
+                    meta="series"
+                    href={`/series/${series.data.id}`}
+                    title={series.data.title}
+                    ariaLabel="View sermons from this series"
+                  />
+                </li>
+              ) : null
+            }
+          </ul>
         </div>
       </div>
-
-      <div class="animate mb-6">
-        <h1 class="mb-2 text-3xl font-bold text-black dark:text-white">
-          {sermon.data.title}
-        </h1>
-        {
-          sermon.data?.subtitle ? (
-            <h2 class="mb-2 text-xl font-bold text-black dark:text-white">
-              {sermon.data.subtitle}
-            </h2>
-          ) : null
-        }
-
-        <p class="mb-5">{sermon.data.description}</p>
-
-        <div class="animate flex flex-wrap items-center gap-2">
-          {
-            pastor ? (
-              <SermonBadge
-                meta="pastor"
-                href={`/pastors/${pastor.data.id}`}
-                title={pastor.data.name}
-              />
-            ) : null
-          }
-          {
-            series?.data ? (
-              <SermonBadge
-                meta="series"
-                href={`/series/${series.data.id}`}
-                title={series.data.title}
-              />
-            ) : null
-          }
-        </div>
+      {
+        versesExist || headingsExist ? (
+          <div class="not-prose mb-2 space-y-6">
+            {versesExist && <TableOfContents type="verses" items={verses} />}
+            {headingsExist && <TableOfContents type="headings" items={filteredHeadings} />}
+          </div>
+        ) : null
+      }
+      <div class="animate">
+        <Content />
       </div>
-    </div>
-    {
-      versesExist || headingsExist ? (
-        <div class="mb-2 space-y-6">
-          {versesExist && <TableOfContents type="verses" items={verses} />}
-          {headingsExist && <TableOfContents type="headings" items={filteredHeadings} />}
-        </div>
-      ) : null
-    }
-    <article class="animate">
-      <Content />
+      <h2 class="mb-2 hidden text-xl font-bold">Explore other sermons</h2>
       <div data-pagefind-ignore class="mt-24">
         <SermonNavigation prevSermon={prevSermon} nextSermon={nextSermon} />
       </div>

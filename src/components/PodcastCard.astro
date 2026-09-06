@@ -33,8 +33,8 @@ if (!series) return null;
         <svg
           class="size-8 fill-current stroke-current"
           xmlns="http://www.w3.org/2000/svg"
-          width="24"
-          height="24"
+          width="32"
+          height="32"
           viewBox="0 0 24 24"
           fill="none"
           stroke="currentColor"
@@ -59,11 +59,12 @@ if (!series) return null;
       {
         pastor?.data.name && (
           <span class="rounded-lg border border-black/15 px-1.5 py-1 text-xs dark:border-white/20">
-            {pastor.data.name}
+            <span class="hidden">Pastor:</span> {pastor.data.name}
           </span>
         )
       }
       <span class="rounded-lg border border-black/15 px-1.5 py-1 text-xs dark:border-white/20">
+        <span class="hidden">Series:</span>
         {series.data.title}
       </span>
     </div>

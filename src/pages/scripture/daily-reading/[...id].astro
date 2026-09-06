@@ -48,47 +48,50 @@ const itemVersesHtml = item.verses
 
 <BaseLayout title={title} description={description}>
   <Container>
-    <div class="p-1.5">
-      <div class="animate mb-8 flex items-center justify-between gap-4">
-        <span
-          class="-ml-0.75 inline-flex rounded-md bg-neutral-300 px-1.5 py-1 text-sm font-medium dark:bg-neutral-800">
-          {label}
-        </span>
-        <a
-          href={bibleHref}
-          target="_blank"
-          class="not-prose flex w-fit cursor-pointer flex-nowrap items-center gap-2 rounded-full border border-black/15 p-1.5 transition-colors duration-300 ease-in-out hover:bg-black/5 hover:text-black focus-visible:bg-black/5 focus-visible:text-black sm:rounded-sm sm:px-3 sm:py-1.5 dark:border-white/20 dark:hover:bg-white/5 dark:hover:text-white dark:focus-visible:bg-white/5 dark:focus-visible:text-white">
-          <svg
-            class="size-4 fill-current"
-            xmlns="http://www.w3.org/2000/svg"
-            fill="none"
-            viewBox="0 0 24 24">
-            <path
-              d="M6 22h15v-2H6.012C5.55 19.988 5 19.805 5 19s.55-.988 1.012-1H21V4a2 2 0 0 0-2-2H6c-1.206 0-3 .799-3 3v14c0 2.201 1.794 3 3 3M8 7h3V5h2v2h3v2h-3v6h-2V9H8z">
-            </path>
-          </svg>
-          <span class="hidden text-sm sm:inline-block">Open in Bible</span>
-        </a>
-      </div>
-
-      <div class="animate mb-3 flex flex-wrap items-center gap-2">
-        <h1 class="text-xl font-bold text-black dark:text-white">
-          {item.chapter}
-        </h1>
-        <span>&bull;</span>
-        <div class="text-sm font-medium text-black/60 dark:text-white/50">
-          {item.verses.length} verses
-        </div>
-        <span>&bull;</span>
-        <div class="text-sm font-medium text-black/60 dark:text-white/50">
-          {readingTime(itemVersesHtml)}
-        </div>
-      </div>
-
-      <div class="relative flex min-h-screen flex-col">
+    <article class="not-prose p-1.5">
+      <div class="animate relative flex min-h-screen flex-col">
         <div class="flex-grow">
+          <div class="mb-8 flex items-center justify-between gap-4">
+            <h1
+              class="-ml-0.75 inline-flex rounded-md bg-neutral-300 px-1.5 py-1 text-sm font-medium dark:bg-neutral-800">
+              {label}
+            </h1>
+            <a
+              href={bibleHref}
+              target="_blank"
+              class="not-prose flex w-fit cursor-pointer flex-nowrap items-center gap-2 rounded-full border border-black/15 p-1.5 no-underline transition-colors duration-300 ease-in-out hover:bg-black/5 hover:text-black focus-visible:bg-black/5 focus-visible:text-black sm:rounded-sm sm:px-3 sm:py-1.5 dark:border-white/20 dark:hover:bg-white/5 dark:hover:text-white dark:focus-visible:bg-white/5 dark:focus-visible:text-white">
+              <svg
+                class="size-4 fill-current"
+                xmlns="http://www.w3.org/2000/svg"
+                fill="none"
+                viewBox="0 0 24 24"
+                width="16"
+                height="16"
+                aria-hidden="true">
+                <path
+                  d="M6 22h15v-2H6.012C5.55 19.988 5 19.805 5 19s.55-.988 1.012-1H21V4a2 2 0 0 0-2-2H6c-1.206 0-3 .799-3 3v14c0 2.201 1.794 3 3 3M8 7h3V5h2v2h3v2h-3v6h-2V9H8z">
+                </path>
+              </svg>
+              <span class="hidden text-sm sm:inline-block">Open in Bible</span>
+            </a>
+          </div>
+
+          <div class="mb-3 flex flex-wrap items-center gap-2">
+            <h2 class="text-xl font-bold text-black dark:text-white">
+              {item.chapter}
+            </h2>
+
+            <span aria-hidden="true">&bull;</span>
+            <span class="text-sm font-medium text-black/60 dark:text-white/50">
+              {item.verses.length} verses
+            </span>
+            <span aria-hidden="true">&bull;</span>
+            <span class="text-sm font-medium text-black/60 dark:text-white/50">
+              {readingTime(itemVersesHtml)}
+            </span>
+          </div>
           <div
-            class="animate mb-8 grid grid-cols-[auto_1fr] gap-x-2 gap-y-3 text-lg font-medium"
+            class="mb-8 grid grid-cols-[auto_1fr] gap-x-2 gap-y-3 text-lg font-medium"
             set:html={itemVersesHtml}
           />
         </div>
@@ -115,6 +118,6 @@ const itemVersesHtml = item.verses
           </div>
         </div>
       </div>
-    </div>
+    </article>
   </Container>
 </BaseLayout>

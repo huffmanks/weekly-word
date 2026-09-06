@@ -3,14 +3,17 @@ type Props = {
   meta: string;
   title: string;
   href: string;
+  ariaLabel: string;
 };
 
-const { meta, title, href } = Astro.props;
+const { meta, title, href, ariaLabel } = Astro.props;
 ---
 
 <a
   data-pagefind-meta={meta}
   href={href}
-  class="rounded-sm border border-black/15 px-2 py-1 text-sm transition-colors duration-300 ease-in-out hover:bg-black/5 hover:text-black focus-visible:bg-black/5 focus-visible:text-black dark:border-white/20 dark:hover:bg-white/5 dark:hover:text-white dark:focus-visible:bg-white/5 dark:focus-visible:text-white">
+  aria-label={ariaLabel}
+  class="rounded-sm border border-black/15 px-2 py-1 text-sm no-underline transition-colors duration-300 ease-in-out hover:bg-black/5 hover:text-black focus-visible:bg-black/5 focus-visible:text-black dark:border-white/20 dark:hover:bg-white/5 dark:hover:text-white dark:focus-visible:bg-white/5 dark:focus-visible:text-white">
+  <span class="hidden">{meta === "pastor" ? "Pastor: " : "Series: "}</span>
   {title}
 </a>
