@@ -23,26 +23,22 @@ const anchorName = `--anchor-${id}`;
 </div>
 
 <style>
-  @position-try --br {
-    position-area: bottom span-right;
-  }
-
-  @position-try --tl {
+  @position-try --top-left {
     position-area: top span-left;
   }
 
   .popover-panel {
     margin: 0;
-    inset: auto;
 
     opacity: 0;
     transform: scale(0.95);
-    transform-origin: top right;
+    transform-origin: top left;
+
     transition:
-      opacity 0.15s ease-out,
-      transform 0.15s ease-out,
-      display 0.15s allow-discrete,
-      overlay 0.15s allow-discrete;
+      opacity 150ms ease-out,
+      transform 150ms ease-out,
+      display 150ms allow-discrete,
+      overlay 150ms allow-discrete;
   }
 
   .popover-panel:popover-open {
@@ -57,54 +53,18 @@ const anchorName = `--anchor-${id}`;
     }
   }
 
-  @supports (anchor-name: --a) {
+  @supports (anchor-name: --a) and (position-area: bottom span-left) {
     .popover-panel {
       position-area: bottom span-left;
-      position-try-fallbacks: --br, --tl;
-      inset-block: 4px;
+      position-try-fallbacks: --top-left;
+      inset-block-start: 4px;
     }
   }
 
-  @supports not (anchor-name: --a) {
+  @supports not ((anchor-name: --a) and (position-area: bottom span-left)) {
     .popover-panel {
-      position: absolute;
-      top: var(--popover-top, 0px);
-      right: var(--popover-right, 0px);
+      position: fixed;
+      inset: 3.5rem calc(50% - (var(--breakpoint-sm) / 2) + 12px) auto auto;
     }
   }
 </style>
-
-<script>
-  if (!CSS.supports("anchor-name", "--a")) {
-    const positionPopover = (trigger: HTMLElement) => {
-      const action = trigger.getAttribute("popovertargetaction");
-      if (action === "hide") return;
-
-      const targetId = trigger.getAttribute("popovertarget");
-      if (!targetId) return;
-
-      const popover = document.getElementById(targetId);
-      if (!popover) return;
-
-      const rect = trigger.getBoundingClientRect();
-      popover.style.setProperty("--popover-top", `${rect.bottom + 4}px`);
-      popover.style.setProperty("--popover-right", `${window.innerWidth - rect.right}px`);
-    };
-
-    const handleInteraction = (e: Event) => {
-      const trigger = (e.target as HTMLElement).closest<HTMLElement>("[popovertarget]");
-      if (trigger && trigger.getAttribute("popovertargetaction") !== "hide") {
-        positionPopover(trigger);
-      }
-    };
-
-    document.addEventListener("pointerdown", handleInteraction, { capture: true, passive: true });
-    document.addEventListener(
-      "keydown",
-      (e) => {
-        if (e.key === "Enter" || e.key === " ") handleInteraction(e);
-      },
-      { capture: true }
-    );
-  }
-</script>
