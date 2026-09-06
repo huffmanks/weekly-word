@@ -93,6 +93,7 @@
     color-scheme: light;
     scroll-padding-top: 100px;
     scroll-behavior: smooth;
+    scrollbar-width: thin;
   }
 
   html.dark {

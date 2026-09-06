@@ -1,0 +1,110 @@
+---
+import type { HTMLAttributes } from "astro/types";
+
+interface Props extends HTMLAttributes<"div"> {
+  id: string;
+}
+
+const { id, class: className = "", ...rest } = Astro.props;
+const anchorName = `--anchor-${id}`;
+---
+
+<div class="inline-flex" style={`anchor-name: ${anchorName}`}>
+  <slot name="trigger" />
+</div>
+
+<div
+  id={id}
+  popover
+  style={`position-anchor: ${anchorName}`}
+  class:list={["popover-panel", className]}
+  {...rest}>
+  <slot />
+</div>
+
+<style>
+  @position-try --br {
+    position-area: bottom span-right;
+  }
+
+  @position-try --tl {
+    position-area: top span-left;
+  }
+
+  .popover-panel {
+    margin: 0;
+    inset: auto;
+
+    opacity: 0;
+    transform: scale(0.95);
+    transform-origin: top right;
+    transition:
+      opacity 0.15s ease-out,
+      transform 0.15s ease-out,
+      display 0.15s allow-discrete,
+      overlay 0.15s allow-discrete;
+  }
+
+  .popover-panel:popover-open {
+    opacity: 1;
+    transform: scale(1);
+  }
+
+  @starting-style {
+    .popover-panel:popover-open {
+      opacity: 0;
+      transform: scale(0.95);
+    }
+  }
+
+  @supports (anchor-name: --a) {
+    .popover-panel {
+      position-area: bottom span-left;
+      position-try-fallbacks: --br, --tl;
+      inset-block: 4px;
+    }
+  }
+
+  @supports not (anchor-name: --a) {
+    .popover-panel {
+      position: absolute;
+      top: var(--popover-top, 0px);
+      right: var(--popover-right, 0px);
+    }
+  }
+</style>
+
+<script>
+  if (!CSS.supports("anchor-name", "--a")) {
+    const positionPopover = (trigger: HTMLElement) => {
+      const action = trigger.getAttribute("popovertargetaction");
+      if (action === "hide") return;
+
+      const targetId = trigger.getAttribute("popovertarget");
+      if (!targetId) return;
+
+      const popover = document.getElementById(targetId);
+      if (!popover) return;
+
+      const rect = trigger.getBoundingClientRect();
+      popover.style.setProperty("--popover-top", `${rect.bottom + 4}px`);
+      popover.style.setProperty("--popover-right", `${window.innerWidth - rect.right}px`);
+    };
+
+    const handleInteraction = (e: Event) => {
+      const trigger = (e.target as HTMLElement).closest<HTMLElement>("[popovertarget]");
+      if (trigger && trigger.getAttribute("popovertargetaction") !== "hide") {
+        positionPopover(trigger);
+      }
+    };
+
+    document.addEventListener("pointerdown", handleInteraction, { capture: true, passive: true });
+    document.addEventListener(
+      "keydown",
+      (e) => {
+        if (e.key === "Enter" || e.key === " ") handleInteraction(e);
+      },
+      { capture: true }
+    );
+  }
+</script>

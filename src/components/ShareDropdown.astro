@@ -1,28 +1,36 @@
 ---
+import PopoverShell from "./PopoverShell.astro";
+
 const { description, title, tags, fullUrl } = Astro.props;
 ---
 
-<button
-  id="share-btn"
-  popovertarget="share-popover"
-  class="not-prose flex w-fit cursor-pointer flex-nowrap items-center gap-2 rounded-full border border-black/15 p-1.5 transition-colors duration-300 ease-in-out hover:bg-black/5 hover:text-black focus-visible:bg-black/5 focus-visible:text-black sm:rounded-sm sm:px-3 sm:py-1.5 dark:border-white/20 dark:hover:bg-white/5 dark:hover:text-white dark:focus-visible:bg-white/5 dark:focus-visible:text-white">
-  <svg class="size-4" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"
-    ><path
-      fill="currentColor"
-      d="M18 16.08c-.76 0-1.44.3-1.96.77L8.91 12.7c.05-.23.09-.46.09-.7s-.04-.47-.09-.7l7.05-4.11c.54.5 1.25.81 2.04.81c1.66 0 3-1.34 3-3s-1.34-3-3-3s-3 1.34-3 3c0 .24.04.47.09.7L8.04 9.81C7.5 9.31 6.79 9 6 9c-1.66 0-3 1.34-3 3s1.34 3 3 3c.79 0 1.5-.31 2.04-.81l7.12 4.16c-.05.21-.08.43-.08.65c0 1.61 1.31 2.92 2.92 2.92s2.92-1.31 2.92-2.92s-1.31-2.92-2.92-2.92"
-    ></path></svg
-  >
-
-  <span class="hidden text-sm sm:inline-block">Share</span>
-</button>
-<div
+<PopoverShell
   id="share-popover"
   class="min-w-max"
-  popover
   data-description={description}
   data-url={fullUrl}
   data-title={title}
   data-tags={tags}>
+  <button
+    slot="trigger"
+    id="share-btn"
+    popovertarget="share-popover"
+    class="not-prose flex w-fit cursor-pointer flex-nowrap items-center gap-2 rounded-full border border-black/15 p-1.5 transition-colors duration-300 ease-in-out hover:bg-black/5 hover:text-black focus-visible:bg-black/5 focus-visible:text-black sm:rounded-sm sm:px-3 sm:py-1.5 dark:border-white/20 dark:hover:bg-white/5 dark:hover:text-white dark:focus-visible:bg-white/5 dark:focus-visible:text-white">
+    <svg
+      class="size-4"
+      xmlns="http://www.w3.org/2000/svg"
+      width="24"
+      height="24"
+      viewBox="0 0 24 24"
+      ><path
+        fill="currentColor"
+        d="M18 16.08c-.76 0-1.44.3-1.96.77L8.91 12.7c.05-.23.09-.46.09-.7s-.04-.47-.09-.7l7.05-4.11c.54.5 1.25.81 2.04.81c1.66 0 3-1.34 3-3s-1.34-3-3-3s-3 1.34-3 3c0 .24.04.47.09.7L8.04 9.81C7.5 9.31 6.79 9 6 9c-1.66 0-3 1.34-3 3s1.34 3 3 3c.79 0 1.5-.31 2.04-.81l7.12 4.16c-.05.21-.08.43-.08.65c0 1.61 1.31 2.92 2.92 2.92s2.92-1.31 2.92-2.92s-1.31-2.92-2.92-2.92"
+      ></path></svg
+    >
+
+    <span class="hidden text-sm sm:inline-block">Share</span>
+  </button>
+
   <div
     role="menu"
     aria-orientation="vertical"
@@ -115,43 +123,7 @@ const { description, title, tags, fullUrl } = Astro.props;
       </div>
     </div>
   </div>
-</div>
-
-<style>
-  #share-btn {
-    anchor-name: --share-anchor;
-  }
-
-  @position-try --br {
-    position-area: bottom span-right;
-  }
-
-  @position-try --tl {
-    position-area: top span-left;
-  }
-
-  #share-popover {
-    position-anchor: --share-anchor;
-    position-area: bottom span-left;
-    position-try-fallbacks: --br, --tl;
-    inset-block: 2px;
-  }
-
-  @keyframes enter {
-    0% {
-      opacity: 0;
-      transform: translate3d(-1000px, -1000px, -1000px) scale3d(0.95, 0.95, 0.95) rotate(0);
-    }
-    100% {
-      opacity: 1;
-      transform: translate3d(0, 0, 0) scale3d(1, 1, 1) rotate(0);
-    }
-  }
-
-  .popover-menu:popover-open {
-    animation: enter 0.15s ease 0s 1 normal both;
-  }
-</style>
+</PopoverShell>
 
 <script>
   import { generateShareLinks, socialWindow } from "@lib/generateShareLinks";
