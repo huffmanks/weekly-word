@@ -49,7 +49,7 @@ const sermonCount = sermons.length;
         </span>
       </h1>
 
-      <ul class="animate grid grid-cols-[repeat(auto-fill,_minmax(min(240px,100%),_1fr))] gap-4">
+      <ul class="animate grid grid-cols-[repeat(auto-fill,minmax(min(240px,100%),1fr))] gap-4">
         {sermons.map((sermon) => <PodcastCard entry={sermon} />)}
       </ul>
     </div>

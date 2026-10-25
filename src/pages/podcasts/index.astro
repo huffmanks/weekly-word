@@ -56,7 +56,7 @@ const podcastCount = data.length;
                   {year}
                 </a>
                 <div>
-                  <ul class="not-prose grid grid-cols-[repeat(auto-fill,_minmax(min(240px,100%),_1fr))] gap-4">
+                  <ul class="not-prose grid grid-cols-[repeat(auto-fill,minmax(min(240px,100%),1fr))] gap-4">
                     {sermons[year].map((sermon) => (
                       <li>
                         <PodcastCard entry={sermon} />

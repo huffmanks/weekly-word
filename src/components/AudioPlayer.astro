@@ -34,11 +34,11 @@ const metadata = {
     class="right-0 bottom-0 left-0 z-20 hidden rounded-t-2xl bg-neutral-100/85 pb-6 saturate-200 backdrop-blur-xs dark:bg-neutral-900/85">
     <div class="mx-auto max-w-(--breakpoint-sm) px-3 sm:px-0">
       <div class="flex items-center gap-3">
-        <div class="size-24 flex-shrink-0">
+        <div class="size-24 shrink-0">
           <img class="object-cover" src={image} alt={sermonTitle} height="96" width="96" />
         </div>
 
-        <div class="flex min-w-0 flex-grow flex-col">
+        <div class="flex min-w-0 grow flex-col">
           <div
             class="line-clamp-2 text-sm leading-normal font-bold text-neutral-900 sm:text-base dark:text-neutral-100">
             {sermonTitle}
@@ -47,7 +47,7 @@ const metadata = {
             {podcastTitle}
           </div>
         </div>
-        <div class="flex flex-shrink-0 items-center gap-4 sm:gap-3">
+        <div class="flex shrink-0 items-center gap-4 sm:gap-3">
           <button id="play-toggle-btn" class="cursor-pointer p-0.5">
             <div id="play-icon">
               <svg
@@ -342,7 +342,7 @@ const metadata = {
     if (rawMeta && "mediaSession" in navigator) {
       try {
         navigator.mediaSession.metadata = new MediaMetadata(JSON.parse(rawMeta));
-      } catch (e) {}
+      } catch (_e) {}
     }
 
     if (triggerAudioPlay) {
