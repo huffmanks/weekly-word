@@ -1,5 +1,6 @@
 import { glob } from "astro/loaders";
-import { defineCollection, reference, z } from "astro:content";
+import { z } from "astro/zod";
+import { defineCollection, reference } from "astro:content";
 
 const sermons = defineCollection({
   loader: glob({ pattern: "**/*.{md,mdx}", base: "./src/content/notes/weekly-word/sermons" }),
@@ -10,7 +11,7 @@ const sermons = defineCollection({
     date: z.coerce.date(),
     draft: z.boolean().default(false),
     pastor: reference("pastors"),
-    series: reference("series").default("uncategorized"),
+    series: reference("series").default({ collection: "series", id: "uncategorized" }),
     image: z.string(),
     podcast: z.object({
       title: z.string().nullable().optional(),
@@ -30,7 +31,7 @@ const pastors = defineCollection({
     id: z.string(),
     name: z.string(),
     title: z.string(),
-    email: z.string().email(),
+    email: z.email(),
     church: z.object({
       title: z.string(),
       location: z.string(),
