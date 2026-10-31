@@ -35,38 +35,35 @@ const podcastCount = data.length;
       <div class="space-y-10">
         <h1 class="animate inline-flex items-center gap-1">
           <span class="text-xl font-bold">All podcasts</span>
-          <span
-            class="text-sm text-neutral-500 transition-colors duration-300 ease-in-out group-hover:text-neutral-900 group-focus-visible:text-neutral-900 dark:group-hover:text-neutral-100 dark:group-focus-visible:text-neutral-100">
+          <span class="text-sm text-neutral-500 transition-colors duration-300 ease-in-out group-hover:text-neutral-900 group-focus-visible:text-neutral-900 dark:group-hover:text-neutral-100 dark:group-focus-visible:text-neutral-100">
             ({podcastCount})
           </span>
         </h1>
         <div class="space-y-4">
-          {
-            years.map((year, i) => (
-              <section
-                class={cn(
-                  "animate",
-                  i === years.length - 1
-                    ? ""
-                    : "mb-10 border-b border-neutral-400 pb-10 dark:border-neutral-600"
-                )}>
-                <a
-                  href={`/podcasts/${year}`}
-                  class="mb-5 inline-block rounded-sm border border-black/15 px-2 py-1 text-lg font-bold transition-colors duration-300 ease-in-out hover:bg-black/5 hover:text-black focus-visible:bg-black/5 focus-visible:text-black dark:border-white/20 dark:hover:bg-white/5 dark:hover:text-white dark:focus-visible:bg-white/5 dark:focus-visible:text-white">
-                  {year}
-                </a>
-                <div>
-                  <ul class="not-prose grid grid-cols-[repeat(auto-fill,minmax(min(240px,100%),1fr))] gap-4">
-                    {sermons[year].map((sermon) => (
-                      <li>
-                        <PodcastCard entry={sermon} />
-                      </li>
-                    ))}
-                  </ul>
-                </div>
-              </section>
-            ))
-          }
+          {years.map((year, i) => (
+            <section
+              class={cn(
+                "animate",
+                i === years.length - 1
+                  ? ""
+                  : "mb-10 border-b border-neutral-400 pb-10 dark:border-neutral-600"
+              )}>
+              <a
+                href={`/podcasts/${year}`}
+                class="mb-5 inline-block rounded-sm border border-black/15 px-2 py-1 text-lg font-bold transition-colors duration-300 ease-in-out hover:bg-black/5 hover:text-black focus-visible:bg-black/5 focus-visible:text-black dark:border-white/20 dark:hover:bg-white/5 dark:hover:text-white dark:focus-visible:bg-white/5 dark:focus-visible:text-white">
+                {year}
+              </a>
+              <div>
+                <ul class="not-prose grid grid-cols-[repeat(auto-fill,minmax(min(240px,100%),1fr))] gap-4">
+                  {sermons[year].map((sermon) => (
+                    <li>
+                      <PodcastCard entry={sermon} />
+                    </li>
+                  ))}
+                </ul>
+              </div>
+            </section>
+          ))}
         </div>
       </div>
     </aside>

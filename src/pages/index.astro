@@ -40,13 +40,11 @@ const sermons = (await getCollection("sermons", ({ data }) => !data.draft))
             <Link href="/sermons">See all sermons</Link>
           </div>
           <ul class="not-prose flex flex-col gap-4">
-            {
-              sermons.map((sermon) => (
-                <li>
-                  <SermonCard entry={sermon} />
-                </li>
-              ))
-            }
+            {sermons.map((sermon) => (
+              <li>
+                <SermonCard entry={sermon} />
+              </li>
+            ))}
           </ul>
         </section>
 

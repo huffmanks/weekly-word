@@ -37,23 +37,26 @@ const metaDescription = `Past sermons from ${pastorName}.`;
   <Container>
     <div data-pagefind-ignore class="space-y-10">
       <GoToButton href="/pastors">All pastors</GoToButton>
-      <h1 class="animate mb-2 text-xl font-bold text-black dark:text-white">
-        {pastorName}
-      </h1>
+      <h1 class="animate mb-2 text-xl font-bold text-black dark:text-white">{pastorName}</h1>
       <p class="text-sm font-medium">
-        {pastor?.data.title}<br />{pastor?.data.church.title}<br />{pastor?.data.church.location}
+        {pastor?.data.title}
+        <br />
+        {pastor?.data.church.title}
+        <br />
+        {pastor?.data.church.location}
       </p>
 
       <div class="mb-3 inline-flex items-center gap-1.5">
         <h2 class="text-lg font-bold">Past sermons</h2>
-        <span
-          class="text-sm text-neutral-500 transition-colors duration-300 ease-in-out group-hover:text-neutral-900 group-focus-visible:text-neutral-900 dark:group-hover:text-neutral-100 dark:group-focus-visible:text-neutral-100">
+        <span class="text-sm text-neutral-500 transition-colors duration-300 ease-in-out group-hover:text-neutral-900 group-focus-visible:text-neutral-900 dark:group-hover:text-neutral-100 dark:group-focus-visible:text-neutral-100">
           ({count})
         </span>
       </div>
 
       <ul class="animate flex flex-col gap-4">
-        {sermons.map((sermon) => <SermonCard hidePastorBadge entry={sermon} />)}
+        {sermons.map((sermon) => (
+          <SermonCard hidePastorBadge entry={sermon} />
+        ))}
       </ul>
     </div>
   </Container>

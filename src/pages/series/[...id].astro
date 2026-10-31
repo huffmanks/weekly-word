@@ -35,13 +35,13 @@ const seriesDescription = "Sermons from this series.";
   <Container>
     <div data-pagefind-ignore class="space-y-10">
       <GoToButton href="/series">All series</GoToButton>
-      <h1 class="animate mb-1 text-xl font-bold text-black dark:text-white">
-        {seriesTitle}
-      </h1>
+      <h1 class="animate mb-1 text-xl font-bold text-black dark:text-white">{seriesTitle}</h1>
       <p class="mb-4 text-sm">{seriesDescription}</p>
 
       <ul class="animate flex flex-col gap-4">
-        {sermons.map((sermon) => <SermonCard entry={sermon} />)}
+        {sermons.map((sermon) => (
+          <SermonCard entry={sermon} />
+        ))}
       </ul>
     </div>
   </Container>

@@ -52,8 +52,7 @@ const itemVersesHtml = item.verses
       <div class="animate relative flex min-h-screen flex-col">
         <div class="grow">
           <div class="mb-8 flex items-center justify-between gap-4">
-            <h1
-              class="-ml-0.75 inline-flex rounded-md bg-neutral-300 px-1.5 py-1 text-sm font-medium dark:bg-neutral-800">
+            <h1 class="-ml-0.75 inline-flex rounded-md bg-neutral-300 px-1.5 py-1 text-sm font-medium dark:bg-neutral-800">
               {label}
             </h1>
             <a
@@ -68,18 +67,14 @@ const itemVersesHtml = item.verses
                 width="16"
                 height="16"
                 aria-hidden="true">
-                <path
-                  d="M6 22h15v-2H6.012C5.55 19.988 5 19.805 5 19s.55-.988 1.012-1H21V4a2 2 0 0 0-2-2H6c-1.206 0-3 .799-3 3v14c0 2.201 1.794 3 3 3M8 7h3V5h2v2h3v2h-3v6h-2V9H8z">
-                </path>
+                <path d="M6 22h15v-2H6.012C5.55 19.988 5 19.805 5 19s.55-.988 1.012-1H21V4a2 2 0 0 0-2-2H6c-1.206 0-3 .799-3 3v14c0 2.201 1.794 3 3 3M8 7h3V5h2v2h3v2h-3v6h-2V9H8z"></path>
               </svg>
               <span class="hidden text-sm sm:inline-block">Open in Bible</span>
             </a>
           </div>
 
           <div class="mb-3 flex flex-wrap items-center gap-2">
-            <h2 class="text-xl font-bold text-black dark:text-white">
-              {item.chapter}
-            </h2>
+            <h2 class="text-xl font-bold text-black dark:text-white">{item.chapter}</h2>
 
             <span aria-hidden="true">&bull;</span>
             <span class="text-sm font-medium text-black/60 dark:text-white/50">
@@ -97,10 +92,11 @@ const itemVersesHtml = item.verses
         </div>
 
         <div class="sticky bottom-0 z-40">
-          <div
-            class="mx-auto max-w-(--breakpoint-sm) bg-neutral-100/75 py-5 saturate-200 backdrop-blur-xs dark:bg-neutral-900/75">
+          <div class="mx-auto max-w-(--breakpoint-sm) bg-neutral-100/75 py-5 saturate-200 backdrop-blur-xs dark:bg-neutral-900/75">
             <div class="animate flex items-center justify-between gap-4">
-              <GoToButton href={previousHref} isDisabled={isPreviousDisabled}>Prev</GoToButton>
+              <GoToButton href={previousHref} isDisabled={isPreviousDisabled}>
+                Prev
+              </GoToButton>
               <div class="flex flex-col items-center gap-x-2 gap-y-1 sm:flex-row">
                 <span class="text-center text-[11px] leading-none font-bold sm:text-sm">
                   {item.chapter}
@@ -108,12 +104,13 @@ const itemVersesHtml = item.verses
                 <span class="hidden text-sm text-black/60 sm:inline-block dark:text-white/50">
                   &bull;
                 </span>
-                <span
-                  class="sm:text-black/85a sm:dark:text-white/85a text-center text-[11px] leading-none font-bold text-black/60 sm:text-sm dark:text-white/50">
+                <span class="sm:text-black/85a sm:dark:text-white/85a text-center text-[11px] leading-none font-bold text-black/60 sm:text-sm dark:text-white/50">
                   {label}
                 </span>
               </div>
-              <GoToButton href={nextHref} isNext isDisabled={isNextDisabled}>Next</GoToButton>
+              <GoToButton href={nextHref} isNext isDisabled={isNextDisabled}>
+                Next
+              </GoToButton>
             </div>
           </div>
         </div>

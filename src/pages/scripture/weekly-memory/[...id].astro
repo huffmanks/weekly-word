@@ -38,8 +38,7 @@ const nextHref = !isNextDisabled ? `/scripture/weekly-memory/${item.id + 1}` : n
   <Container>
     <div class="p-1.5">
       <div class="animate mb-4 flex items-center justify-between gap-4">
-        <span
-          class="-ml-0.75 inline-flex rounded-md bg-neutral-300 px-1.5 py-1 text-sm font-medium dark:bg-neutral-800">
+        <span class="-ml-0.75 inline-flex rounded-md bg-neutral-300 px-1.5 py-1 text-sm font-medium dark:bg-neutral-800">
           {label}
         </span>
         <a
@@ -54,23 +53,23 @@ const nextHref = !isNextDisabled ? `/scripture/weekly-memory/${item.id + 1}` : n
             width="16"
             height="16"
             aria-hidden="true">
-            <path
-              d="M6 22h15v-2H6.012C5.55 19.988 5 19.805 5 19s.55-.988 1.012-1H21V4a2 2 0 0 0-2-2H6c-1.206 0-3 .799-3 3v14c0 2.201 1.794 3 3 3M8 7h3V5h2v2h3v2h-3v6h-2V9H8z">
-            </path>
+            <path d="M6 22h15v-2H6.012C5.55 19.988 5 19.805 5 19s.55-.988 1.012-1H21V4a2 2 0 0 0-2-2H6c-1.206 0-3 .799-3 3v14c0 2.201 1.794 3 3 3M8 7h3V5h2v2h3v2h-3v6h-2V9H8z"></path>
           </svg>
           <span class="hidden text-sm sm:inline-block">Open in Bible</span>
         </a>
       </div>
 
-      <h1 class="animate mb-2 text-xl font-bold text-black dark:text-white">
-        {item.verse}
-      </h1>
+      <h1 class="animate mb-2 text-xl font-bold text-black dark:text-white">{item.verse}</h1>
 
       <p class="animate mb-8 font-medium">{item.text}</p>
 
       <div class="animate mb-6 flex items-center justify-between gap-4">
-        <GoToButton href={previousHref} isDisabled={isPreviousDisabled}>Prev</GoToButton>
-        <GoToButton href={nextHref} isNext isDisabled={isNextDisabled}>Next</GoToButton>
+        <GoToButton href={previousHref} isDisabled={isPreviousDisabled}>
+          Prev
+        </GoToButton>
+        <GoToButton href={nextHref} isNext isDisabled={isNextDisabled}>
+          Next
+        </GoToButton>
       </div>
     </div>
   </Container>

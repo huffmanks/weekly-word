@@ -10,15 +10,13 @@ const [purposes] = await getCollection("purposes");
   title="Purpose Driven Life"
   description="List of all the days in a Purpose Driven Life.">
   <div data-pagefind-ignore class="mx-auto max-w-(--breakpoint-sm) px-3 py-6">
-    {
-      purposes.data.map((group) => (
-        <section class="mb-8 flex flex-col gap-8 not-last:border-b not-last:pb-12">
-          <h2 class="mb-2 text-2xl font-bold">{group.purpose}</h2>
-          {group.group.map((item) => (
-            <PurposeCard item={item} />
-          ))}
-        </section>
-      ))
-    }
+    {purposes.data.map((group) => (
+      <section class="mb-8 flex flex-col gap-8 not-last:border-b not-last:pb-12">
+        <h2 class="mb-2 text-2xl font-bold">{group.purpose}</h2>
+        {group.group.map((item) => (
+          <PurposeCard item={item} />
+        ))}
+      </section>
+    ))}
   </div>
 </BaseLayout>

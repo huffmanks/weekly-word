@@ -43,14 +43,15 @@ const sermonCount = sermons.length;
       <GoToButton href="/podcasts">All podcasts</GoToButton>
       <h1 class="animate mb-4 inline-flex items-center gap-1">
         <span class="text-xl font-bold">{year}</span>
-        <span
-          class="text-sm text-neutral-500 transition-colors duration-300 ease-in-out group-hover:text-neutral-900 group-focus-visible:text-neutral-900 dark:group-hover:text-neutral-100 dark:group-focus-visible:text-neutral-100">
+        <span class="text-sm text-neutral-500 transition-colors duration-300 ease-in-out group-hover:text-neutral-900 group-focus-visible:text-neutral-900 dark:group-hover:text-neutral-100 dark:group-focus-visible:text-neutral-100">
           ({sermonCount})
         </span>
       </h1>
 
       <ul class="animate grid grid-cols-[repeat(auto-fill,minmax(min(240px,100%),1fr))] gap-4">
-        {sermons.map((sermon) => <PodcastCard entry={sermon} />)}
+        {sermons.map((sermon) => (
+          <PodcastCard entry={sermon} />
+        ))}
       </ul>
     </div>
   </Container>

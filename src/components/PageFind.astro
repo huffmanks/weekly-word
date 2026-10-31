@@ -7,13 +7,17 @@ import Search from "astro-pagefind/components/Search.astro";
     transition:persist
     id="backdrop"
     class="bg-[rgba(0, 0, 0, 0.5] invisible opacity-0 transition-opacity fixed top-0 left-0 z-50 flex h-screen w-full justify-center p-6 backdrop-blur-xs">
-    <div id="pagefind-container" class="mx-auto w-full max-w-120">
+    <div class="mx-auto w-full max-w-120">
       <Search
         instance="search"
         className="pagefind-ui"
         searchboxOptions={{
           showImages: false,
           excerptLength: 15,
+          debounce: 150,
+        }}
+        configOptions={{
+          preload: true,
         }}
       />
     </div>
@@ -75,7 +79,7 @@ import Search from "astro-pagefind/components/Search.astro";
   });
 
   backdrop?.addEventListener("click", (event) => {
-    if (!event.target.closest("#pagefind-container")) {
+    if (!event.target.closest("pagefind-searchbox")) {
       closePagefind();
     }
   });

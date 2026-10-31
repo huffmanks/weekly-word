@@ -9,7 +9,7 @@
     "check": "astro check",
     "astro": "astro",
     "lint": "eslint .",
-    "format": "prettier . --write",
+    "format": "prettier . --check",
     "pdr": "node --experimental-strip-types --env-file=.env scripts/populate-daily-reading.ts",
     "pwm": "node --experimental-strip-types --env-file=.env scripts/populate-weekly-memory.ts"
   },
@@ -36,7 +36,7 @@
     "eslint-plugin-astro": "^3.2.1",
     "pagefind": "^1.5.2",
     "prettier": "^3.9.10",
-    "prettier-plugin-astro": "^1.1.2",
+    "prettier-plugin-astro": "^1.0.0",
     "prettier-plugin-tailwindcss": "^0.8.1",
     "typescript-eslint": "^8.72.1"
   }
