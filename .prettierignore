@@ -1,0 +1,9 @@
+node_modules/
+package-lock.json
+pnpm-lock.yaml
+
+public/
+dist/
+.astro/
+src/content/
+src/data/
