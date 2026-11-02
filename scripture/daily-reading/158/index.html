@@ -116,8 +116,10 @@
 
       if (dark) {
         document.documentElement.classList.add("dark");
+        document.documentElement.setAttribute("data-pf-theme", "dark");
       } else {
         document.documentElement.classList.remove("dark");
+        document.documentElement.removeAttribute("data-pf-theme");
       }
 
       void window.getComputedStyle(css).opacity;
@@ -137,7 +139,7 @@
     document.addEventListener("DOMContentLoaded", () => init());
     document.addEventListener("astro:after-swap", () => init());
     preloadTheme();
-  </script><link rel="stylesheet" href="/_astro/BaseLayout.DPxZniV5.css"></head><body><noscript><style>
+  </script><link rel="stylesheet" href="/_astro/BaseLayout.H1E6SUQ4.css"></head><body><noscript><style>
         .animate {
           opacity: 1;
           translate: var(--tw-translate-x) calc(var(--spacing) * 0);
