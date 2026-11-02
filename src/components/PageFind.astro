@@ -17,6 +17,7 @@ import Search from "astro-pagefind/components/Search.astro";
           debounce: 150,
         }}
         configOptions={{
+          instance: "search",
           preload: true,
         }}
       />
@@ -86,7 +87,7 @@ import Search from "astro-pagefind/components/Search.astro";
 </script>
 
 <style is:global>
-  :root:not(.dark):not([data-theme="dark"]) pagefind-searchbox {
+  :root {
     --pf-font: var(--font-sans);
     --pf-background: var(--color-neutral-100);
     --pf-text: var(--color-neutral-900);
@@ -94,26 +95,15 @@ import Search from "astro-pagefind/components/Search.astro";
     --pf-border: var(--color-neutral-300);
     --pf-border-focus: var(--color-green-700);
     --pf-hover: var(--color-neutral-200);
-    --pf-mark: var(--color-green-300);
+    --pf-mark: var(--color-green-700);
     --pf-input-height: 2rem;
     --pf-input-font-size: var(--text-sm);
+    --pf-outline-focus: var(--color-green-700);
+    --scrollbar-track: var(--color-neutral-200);
     color-scheme: light;
   }
 
-  @media (prefers-color-scheme: dark) {
-    :root:not(.dark) pagefind-searchbox {
-      --pf-background: var(--color-neutral-900);
-      --pf-text: var(--color-neutral-100);
-      --pf-text-secondary: var(--color-neutral-400);
-      --pf-border: var(--color-neutral-700);
-      --pf-border-focus: var(--color-green-700);
-      --pf-hover: var(--color-neutral-800);
-      --pf-mark: var(--color-green-700);
-      color-scheme: dark;
-    }
-  }
-
-  html.dark pagefind-searchbox {
+  [data-pf-theme="dark"] {
     --pf-font: var(--font-sans);
     --pf-background: var(--color-neutral-900);
     --pf-text: var(--color-neutral-100);
@@ -124,6 +114,8 @@ import Search from "astro-pagefind/components/Search.astro";
     --pf-mark: var(--color-green-700);
     --pf-input-height: 2rem;
     --pf-input-font-size: var(--text-sm);
+    --pf-outline-focus: var(--color-green-700);
+    --scrollbar-track: var(--color-neutral-800);
     color-scheme: dark;
   }
 
@@ -144,5 +136,39 @@ import Search from "astro-pagefind/components/Search.astro";
     outline: 2px solid var(--color-green-700);
     outline-offset: 2px;
     border-color: var(--color-green-700);
+  }
+
+  /* ===== Scrollbar CSS ===== */
+  /* Firefox */
+  .pf-searchbox-results {
+    scrollbar-width: thin;
+    scrollbar-color: var(--color-green-800) var(--scrollbar-track);
+  }
+
+  .pf-searchbox-results:hover,
+  .pf-searchbox-results:active {
+    scrollbar-color: var(--color-green-700) var(--scrollbar-track);
+  }
+
+  /* Chrome, Edge and Safari */
+  .pf-searchbox-results::-webkit-scrollbar {
+    width: 18px;
+    overflow-y: scroll;
+  }
+
+  .pf-searchbox-results::-webkit-scrollbar-track {
+    background-color: var(--scrollbar-track);
+  }
+
+  .pf-searchbox-results::-webkit-scrollbar-thumb {
+    background-clip: content-box;
+    background-color: var(--color-green-800);
+    border-radius: 50px;
+    border: 6px solid transparent;
+  }
+
+  .pf-searchbox-results::-webkit-scrollbar-thumb:hover,
+  .pf-searchbox-results::-webkit-scrollbar-thumb:active {
+    background-color: var(--color-green-700);
   }
 </style>

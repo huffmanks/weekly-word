@@ -168,8 +168,10 @@ const image = Astro.props.image
 
       if (dark) {
         document.documentElement.classList.add("dark");
+        document.documentElement.setAttribute("data-pf-theme", "dark");
       } else {
         document.documentElement.classList.remove("dark");
+        document.documentElement.removeAttribute("data-pf-theme");
       }
 
       void window.getComputedStyle(css).opacity;
