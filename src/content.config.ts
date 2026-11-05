@@ -13,6 +13,7 @@ const sermons = defineCollection({
     pastor: reference("pastors"),
     series: reference("series").default({ collection: "series", id: "uncategorized" }),
     image: z.string(),
+    ignorePodcastUpdate: z.boolean().optional(),
     podcast: z.object({
       title: z.string().nullable().optional(),
       audio: z.string().nullable().optional(),
